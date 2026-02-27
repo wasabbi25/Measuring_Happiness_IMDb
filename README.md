@@ -1,13 +1,14 @@
 
 
-# Project title + 2-3 sentence overview
+# Project title + 2-3 sentence ove
+    The happiness rank shows how happy a word is rated, but the data set also shows how common the word appears in different sources. For example, a word might be very happy (high happiness rank) but not very common in Twitter or song lyrics (low or missing corpus rank). B analysing the labMT 1.0 dataset, our goal is to understand which words are commonly associated as positive or negative across different texts, but also compare how common they are. 
 
 ## Dataset section
 
 - Where it came from: labMT 1.0 dataset (Hedonometer paper)
 - What each column means (data dictionary):
-	- We made a data dictionary to help us understand what each column in the dataset represents, what type of data it is, and how many missing values there are. This is useful for beginners because it makes the dataset less intimidating and helps us know what to look for when analyzing or plotting data.
-	- Here’s a summary of the columns:
+	- We made a data dictionary to help us understand what each column in the dataset represents, what type of data it is, and how many missing values there are. This is useful because it makes the dataset less intimidating and helps us know what to look for when analyzing or plotting data. 
+	- Here’s a summary of the column names with float and integer:
 		- **word**: The word being rated (text, no missing values)
 		- **happiness_rank**: Rank of the word by happiness score (integer, no missing values)
 		- **happiness_average**: Average happiness score for the word (float, no missing values)
@@ -16,10 +17,16 @@
 		- **google_rank**: Rank in Google corpus (float, 5222 missing values)
 		- **nyt_rank**: Rank in New York Times corpus (float, 5222 missing values)
 		- **lyrics_rank**: Rank in song lyrics corpus (float, 5222 missing values)
-	- If a rank is missing, it means the word was not in the top 5,000 for that corpus.
+	- If a rank is missing, it means the word was not in the top 5,000 for that corpus meaning it is not commonly appearing in the source.
+
+
+### Sanity Check: Duplicated Words
+We checked the dataset for any duplicated words (words that appear more than once). This is important because duplicates could mess up our analysis or make results confusing. Our check found that there are no duplicated words in the dataset, so each word only appears once! This gives us confidence that the data is clean and ready for analysis! Your most positive words are: laughter, happiness, love, happy, laughed, laugh, laughing, excellent, laughs, and joy.
+
+Your most negative words are: terrorist, suicide, rape, terrorism, murder, death, cancer, died, kill, and killed.
 
 ### Why take a random sample?
-	- We took a random sample of 15 rows from the dataset to get a quick look at the kind of data we’re working with. This is helpful for beginners because it lets us see some real examples without having to scroll through thousands of rows. It also helps check for any obvious issues, like weird values or repeated words.
+	- We took a random sample of 15 rows from the dataset to get a snapshot of the kind of data we’re working with. It lets us see some real examples. It also helps check for any obvious issues, like weird values or repeated words.
 	- The random sample is saved in `tables/random_sample_15_rows.csv`.
 
 ### Data Cleaning Steps

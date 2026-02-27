@@ -47,3 +47,10 @@ for col in numeric_columns:  # Loop through each column name listed above.
 
 # Step 4. Save cleaned DataFrame
 df.to_csv(clean_path, index=False)
+
+# Step 5. Sanity check for duplicated words
+num_duplicates = df['word'].duplicated().sum()
+if num_duplicates == 0:
+    print('Sanity check: No duplicated words found in the dataset.')
+else:
+    print(f'Sanity check: {num_duplicates} duplicated words found in the dataset.')
