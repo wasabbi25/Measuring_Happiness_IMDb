@@ -1,9 +1,11 @@
-# Pandas and numpy have already been imported
+
+import pandas as pd
+import numpy as np
 
 # Step 1. Defining the file paths
 
-raw_path = "qualitative-quantitative-group2/data/raw/Data_Set_S1.txt"
-clean_path = "qualitative-quantitative-group2/data/clean/clean_data.csv"
+raw_path = "data/raw/Data_Set_S1.txt"
+clean_path = "data/clean/clean_data.csv"
 
 # Step 2. Loading in the dataset
 
@@ -13,10 +15,10 @@ clean_path = "qualitative-quantitative-group2/data/clean/clean_data.csv"
 df = pd.read_csv(
     raw_path,
     sep="\t",
-    comment=None,
+    skiprows=3,  # Skip the first 3 metadata lines
     skip_blank_lines=True,
     na_values="--"
-) 
+)
 
 # Step 3. Converting strings into numeric values. 
 # Making sure that columns that columns such as ranks, averages, and standard deviations, are actually stored as numeric values in mandas and not as strings. 
@@ -42,3 +44,6 @@ for col in numeric_columns:  # Loop through each column name listed above.
 
 # pd.to_numeric() attempts to convert the column from text to numeric type (int/float). 
 # This is necessary because when pandas loads a file, it sometimes treats numbers as strings, especially if missing values are present, 
+
+# Step 4. Save cleaned DataFrame
+df.to_csv(clean_path, index=False)
