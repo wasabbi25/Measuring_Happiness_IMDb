@@ -2,6 +2,9 @@
 
 # Step 1. Defining the file paths
 
+import pandas as pd
+
+
 raw_path = "qualitative-quantitative-group2/data/raw/Data_Set_S1.txt"
 clean_path = "qualitative-quantitative-group2/data/clean/clean_data.csv"
 
@@ -10,6 +13,7 @@ clean_path = "qualitative-quantitative-group2/data/clean/clean_data.csv"
 # The dataset contains some metadata lines at the top. 
 # To skip interpreting them, we tell pandas to ignore lines that don't use a tab structure.
 
+pandas == pd
 df = pd.read_csv(
     raw_path,
     sep="\t",
