@@ -60,13 +60,10 @@ We checked the dataset for any duplicated words (words that appear more than onc
 ## Methods section (what you did in python)
 
 ## Results section
-- Plots + captions
 ### Histogram Interpretation
 The histogram of happiness_average scatter plot under the figures folder shows the happiness score is out of 10 along the bottom (where 10 is the happiest). The frequency is out of the total number of words in your dataset. At first glance, the scatter plot looks like a bird in flight with wings on either side where words are shown least on each side and the body of the bird is most rounded and clustered. SURPRISINGLY, the distribution is slightly skewed toward positive values around the 6 score being that average people are feeling a 6 in happiness scale. It could also mean there are more happy words than sad ones. There are rarely word with extremely low happiness scores between 1 or 2 which suggests this particular random selection has been generally happy.
-
-
 ### Where to Find Plots and Tables
-You can find the generated plots and summary tables in the following folders:
+Plots and summary tables are in the following folders:
 
 - **figures/**
 	- happiness_average_hist.png: Histogram of happiness scores
@@ -88,7 +85,6 @@ You can find the generated plots and summary tables in the following folders:
 	- twitter_common_nyt_missing_top20.csv: Words common in Twitter but missing in NYT
 	- word_exhibit_demo_20_words.csv: Demo exhibit of 20 words
 
-These files help you explore and understand the dataset and analysis results.
 
 ## Qualitative "exhibit" of words
 

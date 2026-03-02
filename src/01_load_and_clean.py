@@ -58,9 +58,6 @@ else:
 
 # Step 6. Plot histogram of happiness_average
 import matplotlib.pyplot as plt
-
-# Step 6. Plot histogram of happiness_average
-import matplotlib.pyplot as plt
 plt.figure(figsize=(8, 5))
 plt.hist(df['happiness_average'], bins=30, color='skyblue', edgecolor='black')
 plt.title('Histogram of Happiness Average')
