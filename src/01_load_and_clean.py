@@ -4,23 +4,14 @@ import numpy as np
 
 # Step 1. Defining the file paths
 
-<<<<<<< HEAD
 raw_path = "data/raw/Data_Set_S1.txt"
 clean_path = "data/clean/clean_data.csv"
-=======
-import pandas as pd
-
-
-raw_path = "qualitative-quantitative-group2/data/raw/Data_Set_S1.txt"
-clean_path = "qualitative-quantitative-group2/data/clean/clean_data.csv"
->>>>>>> c18ca5705889416b47024413bc3afb51a0b196b1
 
 # Step 2. Loading in the dataset
 
 # The dataset contains some metadata lines at the top. 
 # To skip interpreting them, we tell pandas to ignore lines that don't use a tab structure.
 
-pandas == pd
 df = pd.read_csv(
     raw_path,
     sep="\t",
