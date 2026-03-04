@@ -74,7 +74,7 @@ For each corpus, 5000 labMT 1.0 words appear in its top 5000 words. This implies
 Words overlaps: 
 We analysed the amount of words that appear in each separate corpus and in all four corpuses combined, but also how many words are shared by every comibination of two and three corpuses. 
 
-Lyrics present the highest amount of original words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that the expression of happiness is the most atypical on Lyrics, while Twitter 
+Lyrics present the highest amount of original words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that the expression of happiness is the most atypical on Lyrics, while Twitter shares most of its emotional vocabulary. 
 
 Twitter shares 69 words with Google, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest amount of original words, these results entail that the expression of happiness is the most different between Twitter and Google Books.
 
