@@ -90,10 +90,6 @@ contested = df.nlargest(15, 'happiness_standard_deviation')[['word', 'happiness_
 contested.to_csv('tables/top_15_contested_words.csv', index=False)
 print('Top 15 contested words saved to tables/top_15_contested_words.csv')
 
-# Step 9. Identify 15 most contested words (highest std)
-contested = df.nlargest(15, 'happiness_standard_deviation')[['word', 'happiness_standard_deviation', 'happiness_average']]
-contested.to_csv('tables/top_15_contested_words.csv', index=False)
-print('Top 15 contested words saved to tables/top_15_contested_words.csv')
 
 # Step 10. labMT words appearance 
 twitter_count = df['twitter_rank'].notna().sum() # df[] allows us to select a specific column ; .notna() allows us to exclude missing values ; .sum() counts the number of non-missing values in the column
