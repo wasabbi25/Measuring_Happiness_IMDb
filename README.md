@@ -70,11 +70,11 @@ The histogram of happiness_average scatter plot under the figures folder shows t
 Words appearances: For each corpus, 5000 labMT 1.0 words appear in its top 5000 words. This implies that the labMT 1.0 dataset was produced by merging the top 5000 most common words on Twitter, Google Books, the New York Times and Music Lyrics.
 
 Words overlaps: 
-We analysed how many words appear in only one corpus and in all four corpuses, but also how many words are shared by every comibination of two and three corpuses. 
+We analysed the amount of words that appear in each separate corpus and in all four corpuses combined, but also how many words are shared by every comibination of two and three corpuses. 
 
-Lyrics present the highest amount of original words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. Twitter shares 69 words with Google, 268 words with the NYT, and 871 with Lyrics.
+Lyrics present the highest amount of original words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. 
 
-Google shares 864 words with the NYT and 175 with Lyrics. The NYT has only 62 words in common with Lyrics. Twitter, Google Books and the NYT share 584 words. Twitter, Google Books and Lyrics share 227 words. Twitter, the NYT and Lyrics have 213 words in common. Google Books, the NYT and Lyrics present the lowest overlap with 150 shared words.
+Twitter shares 69 words with Google, 268 words with the NYT, and 871 with Lyrics. Google shares 864 words with the NYT and 175 with Lyrics. The NYT has only 62 words in common with Lyrics. Twitter, Google Books and the NYT share 584 words. Twitter, Google Books and Lyrics share 227 words. Twitter, the NYT and Lyrics have 213 words in common. Google Books, the NYT and Lyrics present the lowest overlap with 150 shared words.
 
 Finally, all four corpuses have 1816 words in common in their top 5000. 
 
