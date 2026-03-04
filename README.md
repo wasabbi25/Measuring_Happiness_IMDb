@@ -38,8 +38,8 @@ These numbers help us understand the overall distribution of happiness scores in
 We checked the dataset for any duplicated words (words that appear more than once). This is important because duplicates could mess up our analysis or make results confusing. Our check found that there are no duplicated words in the dataset, so each word only appears once! This gives us confidence that the data is clean and ready for analysis! Most positive words are: laughter, happiness, love, happy, laughed, laugh, laughing, excellent, laughs, and joy. Most negative words are: terrorist, suicide, rape, terrorism, murder, death, cancer, died, kill, and killed. These do make sense on average for the English understanding that associates are respected. "Makes sense" here would mean likely what you would expect associated with the word positively or negatively. 
 
 ### Why take a random sample?
-	- We took a random sample of 15 rows from the dataset to get a snapshot of the kind of data we’re working with. It lets us see some real examples. It also helps check for any obvious issues, like weird values or repeated words.
-	- The random sample is saved in `tables/random_sample_15_rows.csv`.
+- We took a random sample of 15 rows from the dataset to get a snapshot of the kind of data we’re working with. It lets us see some real examples. It also helps check for any obvious issues, like weird values or repeated words.
+- The random sample is saved in `tables/random_sample_15_rows.csv`.
 
 ### Data Cleaning Steps
 1. Load the Dataset
