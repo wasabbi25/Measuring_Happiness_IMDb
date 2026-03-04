@@ -9,7 +9,7 @@
 ## Dataset section
 
 ### Summary Statistics for Happiness Average
-They were computer in the src/01_load_and_clean.py 
+They were computed in the src/01_load_and_clean.py 
 Here are computed summary statistics for the happiness_average column:
 - Mean: 5.38
 - Median: 5.44
@@ -18,7 +18,7 @@ Here are computed summary statistics for the happiness_average column:
 - 95th percentile: 7.08
 These numbers help us understand the overall distribution of happiness scores in the dataset. 
 
-- Where it came from: labMT 1.0 dataset (Hedonometer paper)
+- Where it came from: labMT 1.0 dataset (Hedonometer)
 - What each column means (data dictionary):
 	- We made a data dictionary to help us understand what each column in the dataset represents, what type of data it is, and how many missing values there are. This is useful because it makes the dataset less intimidating and helps us know what to look for when analyzing or plotting data. 
 	- Here’s a summary of the column names with float and integer:
@@ -30,11 +30,11 @@ These numbers help us understand the overall distribution of happiness scores in
 		- **google_rank**: Rank in Google corpus (float, 5222 missing values)
 		- **nyt_rank**: Rank in New York Times corpus (float, 5222 missing values)
 		- **lyrics_rank**: Rank in song lyrics corpus (float, 5222 missing values)
-	- If a rank is missing, it means the word was not in the top 5,000 for that corpus meaning it is not commonly appearing in the source.
+	- If a rank is missing, it means the word was not in the top 5,000 for that corpus, meaning it is not commonly appearing in the source.
 
 
 ### Sanity Check: Duplicated Words
-We checked the dataset for any duplicated words (words that appear more than once). This is important because duplicates could mess up our analysis or make results confusing. Our check found that there are no duplicated words in the dataset, so each word only appears once! This gives us confidence that the data is clean and ready for analysis! Most positive words are: laughter, happiness, love, happy, laughed, laugh, laughing, excellent, laughs, and joy. Most negative words are: terrorist, suicide, rape, terrorism, murder, death, cancer, died, kill, and killed. These do make sense on average for the English understanding that associates are respected. "Makes sense" here would mean likely what you would expect associated with the word positively or negatively. 
+We checked the dataset for any duplicated words. This is important because duplicates could mess up (skew?) our analysis or make results confusing. Our check found that there are no duplicated words in the dataset, so each word only appears once! This gives us confidence that the data is clean and ready for analysis! (Some) Most positive words are: laughter, happiness, love, happy, laughed, laugh, laughing, excellent, laughs, and joy. (Some) Most negative words are: terrorist, suicide, rape, terrorism, murder, death, cancer, died, kill, and killed. (/These results align with general understandings of positivity and negativity, and we can thus conclude that our dataset passes the sanity check./ rather than: /These do make sense on average for the English understanding that associates are respected. "Makes sense" here would mean likely what you would expect associated with the word positively or negatively./) 
 
 ### Why take a random sample?
 	- We took a random sample of 15 rows from the dataset to get a snapshot of the kind of data we’re working with. It lets us see some real examples. It also helps check for any obvious issues, like weird values or repeated words.
