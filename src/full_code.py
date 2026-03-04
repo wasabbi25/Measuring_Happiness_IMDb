@@ -89,3 +89,75 @@ plt.close()
 contested = df.nlargest(15, 'happiness_standard_deviation')[['word', 'happiness_standard_deviation', 'happiness_average']]
 contested.to_csv('tables/top_15_contested_words.csv', index=False)
 print('Top 15 contested words saved to tables/top_15_contested_words.csv')
+
+# Step 9. Identify 15 most contested words (highest std)
+contested = df.nlargest(15, 'happiness_standard_deviation')[['word', 'happiness_standard_deviation', 'happiness_average']]
+contested.to_csv('tables/top_15_contested_words.csv', index=False)
+print('Top 15 contested words saved to tables/top_15_contested_words.csv')
+
+# Step 10. labMT words appearance 
+twitter_count = df['twitter_rank'].notna().sum()
+google_count = df['google_rank'].notna().sum()
+nyt_count = df['nyt_rank'].notna().sum()
+lyrics_count = df['lyrics_rank'].notna().sum()
+
+print(df["twitter_rank"].isna().sum())
+print(f"Number of labMT words appearing in Twitter: {twitter_count}")
+print(f"Number of labMT words appearing in Google: {google_count}")
+print(f"Number of labMT words appearing in NYT: {nyt_count}")
+print(f"Number of labMT words appearing in Lyrics: {lyrics_count}")
+
+#Step 11. Overlap table 
+df["T"] = df["twitter_rank"].notna()
+df["G"] = df["google_rank"].notna()
+df["N"] = df["nyt_rank"].notna()
+df["L"] = df["lyrics_rank"].notna()
+
+overlaps = {}
+
+# Single corpus only
+overlaps["T only"] = (df["T"] & ~df["G"] & ~df["N"] & ~df["L"]).sum()
+overlaps["G only"] = (~df["T"] & df["G"] & ~df["N"] & ~df["L"]).sum()
+overlaps["N only"] = (~df["T"] & ~df["G"] & df["N"] & ~df["L"]).sum()
+overlaps["L only"] = (~df["T"] & ~df["G"] & ~df["N"] & df["L"]).sum()
+
+# Pairwise only
+overlaps["T+G"] = (df["T"] & df["G"] & ~df["N"] & ~df["L"]).sum()
+overlaps["T+N"] = (df["T"] & df["N"] & ~df["G"] & ~df["L"]).sum()
+overlaps["T+L"] = (df["T"] & df["L"] & ~df["G"] & ~df["N"]).sum()
+overlaps["G+N"] = (df["G"] & df["N"] & ~df["T"] & ~df["L"]).sum()
+overlaps["G+L"] = (df["G"] & df["L"] & ~df["T"] & ~df["N"]).sum()
+overlaps["N+L"] = (df["N"] & df["L"] & ~df["T"] & ~df["G"]).sum()
+
+# Three-way only
+overlaps["T+G+N"] = (df["T"] & df["G"] & df["N"] & ~df["L"]).sum()
+overlaps["T+G+L"] = (df["T"] & df["G"] & df["L"] & ~df["N"]).sum()
+overlaps["T+N+L"] = (df["T"] & df["N"] & df["L"] & ~df["G"]).sum()
+overlaps["G+N+L"] = (df["G"] & df["N"] & df["L"] & ~df["T"]).sum()
+
+# All four
+overlaps["T+G+N+L"] = (df["T"] & df["G"] & df["N"] & df["L"]).sum()
+
+overlap_table = pd.DataFrame.from_dict(overlaps, orient="index", columns=["Count"])
+print(overlap_table)
+
+#Step 12. Twitter rank VS Google rank scatterplot
+both = df[
+    df["twitter_rank"].notna() &
+    df["nyt_rank"].notna()
+]
+
+import matplotlib.pyplot as plt
+
+plt.figure()
+
+plt.scatter(
+    both["twitter_rank"],
+    both["nyt_rank"]
+)
+
+plt.xlabel("Twitter Rank")
+plt.ylabel("NYT Rank")
+plt.title("Twitter Rank vs NYT Rank (Words Present in Both)")
+
+plt.show()
