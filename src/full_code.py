@@ -96,7 +96,7 @@ contested.to_csv('tables/top_15_contested_words.csv', index=False)
 print('Top 15 contested words saved to tables/top_15_contested_words.csv')
 
 # Step 10. labMT words appearance 
-twitter_count = df['twitter_rank'].notna().sum()
+twitter_count = df['twitter_rank'].notna().sum() # df[] allows us to select a specific column ; .notna() allows us to exclude missing values ; .sum() counts the number of non-missing values in the column
 google_count = df['google_rank'].notna().sum()
 nyt_count = df['nyt_rank'].notna().sum()
 lyrics_count = df['lyrics_rank'].notna().sum()
