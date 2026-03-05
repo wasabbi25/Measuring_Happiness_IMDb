@@ -209,4 +209,20 @@ Below we identify five consequential design choices in the labMT dataset, along 
 
 ## Credits
 - Who did what (team roles)
+	- Anastasia Ciorogaru: Repo & Workflow Lead & Figure Curator
+		- created and organized the repository, cleaned up code and README, managed branches and helped stay organized
+		- additionally, wrote the code for dataset cleanup (loaded dataset, handled missing values, converted data types), completed the methods section in the README, and performed the write-up the tasks for the word "exhibit". 
+	- Catalina Mena Llopez: Qualitative / Close Reading
+		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
+		- connected qualitative observations back to patterns in the plots
+	- Yoonkyung Kim: Provenance & Critique Lead
+		- reconstructed the dataset pipeline
+		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see. 
+	- Marguerite Audeguis: Quantitative Analyst
+		- led descriptive statistics, and created plots
+		- checked results for sanity and reproducibility
+		- additionally wrote code and interpretation for corpus comparison, and the project overview
+	- Hena Puthengot: Data Wrangler
+		- wrote the code for the word 'exhibit'
+
 - Citation for the paper / dataset
