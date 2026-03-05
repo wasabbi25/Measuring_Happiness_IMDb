@@ -111,38 +111,38 @@ word_counts_table = pd.DataFrame({ # creating a dataframe with the results
 word_counts_table.to_csv('../tables/labMT_word_counts.csv', index=False) #saving the table as a csv file in the tables folder, without the index column
 
 #Step 11. Overlap table 
-df["T"] = df["twitter_rank"].notna()
+df["T"] = df["twitter_rank"].notna() # creating new columns for each corpus, where the value is True if the word appears in that corpus (notna()) and False if it does not (na)
 df["G"] = df["google_rank"].notna()
 df["N"] = df["nyt_rank"].notna()
 df["L"] = df["lyrics_rank"].notna()
 
-overlaps = {}
+overlaps = {} # creating an empty dictionary to store the counts of overlaps between the corpora
 
 # Single corpus only
-overlaps["T only"] = (df["T"] & ~df["G"] & ~df["N"] & ~df["L"]).sum()
-overlaps["G only"] = (~df["T"] & df["G"] & ~df["N"] & ~df["L"]).sum()
-overlaps["N only"] = (~df["T"] & ~df["G"] & df["N"] & ~df["L"]).sum()
-overlaps["L only"] = (~df["T"] & ~df["G"] & ~df["N"] & df["L"]).sum()
+overlaps["T only"] = (df["T"] & ~df["G"] & ~df["N"] & ~df["L"]).sum() # counting the number of words that appear only in Twitter (T is True, G, N, L are False)
+overlaps["G only"] = (~df["T"] & df["G"] & ~df["N"] & ~df["L"]).sum() # same logic for G
+overlaps["N only"] = (~df["T"] & ~df["G"] & df["N"] & ~df["L"]).sum() # same logic for N
+overlaps["L only"] = (~df["T"] & ~df["G"] & ~df["N"] & df["L"]).sum() # same logic for L
 
 # Pairwise only
-overlaps["T+G"] = (df["T"] & df["G"] & ~df["N"] & ~df["L"]).sum()
-overlaps["T+N"] = (df["T"] & df["N"] & ~df["G"] & ~df["L"]).sum()
+overlaps["T+G"] = (df["T"] & df["G"] & ~df["N"] & ~df["L"]).sum() # counting the number of words that appear in both Twitter and Google (T and G are True), but not in NYT or Lyrics (N and L are False)
+overlaps["T+N"] = (df["T"] & df["N"] & ~df["G"] & ~df["L"]).sum() # same logic 
 overlaps["T+L"] = (df["T"] & df["L"] & ~df["G"] & ~df["N"]).sum()
 overlaps["G+N"] = (df["G"] & df["N"] & ~df["T"] & ~df["L"]).sum()
 overlaps["G+L"] = (df["G"] & df["L"] & ~df["T"] & ~df["N"]).sum()
 overlaps["N+L"] = (df["N"] & df["L"] & ~df["T"] & ~df["G"]).sum()
 
 # Three-way only
-overlaps["T+G+N"] = (df["T"] & df["G"] & df["N"] & ~df["L"]).sum()
-overlaps["T+G+L"] = (df["T"] & df["G"] & df["L"] & ~df["N"]).sum()
+overlaps["T+G+N"] = (df["T"] & df["G"] & df["N"] & ~df["L"]).sum() # counting the number of words that appear in Twitter, Google, and NYT (T, G, N are True), but not in Lyrics (L is False)
+overlaps["T+G+L"] = (df["T"] & df["G"] & df["L"] & ~df["N"]).sum() # same logic
 overlaps["T+N+L"] = (df["T"] & df["N"] & df["L"] & ~df["G"]).sum()
 overlaps["G+N+L"] = (df["G"] & df["N"] & df["L"] & ~df["T"]).sum()
 
 # All four
-overlaps["T+G+N+L"] = (df["T"] & df["G"] & df["N"] & df["L"]).sum()
+overlaps["T+G+N+L"] = (df["T"] & df["G"] & df["N"] & df["L"]).sum() # counting the number of words that appear in all four corpora (T, G, N, L are all True)
 
-overlap_table = pd.DataFrame.from_dict(overlaps, orient="index", columns=["Count"])
-print(overlap_table)
+overlap_table = pd.DataFrame.from_dict(overlaps, orient="index", columns=["Count"]) # converting the overlaps dictionary into a dataframe, where the keys of the dictionary become the index of the dataframe and the values become a column named "Count"
+print(overlap_table) 
 
 #Step 12. Twitter rank VS Google rank scatterplot
 both = df[
