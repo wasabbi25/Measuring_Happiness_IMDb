@@ -127,7 +127,83 @@ Plots and summary tables are in the following folders:
 
 ## Critical reflection
 
+### Data Provenance: How Was This Dataset Generated?
+The labMT 1.0 dataset was built through the following pipeline:
+
+- **World Selection:** Words are selected from 4 large text corpora,(Twitter, Google Books, New York Times, various song lyrics) and taking up the top 5,000 most frequent words from each source. A final set of 10,222 words were made after removing duplicates.
+
+- **Annotation Production:** Each word was sent to Amazon Mechanical Turk (MTurk), a crowdsourcing platform where paid online workers complete small tasks.
+
+- **Rating Task**: Workers rated each word on a scale from 1 (saddest) to 9 (happiest), seeing only the word with no context.
+
+- **Sample Size**: Each word was rated by 50 different workers.
+
+5. **Score Computation**: The 50 ratings were averaged to produce 'happiness_average'; the spread of disagreement was captured as 'happiness_standard_deviation'.
+
+
+### Consequences and Limitations
+Below we identify five consequential design choices in the labMT dataset, along with what each makes easier or harder to see, supported by concrete examples from our exploration.
+
+- **Words are rated without context:**
+	- Annotators saw only a single word (no sentence, no surrounding text)
+	- Consequence: Words with multiple meanings or strong slang usage cannot be scored accurately (Dataset cannot distinguish between a word used ironically or affectionately)
+	- Example: 'Fucking' has the highest standard deviation in the entire dataset (sd = 2.93) and a middling average score of 4.64. Some raters likely treated it as a profanity (low happiness), while others associate it with emphasis or casual speech (neutral or higher). 
+	- Conclusion: Without context, these readings collapse into a single ambiguous number.
+
+- **Annotators are a self selected online population:**
+	- MTurk workers (tend to be younger, English speaking, and based in the US or India) are served as sole judges of word happiness.
+	- Consequence: The scores reflect the cultural intuitions of a narrow demographic, not humanity broad. Words associated with specific communities, religions, subcultures may be systematically over, or under rated.
+	- Example: 'Churches' has a mean happiness score of 5.70 but a standard deviation of 2.46, one of the highest in the dataset. 
+	- Conclusion: This high disagreement reflects the annotator pool's varied relationships with religion, a pattern that would look very different with a more globally diverse sample.
+
+- **The dataset was collected in 2009–2011:**
+	- Word frequency and sentiment ratings were gathered over a fixed historical window
+	- Consequence: Language evolves: Words gain new meanings, enter or exit mainstream use, and shift in emotional valence over time and captures it. 
+	- Example: 'Capitalism' scores 5.16 with a standard deviation of 2.45. 
+	- Conclusion: Given major economic and political shifts since 2011, the same word rated today would likely produce a very different and possibly more polarized distribution.
+
+- **Only English words are included**
+	- The word list was drawn from English language (non-English words were excluded.)
+	- Consequence: In particular, Twitter is a multilingual platform. Filtering for English erases the emotional language of non-English speakers and multilingual communities.
+	- Example: 'que' (a common Spanish word) appears at Twitter rank 194, meaning it is genuinely frequent in the Twitter corpus, yet it is excluded from the NYT corpus. 
+	- Conclusion: Including it in the word list without Spanish-speaking annotators means its happiness score is shaped by English speakers who may treat it as a foreign or meaningless word.
+
+- **Twitter slang is structurally absent from formal corpora**
+	- Corpus rank columns reflect four very different text sources, but no adjustment is made for the fact that each corpus has its own vocabulary norms.
+	- Consequence: Words that are extremely common in informal digital communication are treated as rare, because they do not appear in formal writing, even when they carry strong emotional meaning for millions of users.
+	- Example: 'rt' (retweet), 'lol', 'haha' are all in Twitter's top 200 most frequent words, yet they are entirely absent from the NYT corpus. Our analysis found 952 words that appear only in Twitter and nowhere else. T
+	- Conclusion: Many of theses emotionally expressive informal words are effectively invisible to any analysis that relies on corpus overlap.
+
+### If we were to use this dataset as an instrument today... (Instrument Note)
+
+- What would we trust this dataset to measure well?:
+
+	The labMT dataset is well suited for capturing the average emotional valence of common English words, as perceived by a general online English speaking population circa 2009–2011. 
+	
+	It is reliable for broad, aggregate comparisons (confirming that words like 'laughter' and 'love' are widely perceived as positive, or that words like 'murder' and 'suicide' score low across most annotators.) 
+	
+	The large sample size (50 raters per word) and the consistency of clearly positive or negative words suggest the instrument is powerfully built for the emotional extremes of the word list.
+
+- What would we refuse to claim based on it?:
+
+	We would not claim that this dataset measures universal human happiness, nor that it captures how any specific community (defined by language, culture, age, or historical moment) actually feels about words. 
+	
+	The contested words in our analysis ('fucking' sd = 2.93, 'capitalism' sd = 2.45, 'churches' sd = 2.46) make visible that average happiness can obscure deep disagreement.
+	
+	A single number cannot represent polarized reactions. We would also resist applying this dataset to contemporary social media language, where slang evolves quickly and the emotional meaning of words shifts faster than any static word list can track.
+
+- What improvements would we make if we rebuilt it?:
+
+	If rebuilding this dataset today, we would prioritize three changes:
+	
+	First, we would recruit a more demographically and linguistically diverse annotator pool which is ideally stratified by age, country, first language, and cultural background. Contested words will reflect genuine disagreement rather than annotator homogeneity. 
+	
+	Second, we would provide sentence level context alongside each word, allowing raters to score the word as it actually functions in use, not single word. 
+	
+	Third, we would build in a versioning and update mechanism, re rating a sample of words each year to track how emotional language changes over time. A hedonometer that cannot update itself becomes a historical artifact rather than a living instrument.
 ## How to run your code
+
+
 - Setup steps
 - Which scripts to run
 
