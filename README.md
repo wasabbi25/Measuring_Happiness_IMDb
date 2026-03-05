@@ -90,6 +90,31 @@ Plots and summary tables are in the following folders:
 
 ## Critical reflection
 
+### Data Provenance: How Was This Dataset Generated?
+The labMT 1.0 dataset was built through the following pipeline:
+
+- **World Selection:** Words are selected from 4 large text corpora,(Twitter, Google Books, New York Times, various song lyrics) and taking up the top 5,000 most frequent words from each source. A final set of 10,222 words were made after removing duplicates.
+
+- **Annotation Production:** Each word was sent to Amazon Mechanical Turk (MTurk), a crowdsourcing platform where paid online workers complete small tasks.
+
+- **Rating Task**: Workers rated each word on a scale from 1 (saddest) to 9 (happiest), seeing only the word with no context.
+
+- **Sample Size**: Each word was rated by 50 different workers.
+
+5. **Score Computation**: The 50 ratings were averaged to produce 'happiness_average'; the spread of disagreement was captured as 'happiness_standard_deviation'.
+
+
+### Consequences of Design Choices
+Below we identify five consequential design choices in the labMT dataset, along with what each makes easier or harder to see, supported by concrete examples from our exploration.
+
+- **Words are rated without context:**
+	- Annotators saw only a single word (no sentence, no surrounding text)
+	- Consequence: Words with multiple meanings or strong slang usage cannot be scored accurately (Dataset cannot distinguish between a word used ironically or affectionately)
+	- Example: 'Fucking' has the highest standard deviation in the entire dataset (sd = 2.93) and a middling average score of 4.64. Some raters likely treated it as a profanity (low happiness), while others associate it with emphasis or casual speech (neutral or higher). 
+	- Conclusion: Without context, these readings collapse into a single ambiguous number.
+
+
+
 ## How to run your code
 - Setup steps
 - Which scripts to run
