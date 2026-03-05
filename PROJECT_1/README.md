@@ -203,7 +203,6 @@ Below we identify five consequential design choices in the labMT dataset, along 
 	Third, we would build in a versioning and update mechanism, re rating a sample of words each year to track how emotional language changes over time. A hedonometer that cannot update itself becomes a historical artifact rather than a living instrument.
 ## How to run your code
 
-
 - Setup steps
 - Which scripts to run
 
@@ -215,6 +214,7 @@ Below we identify five consequential design choices in the labMT dataset, along 
 	- Catalina Mena Llopez: Qualitative / Close Reading
 		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
 		- connected qualitative observations back to patterns in the plots
+		- created data dictionary 
 		- created citation list
 	- Yoonkyung Kim: Provenance & Critique Lead
 		- reconstructed the dataset pipeline
