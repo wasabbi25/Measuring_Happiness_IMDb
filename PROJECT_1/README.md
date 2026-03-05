@@ -63,6 +63,23 @@ We checked the dataset for any duplicated words (words that appear more than onc
 
 ## Methods section (what you did in python)
 
+All analysis was performed in python using the pandas, numpy, and matplotlib libraries. The workflow is implemented in the script 'src/o1_load_and_clean.py'. 
+
+### Data processing
+The labMT 1.0 dataset was loaded into a pandas DataFrame from a tab-delimited file. Metadata lines at the top of the file were skipped, and the placeholder value "--" was interpreted as missing data. Numeric columns such as happuness scores and corpus were converted to numeric data types to allow statistical analysis. 
+
+### Descriprive statistics and distribution analysis
+Summary statistics were calculated for the 'happiness_average' column, including the mean, median, and standard deviation, and percentile values. A histogram of happiness scores was generated to visualise the overall distribution of emotional valence across words. 
+
+### Disagreement analysis 
+To explore disagrement among annotators, a scatterplot of 'happiness_average' versus 'happiness_standard_deviation' was created. Words with the highest standard deviation were identified as the most contested words in the dataset and saved to a table. 
+
+### Corpus comparison
+The dataset includes rank columns for four corpora: Twitter, Google Books, the New York Times, and song lyrics. For each corpus, the number of words appearing in the top 5000 was counted. Boolean indicators were then used to calculate overlap patterns between corpora, identifying words shared across different sources 
+
+### Cross-corpus frequency comparison 
+A scatterplot comparing 'twitter_rank' and 'nyt_rank' was generated for words appearing in bith corpora. This allows visual comparison between informal social media language and more formal news writing. 
+
 ## Results section
 ### Histogram Interpretation
 The histogram of happiness_average scatter plot under the figures folder shows the happiness score is out of 10 along the bottom (where 10 is the happiest). The frequency is out of the total number of words in your dataset. At first glance, the scatter plot looks like a bird in flight with wings on either side where words are shown least on each side and the body of the bird is most rounded and clustered. SURPRISINGLY, the distribution is slightly skewed toward positive values around the 6 score being that average people are feeling a 6 in happiness scale. It could also mean there are more happy words than sad ones. There are rarely word with extremely low happiness scores between 1 or 2 which suggests this particular random selection has been generally happy.
