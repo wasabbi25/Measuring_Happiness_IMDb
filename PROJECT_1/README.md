@@ -215,6 +215,7 @@ Below we identify five consequential design choices in the labMT dataset, along 
 	- Catalina Mena Llopez: Qualitative / Close Reading
 		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
 		- connected qualitative observations back to patterns in the plots
+		- created citation list
 	- Yoonkyung Kim: Provenance & Critique Lead
 		- reconstructed the dataset pipeline
 		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see. 
