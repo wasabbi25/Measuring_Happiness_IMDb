@@ -1,11 +1,5 @@
 # Project title + 2-3 sentence overview 
-The happiness rank shows how happy a word is rated, 
-but the data set also shows how common the word appears in different sources. 
-For example, a word might be very happy (high happiness rank) but not very 
-common in Twitter or song lyrics (low or missing corpus rank). 
-B analysing the labMT 1.0 dataset, our goal is to understand which 
-words are commonly associated as positive or negative across different texts, 
-but also compare how common they are. 
+This project combines qualitative and quantitative methods to explore Dodds et al's Hedonometer, in which the 5000 most common words in Google Books, New York Times articles, Music Lyrics and Twitter posts are combined and assigned a happiness score. This analysis of the labMT 1.0 dataset aims at mapping the expression of happiness across the four sources. 
 
 ## Dataset section
 
