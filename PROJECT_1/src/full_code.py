@@ -1,6 +1,7 @@
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Step 1. Defining the file paths
 
@@ -57,7 +58,7 @@ else:
     print(f'Sanity check: Found {num_duplicates} duplicated words in the dataset.')
 
 # Step 6. Plot histogram of happiness_average
-import matplotlib.pyplot as plt
+
 plt.figure(figsize=(8, 5))
 plt.hist(df['happiness_average'], bins=30, color='skyblue', edgecolor='black')
 plt.title('Histogram of Happiness Average')
@@ -144,23 +145,25 @@ overlaps["T+G+N+L"] = (df["T"] & df["G"] & df["N"] & df["L"]).sum() # counting t
 overlap_table = pd.DataFrame.from_dict(overlaps, orient="index", columns=["Count"]) # converting the overlaps dictionary into a dataframe, where the keys of the dictionary become the index of the dataframe and the values become a column named "Count"
 print(overlap_table) 
 
-#Step 12. Twitter rank VS Google rank scatterplot
-both = df[
-    df["twitter_rank"].notna() &
-    df["nyt_rank"].notna()
+overlap_table.to_csv('../tables/overlap_table.csv') # saving the overlap table as a csv file in the tables folder
+
+#Step 12. Twitter rank VS NYT rank scatterplot
+both = df[ # creating a subset that includes only the words that appear in both Twitter and NYT
+    df["twitter_rank"].notna() & # selecting only the rows where the twitter_rank is not missing
+    df["nyt_rank"].notna() # same logic
 ]
 
-import matplotlib.pyplot as plt
+plt.figure() # creating a new figure for the plot, to avoid plotting on top of any previous plots
 
-plt.figure()
-
-plt.scatter(
-    both["twitter_rank"],
-    both["nyt_rank"]
+plt.scatter( # creating a scatterplot 
+    both["twitter_rank"], # using the twitter_rank column for the x-axis
+    both["nyt_rank"] # using the nyt_rank column for the y-axis
 )
 
-plt.xlabel("Twitter Rank")
-plt.ylabel("NYT Rank")
-plt.title("Twitter Rank vs NYT Rank (Words Present in Both)")
+plt.xlabel("Twitter Rank") # labeling the x-axis as "Twitter Rank"
+plt.ylabel("NYT Rank") # labeling the y-axis as "NYT Rank"
+plt.title("Twitter Rank vs NYT Rank (Words Present in Both)") # adding a title
 
 plt.show()
+
+plt.savefig("../figures/twitter_vs_nyt_scatter.png") # saving the scatterplot as a png file in the figures folder
