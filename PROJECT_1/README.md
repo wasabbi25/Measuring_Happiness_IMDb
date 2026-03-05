@@ -1,17 +1,11 @@
 # Project title + 2-3 sentence overview 
-The happiness rank shows how happy a word is rated, 
-but the data set also shows how common the word appears in different sources. 
-For example, a word might be very happy (high happiness rank) but not very 
-common in Twitter or song lyrics (low or missing corpus rank). 
-B analysing the labMT 1.0 dataset, our goal is to understand which 
-words are commonly associated as positive or negative across different texts, 
-but also compare how common they are. 
+This project combines qualitative and quantitative methods to explore Dodds et al's Hedonometer, in which the 5000 most common words in Google Books, New York Times articles, Music Lyrics and Twitter posts are combined and assigned a happiness score. This analysis of the labMT 1.0 dataset aims at mapping the expression of happiness across the four sources. 
 
 ## Dataset section
 
 ### Summary Statistics for Happiness Average
-They were computer in the src/01_load_and_clean.py 
-Here are computed summary statistics for the happiness_average column:
+They were computed in full_code.py 
+Here are the computed summary statistics for the happiness_average column:
 - Mean: 5.38
 - Median: 5.44
 - Standard deviation: 1.08
@@ -19,10 +13,10 @@ Here are computed summary statistics for the happiness_average column:
 - 95th percentile: 7.08
 These numbers help us understand the overall distribution of happiness scores in the dataset. 
 
-- Where it came from: labMT 1.0 dataset (Hedonometer paper)
+- Where it came from: labMT 1.0 dataset (Hedonometer project)
 - What each column means (data dictionary):
-	- We made a data dictionary to help us understand what each column in the dataset represents, what type of data it is, and how many missing values there are. This is useful because it makes the dataset less intimidating and helps us know what to look for when analyzing or plotting data. 
-	- Here’s a summary of the column names with float and integer:
+	- We made a data dictionary to help us understand what each column in the dataset represents, what type of data it is, and how many missing values there are. It is useful because it clarifies the dataset and helps us know what to look for when analyzing or plotting data. 
+	- Here’s a summary of the columns' names with float and integer:
 		- **word**: The word being rated (text, no missing values)
 		- **happiness_rank**: Rank of the word by happiness score (integer, no missing values)
 		- **happiness_average**: Average happiness score for the word (float, no missing values)
@@ -35,10 +29,10 @@ These numbers help us understand the overall distribution of happiness scores in
 
 
 ### Sanity Check: Duplicated Words
-We checked the dataset for any duplicated words (words that appear more than once). This is important because duplicates could mess up our analysis or make results confusing. Our check found that there are no duplicated words in the dataset, so each word only appears once! This gives us confidence that the data is clean and ready for analysis! Most positive words are: laughter, happiness, love, happy, laughed, laugh, laughing, excellent, laughs, and joy. Most negative words are: terrorist, suicide, rape, terrorism, murder, death, cancer, died, kill, and killed. These do make sense on average for the English understanding that associates are respected. "Makes sense" here would mean likely what you would expect associated with the word positively or negatively. 
+We checked the dataset for any duplicated words. This is important because duplicates could skew our analysis and commpromise our results. Our check found that there are no duplicated words in the dataset, so each word only appears once. This gives us confidence that the data is clean and ready for analysis! The most positive words are: laughter, happiness, love, happy, laughed, laugh, laughing, excellent, laughs, and joy. The most negative words are: terrorist, suicide, rape, terrorism, murder, death, cancer, died, kill, and killed. These associations make sense, which confirms that the dataset is usable. 
 
 ### Why take a random sample?
-- We took a random sample of 15 rows from the dataset to get a snapshot of the kind of data we’re working with. It lets us see some real examples. It also helps check for any obvious issues, like weird values or repeated words.
+- We took a random sample of 15 rows from the dataset to get a snapshot of the kind of data we are working with. It lets us see some real examples. It also helps check for any obvious issues, like weird values or repeated words.
 - The random sample is saved in `tables/random_sample_15_rows.csv`.
 
 ### Data Cleaning Steps
@@ -78,7 +72,7 @@ To explore disagrement among annotators, a scatterplot of 'happiness_average' ve
 The dataset includes rank columns for four corpora: Twitter, Google Books, the New York Times, and song lyrics. For each corpus, the number of words appearing in the top 5000 was counted. Boolean indicators were then used to calculate overlap patterns between corpora, identifying words shared across different sources 
 
 ### Cross-corpus frequency comparison 
-A scatterplot comparing 'twitter_rank' and 'nyt_rank' was generated for words appearing in bith corpora. This allows visual comparison between informal social media language and more formal news writing. 
+A scatterplot comparing 'twitter_rank' and 'nyt_rank' was generated for words appearing in both corpora. This allows visual comparison between informal social media language and more formal news writing. 
 
 ## Results section
 ### Histogram Interpretation
@@ -91,11 +85,13 @@ For each corpus, 5000 labMT 1.0 words appear in its top 5000 words. This implies
 Words overlaps: 
 We analysed the amount of words that appear in each separate corpus and in all four corpuses combined, but also how many words are shared by every comibination of two and three corpuses. 
 
-Lyrics present the highest amount of original words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that the expression of happiness is the most atypical on Lyrics, while Twitter shares most of its emotional vocabulary. 
+Lyrics present the highest amount of unique words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that Lyrics' vocabulary is the most atypical, while Twitter shares a vast majority of its vocabulary with the other corpora. The large presence of unique words in the Lyrics' corpus could be due to their informality. 
 
-Twitter shares 69 words with Google, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest amount of original words, these results entail that the expression of happiness is the most different between Twitter and Google Books.
+Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is the most different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain informal language. 
 
-Google shares 864 words with the NYT and 175 with Lyrics. The NYT has only 62 words in common with Lyrics. Twitter, Google Books and the NYT share 584 words. Twitter, Google Books and Lyrics share 227 words. Twitter, the NYT and Lyrics have 213 words in common. Google Books, the NYT and Lyrics present the lowest overlap with 150 shared words.
+Google Books shares 864 words with the NYT and 175 with Lyrics. 
+
+The NYT has only 62 words in common with Lyrics. Twitter, Google Books and the NYT share 584 words. Twitter, Google Books and Lyrics share 227 words. Twitter, the NYT and Lyrics have 213 words in common. Google Books, the NYT and Lyrics present the lowest overlap with 150 shared words.
 
 Finally, all four corpuses have 1816 words in common in their top 5000. 
 
@@ -227,3 +223,4 @@ Below we identify five consequential design choices in the labMT dataset, along 
 		- wrote the code for the word 'exhibit'
 
 - Citation for the paper / dataset
+Hedonometer. "About." https://hedonometer.org/about.html
