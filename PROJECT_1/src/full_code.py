@@ -103,12 +103,12 @@ print(f"Number of labMT words appearing in Google: {google_count}")
 print(f"Number of labMT words appearing in NYT: {nyt_count}")
 print(f"Number of labMT words appearing in Lyrics: {lyrics_count}") #We print the number of labMT words appearing in each corpus
 
-word_counts_table = pd.DataFrame({
-    "Corpus": ["Twitter", "Google Books", "NYT", "Lyrics"],
-    "Number_of_labMT_words": [twitter_count, google_count, nyt_count, lyrics_count]
+word_counts_table = pd.DataFrame({ # creating a dataframe with the results
+    "Corpus": ["Twitter", "Google Books", "NYT", "Lyrics"], # defining the first column with the corpus names and naming it "corpus"
+    "Number_of_labMT_words": [twitter_count, google_count, nyt_count, lyrics_count] # defining the second column with the word counts and naming it "Number_of_labMT_words"
 })
 
-word_counts_table.to_csv('../tables/labMT_word_counts.csv', index=False)
+word_counts_table.to_csv('../tables/labMT_word_counts.csv', index=False) #saving the table as a csv file in the tables folder, without the index column
 
 #Step 11. Overlap table 
 df["T"] = df["twitter_rank"].notna()
