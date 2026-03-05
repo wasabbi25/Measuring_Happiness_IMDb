@@ -97,11 +97,18 @@ google_count = df['google_rank'].notna().sum()
 nyt_count = df['nyt_rank'].notna().sum()
 lyrics_count = df['lyrics_rank'].notna().sum()
 
-print(df["twitter_rank"].isna().sum())
+print(f"Missing values in Twitter Rank: {df['twitter_rank'].isna().sum()}") # This is a sanity check to see how many (.sum()) missing values (.isna()) there are in the twitter_rank column
 print(f"Number of labMT words appearing in Twitter: {twitter_count}")
 print(f"Number of labMT words appearing in Google: {google_count}")
 print(f"Number of labMT words appearing in NYT: {nyt_count}")
-print(f"Number of labMT words appearing in Lyrics: {lyrics_count}")
+print(f"Number of labMT words appearing in Lyrics: {lyrics_count}") #We print the number of labMT words appearing in each corpus
+
+word_counts_table = pd.DataFrame({
+    "Corpus": ["Twitter", "Google Books", "NYT", "Lyrics"],
+    "Number_of_labMT_words": [twitter_count, google_count, nyt_count, lyrics_count]
+})
+
+word_counts_table.to_csv('../tables/labMT_word_counts.csv', index=False)
 
 #Step 11. Overlap table 
 df["T"] = df["twitter_rank"].notna()
