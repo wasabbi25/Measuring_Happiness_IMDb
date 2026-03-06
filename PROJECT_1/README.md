@@ -1,6 +1,6 @@
 # Hedonometer
 
-This project combines qualitative and quantitative methods to explore the labMT 1.0 dataset, in which the 5000 most common words in Google Books, New York Times articles, Music Lyrics and Twitter posts are combined and assigned a happiness score. This analysis of the labMT 1.0 dataset aims at mapping the expression of happiness on Twitter while critically engaging with the dataset. 
+This project combines qualitative and quantitative methods to explore the labMT 1.0 dataset, in which the 5000 most common words in Google Books, New York Times articles, Music Lyrics and Twitter posts are combined and assigned a happiness score. This analysis of the labMT 1.0 dataset aims at mapping the expression of happiness across the four corpora while critically engaging with the dataset. 
 
 ## Dataset section
 
@@ -84,11 +84,11 @@ Words appearances:
 For each corpus, 5000 labMT 1.0 words appear in its top 5000 words. This implies that the labMT 1.0 dataset was produced by merging the 5000 most common words on Twitter, Google Books, the New York Times and Music Lyrics.
 
 Words overlaps: 
-We analysed the amount of words that appear in each separate corpus and in all four corpuses combined, but also how many words are shared by every comibination of two and three corpuses. 
+We analysed the number of words that appear in each separate corpus and in all four corpora combined, but also how many words are shared by every comibination of two and three corpora. 
 
-Lyrics present the highest amount of unique words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that Lyrics' vocabulary is the most atypical, while Twitter shares a vast majority of its vocabulary with the other corpora. The large presence of unique words in the Lyrics' corpus could be due to their informality. 
+Lyrics present the highest amount of unique words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that the Lyrics' vocabulary is the most atypical, while Twitter shares a vast majority of its vocabulary with the other corpora. The large presence of unique words in the Lyrics' corpus could be due to their informality. 
 
-Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is the most different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain informal language. 
+Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is highly different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain informal language. 
 
 Google Books shares 864 words with the NYT and 175 with Lyrics. The fact that Google Books shares the most words with the NYT can once again be understood as a similar style of language.
 
