@@ -199,10 +199,14 @@ Below we identify five consequential design choices in the labMT dataset, along 
 	
 	Third, we would build in a versioning and update mechanism, re rating a sample of words each year to track how emotional language changes over time. A hedonometer that cannot update itself becomes a historical artifact rather than a living instrument.
 ## How to run your code
-
-
-- Setup steps
-- Which scripts to run
+### Setup Steps 
+1. Clone the repository 
+2. Create a virtual environment
+3. Install required packages 
+pip install -r requirements.txt 
+4. Ensure the dataset is in the correct location.
+The raw dataset file should be placed in data/raw/Data_Set_S1.txt
+5. From the src folder, run full_code.py
 
 ## Credits
 - Who did what (team roles)
