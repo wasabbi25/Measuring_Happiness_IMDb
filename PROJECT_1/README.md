@@ -1,5 +1,6 @@
-# Project title + 2-3 sentence overview 
-This project combines qualitative and quantitative methods to explore Dodds et al's Hedonometer, in which the 5000 most common words in Google Books, New York Times articles, Music Lyrics and Twitter posts are combined and assigned a happiness score. This analysis of the labMT 1.0 dataset aims at mapping the expression of happiness across the four sources. 
+# Hedonometer
+
+This project combines qualitative and quantitative methods to explore the labMT 1.0 dataset, in which the 5000 most common words in Google Books, New York Times articles, Music Lyrics and Twitter posts are combined and assigned a happiness score. This analysis of the labMT 1.0 dataset aims at mapping the expression of happiness on Twitter while critically engaging with the dataset. 
 
 ## Dataset section
 
@@ -76,7 +77,7 @@ A scatterplot comparing 'twitter_rank' and 'nyt_rank' was generated for words ap
 
 ## Results section
 ### Histogram Interpretation
-The histogram of happiness_average scatter plot under the figures folder shows the happiness score is out of 10 along the bottom (where 10 is the happiest). The y-axis indicates the frequency of words at each score. The frequency is out of the total number of words in your dataset. The scatter plot looks clustered at the mean and median, with most words landing at the center and tapering on either side where words that are shown fewer on each extreme. The center cluster is more rounded with the pattern skewing a bit toward a concentration of words around 6 suggesting more positive words found in the lexicon than negative. There are rarely words with extremely low happiness scores between 1 or 2 which suggests this particular random selection has been generally happy. Unexpected patterns: the center cluster shows most words are neutral. It could mean readers are generally getting a neutral feel from overall lexicon. The emotional tone of the body of text is neutral based on our random sample. 
+The histogram of happiness_average scatter plot under the figures folder shows the happiness score is out of 10 along the bottom (where 10 is the happiest). The frequency is out of the total number of words in your dataset. At first glance, the scatter plot looks like a bird in flight with wings on either side where words are shown least on each side and the body of the bird is most rounded and clustered. SURPRISINGLY, the distribution is slightly skewed toward positive values around the 6 score being that average people are feeling a 6 in happiness scale. It could also mean there are more happy words than sad ones. There are rarely word with extremely low happiness scores between 1 or 2 which suggests this particular random selection has been generally happy.
 
 #### Corpus comparison: 
 Words appearances: 
@@ -89,7 +90,7 @@ Lyrics present the highest amount of unique words (1486) and Twitter the lowest 
 
 Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is the most different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain informal language. 
 
-Google Books shares 864 words with the NYT and 175 with Lyrics. 
+Google Books shares 864 words with the NYT and 175 with Lyrics. The fact that Google Books shares the most words with the NYT can once again be understood as a similar style of language.
 
 The NYT has only 62 words in common with Lyrics. Twitter, Google Books and the NYT share 584 words. Twitter, Google Books and Lyrics share 227 words. Twitter, the NYT and Lyrics have 213 words in common. Google Books, the NYT and Lyrics present the lowest overlap with 150 shared words.
 
@@ -199,6 +200,7 @@ Below we identify five consequential design choices in the labMT dataset, along 
 	Third, we would build in a versioning and update mechanism, re rating a sample of words each year to track how emotional language changes over time. A hedonometer that cannot update itself becomes a historical artifact rather than a living instrument.
 ## How to run your code
 
+
 - Setup steps
 - Which scripts to run
 
@@ -210,7 +212,6 @@ Below we identify five consequential design choices in the labMT dataset, along 
 	- Catalina Mena Llopez: Qualitative / Close Reading
 		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
 		- connected qualitative observations back to patterns in the plots
-		- created data dictionary 
 		- created citation list
 	- Yoonkyung Kim: Provenance & Critique Lead
 		- reconstructed the dataset pipeline
@@ -220,11 +221,7 @@ Below we identify five consequential design choices in the labMT dataset, along 
 		- checked results for sanity and reproducibility
 		- additionally wrote code and interpretation for corpus comparison, and the project overview
 	- Hena Puthengot: Data Wrangler
-		- assigned: write the code for the word 'exhibit'
+		- wrote the code for the word 'exhibit'
 
 - Citation for the paper / dataset
-Dodds, Peter Sheridan, Kameron Decker Harris, Isabel M. Kloumann, Catherine A. Bliss, and Christopher M. Danforth. “Temporal Patterns of Happiness and Information in a Global Social Network: Hedonometrics and Twitter.” PLoS ONE 6, no. 12 (2011): e26752. https://doi.org/10.1371/journal.pone.0026752.
-
-GitHub Copilot. "GitHub Copilot." GitHub. https://github.com/features/copilot.
-
 Hedonometer. "About." https://hedonometer.org/about.html
