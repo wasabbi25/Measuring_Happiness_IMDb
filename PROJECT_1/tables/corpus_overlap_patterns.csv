@@ -1,3 +1,11 @@
+""""
+What is this file?
+
+This file shows how much two groups of texts share the common words. 
+It helps us compare and find similarities or differences between the groups. 
+We use it to quickly see patterns and results from our project.
+""""
+
 corpora_present,n_words
 twitter+google+nyt+lyrics,1816
 lyrics,1486

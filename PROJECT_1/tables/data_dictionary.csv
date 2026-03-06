@@ -1,0 +1,20 @@
+
+
+"""DATA DICTIONARY: 
+Here lists the column name, its data type (whether a string, 
+int64, or float64), and how many missing values there are (for example 
+if a word is not common in relation to the column name it usually means 
+it will be a big gap or unavailable because maybe not every word appears in the source)"""
+
+Columns & Explanations
+column,dtype,n_missing,example_value, explanation
+word,string,0,laughter,The word being analyzed
+happiness_rank,int64,0,1,The rank of the word based on its happiness score
+happiness_average,float64,0,8.5,The average happiness score of the word
+happiness_standard_deviation,float64,0,0.9313,The standard deviation of the happiness score
+twitter_rank,float64,5222,3600.0,The rank of the word on Twitter
+google_rank,float64,5222,,The rank of the word on Google
+nyt_rank,float64,5222,,The rank of the word on New York Times
+lyrics_rank,float64,5222,1728.0,The rank of the word in song lyrics
+
+

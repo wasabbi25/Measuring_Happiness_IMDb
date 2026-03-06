@@ -1,0 +1,9 @@
+metric,value
+count,10222.0, counts of shared words between groups
+mean,5.375239679123459, mean of the average happiness score for all words
+median,5.44, median of the average happiness score for all words
+std,1.0849046665419084, standard deviation of the average happiness score for all words
+p05 (5th percentile),3.18, 5th percentile of the average happiness score for all words
+p95 (95th percentile),7.08, 95th percentile of the average happiness score for all words
+
+"""summary results from data analysis of the average happiness score for all words"""
