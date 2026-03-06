@@ -1,9 +1,0 @@
-rank_column,n_words_with_rank,share_of_lexicon
-twitter_rank,5000,0.48914106828409315
-google_rank,5000,0.48914106828409315
-nyt_rank,5000,0.48914106828409315
-lyrics_rank,5000,0.48914106828409315
-"""
-this is showing what words are most popular in each set of text and how much of the body of 
-text they cover. For example, the top 5,000 words in twitter cover 48.9% of the lexicon. 
-"""
