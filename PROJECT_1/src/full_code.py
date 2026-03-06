@@ -1,7 +1,7 @@
-""""""
+"""
 This is the complete code for project analysis. 
 All in one place: loading and cleaning the data, doing the analysis, and creates plots and tables.
-""""""
+"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -112,7 +112,7 @@ word_counts_table = pd.DataFrame({ # creating a dataframe with the results
     "Number_of_labMT_words": [twitter_count, google_count, nyt_count, lyrics_count] # defining the second column with the word counts and naming it "Number_of_labMT_words"
 })
 
-word_counts_table.to_csv('../tables/labMT_word_counts.csv', index=False) #saving the table as a csv file in the tables folder, without the index column
+word_counts_table.to_csv('tables/labMT_word_counts.csv', index=False) #saving the table as a csv file in the tables folder, without the index column
 
 #Step 11. Overlap table 
 df["T"] = df["twitter_rank"].notna() # creating new columns for each corpus, where the value is True if the word appears in that corpus (notna()) and False if it does not (na)
@@ -148,7 +148,7 @@ overlaps["T+G+N+L"] = (df["T"] & df["G"] & df["N"] & df["L"]).sum() # counting t
 overlap_table = pd.DataFrame.from_dict(overlaps, orient="index", columns=["Count"]) # converting the overlaps dictionary into a dataframe, where the keys of the dictionary become the index of the dataframe and the values become a column named "Count"
 print(overlap_table) 
 
-overlap_table.to_csv('../tables/overlap_table.csv') # saving the overlap table as a csv file in the tables folder
+overlap_table.to_csv('tables/overlap_table.csv') # saving the overlap table as a csv file in the tables folder
 
 #Step 12. Twitter rank VS NYT rank scatterplot
 both = df[ # creating a subset that includes only the words that appear in both Twitter and NYT
@@ -169,4 +169,4 @@ plt.title("Twitter Rank vs NYT Rank (Words Present in Both)") # adding a title
 
 plt.show()
 
-plt.savefig("../figures/twitter_vs_nyt_scatter.png") # saving the scatterplot as a png file in the figures folder
+plt.savefig("figures/twitter_vs_nyt_scatter.png") # saving the scatterplot as a png file in the figures folder
