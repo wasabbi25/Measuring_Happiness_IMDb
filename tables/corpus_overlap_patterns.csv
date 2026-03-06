@@ -1,11 +1,3 @@
-""""
-What is this file?
-
-This file shows how much two groups of texts share the common words. 
-It helps us compare and find similarities or differences between the groups. 
-We use it to quickly see patterns and results from our project.
-""""
-
 corpora_present,n_words
 twitter+google+nyt+lyrics,1816
 lyrics,1486
@@ -23,3 +15,7 @@ google+lyrics,175
 google+nyt+lyrics,150
 twitter+google,69
 nyt+lyrics,62
+# This shows how much two groups of text share the same words to help 
+us understand what is happening in the data.  
+ #For example, there are 1816 words that are present in all four corpora 
+ (twitter, google, nyt, and lyrics), while there are 327 words that are not present in any of the corpora.

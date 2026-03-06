@@ -1,4 +1,7 @@
-
+""""""
+This is the complete code for project analysis. 
+All in one place: loading and cleaning the data, doing the analysis, and creates plots and tables.
+""""""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

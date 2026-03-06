@@ -1,3 +1,6 @@
+"""
+THis file is randombly chosen rows. 
+""""
 word,happiness_rank,happiness_average,happiness_standard_deviation,twitter_rank,google_rank,nyt_rank,lyrics_rank
 prom,2883,5.94,1.3763,4876.0,,,
 on,4515,5.56,1.0721,13.0,16.0,10.0,14.0
