@@ -238,4 +238,11 @@ The raw dataset file should be placed in data/raw/Data_Set_S1.txt
 	- Hena Puthengot
 	
 - Citation for the paper / dataset
+
+This project utilized GitHub Copilot (powered by OpenAI GPT-4.1) for code suggestions and development assistance.
+
+Dodds, Peter Sheridan, Kameron Decker Harris, Isabel M. Kloumann, Catherine A. Bliss, and Christopher M. Danforth. “Temporal Patterns of Happiness and Information in a Global Social Network: Hedonometrics and Twitter.” PLoS ONE 6, no. 12 (2011): e26752. https://doi.org/10.1371/journal.pone.0026752.
+
 Hedonometer. "About." https://hedonometer.org/about.html
+
+GitHub Copilot. "GitHub Copilot." GitHub. https://github.com/features/copilot.
