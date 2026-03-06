@@ -1,0 +1,13 @@
+pair,n_words_in_both
+google+lyrics,2368
+google+nyt,3414
+nyt+lyrics,2241
+twitter+google,2696
+twitter+lyrics,3127
+twitter+nyt,2881
+
+""""
+this tells you how many words are shared between two groups of text. 
+You can see which groups of text are more similar to each other. Pairwise is
+just comparing two groups at a time, while corpus overlap compares all groups together.
+""""
