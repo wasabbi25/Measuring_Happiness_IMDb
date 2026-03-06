@@ -234,7 +234,7 @@ The raw dataset file should be placed in data/raw/Data_Set_S1.txt
 	- Marguerite Audeguis: Quantitative Analyst
 		- led descriptive statistics, and created plots
 		- checked results for sanity and reproducibility
-		- additionally wrote code and interpretation for corpus comparison, and the project overview
+		- additionally wrote code and interpretation for corpus comparison, created and interpreted the word 'exhibit', and wrote the project overview
 	- Hena Puthengot
 	
 - Citation for the paper / dataset
