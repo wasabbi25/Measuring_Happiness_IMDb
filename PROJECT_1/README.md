@@ -58,7 +58,7 @@ We checked the dataset for any duplicated words. This is important because dupli
 
 ## Methods section (what you did in python)
 
-All analysis was performed in python using the pandas, numpy, and matplotlib libraries. The workflow is implemented in the script 'src/o1_load_and_clean.py'. 
+All analysis was performed in python using the pandas, numpy, and matplotlib libraries. The workflow is implemented in the script 'src/full_code.py'. 
 
 ### Data processing
 The labMT 1.0 dataset was loaded into a pandas DataFrame from a tab-delimited file. Metadata lines at the top of the file were skipped, and the placeholder value "--" was interpreted as missing data. Numeric columns such as happuness scores and corpus were converted to numeric data types to allow statistical analysis. 
@@ -234,7 +234,7 @@ The raw dataset file should be placed in data/raw/Data_Set_S1.txt
 	- Marguerite Audeguis: Quantitative Analyst
 		- led descriptive statistics, and created plots
 		- checked results for sanity and reproducibility
-		- additionally wrote code and interpretation for corpus comparison, created and interpreted the word 'exhibit', and wrote the project overview
+		- additionally wrote code and interpretation for corpus comparison, and wrote the project overview
 	- Hena Puthengot
 	
 - Citation for the paper / dataset
