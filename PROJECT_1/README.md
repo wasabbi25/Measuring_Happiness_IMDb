@@ -219,8 +219,7 @@ Below we identify five consequential design choices in the labMT dataset, along 
 		- led descriptive statistics, and created plots
 		- checked results for sanity and reproducibility
 		- additionally wrote code and interpretation for corpus comparison, and the project overview
-	- Hena Puthengot: Data Wrangler
-		- wrote the code for the word 'exhibit'
-
+	- Hena Puthengot
+	
 - Citation for the paper / dataset
 Hedonometer. "About." https://hedonometer.org/about.html
