@@ -94,13 +94,13 @@ Lyrics present the highest amount of unique words (1486) and Twitter the lowest 
 
 Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is highly different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain informal language. 
 
-Google Books shares 864 words with the NYT and 175 with Lyrics. The fact that Google Books shares the most words with the NYT can once again be understood as a similar style of language.
+Google Books shares 864 words with the NYT and 175 with Lyrics. The fact that Google Books shares the most words with the NYT can once again be connected to the use of a similar written style.
 
 The NYT has only 62 words in common with Lyrics. Twitter, Google Books and the NYT share 584 words. Twitter, Google Books and Lyrics share 227 words. Twitter, the NYT and Lyrics have 213 words in common. Google Books, the NYT and Lyrics present the lowest overlap with 150 shared words.
 
 Finally, all four corpuses have 1816 words in common in their top 5000. 
 
-[figures/twitter_vs_nyt_scatter.png](figures/twitter_vs_nyt_scatter.png)
+![Twitter vs NYT Rank Scatter](figures/twitter_vs_nyt_scatter.png)
 
 ### Where to Find Plots and Tables
 Plots and summary tables are in the following folders:
