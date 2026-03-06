@@ -207,6 +207,11 @@ Below we identify five consequential design choices in the labMT dataset, along 
 4. Ensure the dataset is in the correct location.
 The raw dataset file should be placed in data/raw/Data_Set_S1.txt
 5. From the src folder, run full_code.py.
+6. Running the script will:
+	- Load and clean the dataset.
+	- Save the cleaned dataset to data/clean/clean_data csv. 
+	- Generate figures saved in figures/.
+	- Generate tables saved in tables/. 
 
 ## Credits
 - Who did what (team roles)
