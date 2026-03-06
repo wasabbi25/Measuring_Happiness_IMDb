@@ -88,13 +88,17 @@ For each corpus, 5000 labMT 1.0 words appear in its top 5000 words. This implies
 Words overlaps: 
 [tables/corpus_overlap_patterns.csv](tables/corpus_overlap_patterns.csv)
 
-We analysed the number of words that appear in each separate corpus and in all four corpora combined, but also how many words are shared by every combination of two and three corpora.
+We analysed the number of words that appear in each separate corpus and in all four corpora combined, but also how many words are shared by every combination of two and three corpora. The differences and similarities in voaculary can be due to style, tone and subject.
 
-All four corpora share 1816 words, which represents 17,77% of the total amount of words. Lyrics present the highest amount of unique words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that the Lyrics' vocabulary is the most atypical, while Twitter shares a vast majority of its vocabulary with the other corpora. The large presence of unique words in the Lyrics' corpus could be due to their informality. 
+All four corpora share 1816 words, which represents 17,77% of the total amount of words. Lyrics present the highest amount of unique words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that the Lyrics' vocabulary is the most atypical, while Twitter shares a vast majority of words with the other corpora. The large presence of unique words in the Lyrics' corpus could be due to their informality. 
 
-Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is highly different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain informal language. In addition, Google Books shares 864 words with the NYT and 175 with Lyrics. The fact that Google Books shares the most words with the NYT can once again be connected to the use of a similar written style. It thus makes sense that they also both share little words with Lyrics, especially the NYT, with only 62 words. Furthermore, Google Books, the NYT and Lyrics present the lowest overlap between three corpora, with 150 shared words. 
+Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is highly different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain more informal and emotional language. In addition, Google Books shares 864 words with the NYT and 175 with Lyrics. The fact that Google Books shares the most words with the NYT can once again be connected to the use of a similar written style. It thus makes sense that they also both share little words with Lyrics, especially the NYT, with only 62 words. Furthermore, Google Books, the NYT and Lyrics present the lowest overlap between three corpora, with 150 shared words. 
+
+Scatterplot Twitter VS NYT
 
 ![Twitter vs NYT Rank Scatter](figures/twitter_vs_nyt_scatter.png)
+
+To compare the frequency of words shared by the NYT and Twitter across both corpuses, we created a scatterplot. Twitter and the NYT were chosen as we expected them to show differences in word use, due to differences in style and tone. The plot indeed shows a weak correlation between the two rankings. In fact, most points are spread and scattered across the figure. While there is a small cluster of words highly ranked for both corpora, the words shared by Twitter and the NYT mostly rank differently, indicating a difference in style and tone.
 
 ### Where to Find Plots and Tables
 Plots and summary tables are in the following folders:
