@@ -167,6 +167,6 @@ plt.xlabel("Twitter Rank") # labeling the x-axis as "Twitter Rank"
 plt.ylabel("NYT Rank") # labeling the y-axis as "NYT Rank"
 plt.title("Twitter Rank vs NYT Rank (Words Present in Both)") # adding a title
 
-plt.show()
-
+plt.tight_layout()
 plt.savefig("figures/twitter_vs_nyt_scatter.png") # saving the scatterplot as a png file in the figures folder
+plt.close()
