@@ -98,7 +98,7 @@ Scatterplot Twitter VS NYT
 
 ![Twitter vs NYT Rank Scatter](figures/twitter_vs_nyt_scatter.png)
 
-To compare the frequency of words shared by the NYT and Twitter across both corpuses, we created a scatterplot. Twitter and the NYT were chosen as we expected them to show differences in word use, due to differences in style and tone. The plot indeed shows a weak correlation between the two rankings. In fact, most points are spread and scattered across the figure. While there is a small cluster of words highly ranked for both corpora, the words shared by Twitter and the NYT mostly rank differently, indicating a difference in style and tone.
+To compare the frequency of words shared by the NYT and Twitter across both corpora, we created a scatterplot. Twitter and the NYT were chosen as we expected them to show differences in word use, due to differences in style and tone. The plot indeed shows a weak correlation between the two rankings. In fact, most points are spread and scattered across the figure. While there is a small cluster of words highly ranked for both corpora, the words shared by Twitter and the NYT mostly rank differently, indicating a difference in style and tone. For instance, the word "bullshit" is absent from the NYT top 5000 but ranks 2658 on Twitter. This word is also absent from Google Books, but ranks 1734 on Lyrics. These results thus reinforce the hypotheses formulated in the previous section.
 
 ### Where to Find Plots and Tables
 Plots and summary tables are in the following folders:
