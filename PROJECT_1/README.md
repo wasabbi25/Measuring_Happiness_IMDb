@@ -220,7 +220,7 @@ Below we identify five consequential design choices in the labMT dataset, along 
 		- checked results for sanity and reproducibility
 		- additionally wrote code and interpretation for corpus comparison, and the project overview
 	- Hena Puthengot: Data Wrangler
-		- wrote the code for the word 'exhibit'
+		- assigned: write the code for the word 'exhibit'
 
 - Citation for the paper / dataset
 Dodds, Peter Sheridan, Kameron Decker Harris, Isabel M. Kloumann, Catherine A. Bliss, and Christopher M. Danforth. “Temporal Patterns of Happiness and Information in a Global Social Network: Hedonometrics and Twitter.” PLoS ONE 6, no. 12 (2011): e26752. https://doi.org/10.1371/journal.pone.0026752.

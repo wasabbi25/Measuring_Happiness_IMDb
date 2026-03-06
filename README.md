@@ -58,6 +58,7 @@ We checked the dataset for any duplicated words. This is important because dupli
 
 ## Methods section (what you did in python)
 
+
 ## Results section
 ### Histogram Interpretation
 The histogram of happiness_average scatter plot under the figures folder shows the happiness score is out of 10 along the bottom (where 10 is the happiest). The frequency is out of the total number of words in your dataset. At first glance, the scatter plot looks like a bird in flight with wings on either side where words are shown least on each side and the body of the bird is most rounded and clustered. SURPRISINGLY, the distribution is slightly skewed toward positive values around the 6 score being that average people are feeling a 6 in happiness scale. It could also mean there are more happy words than sad ones. There are rarely word with extremely low happiness scores between 1 or 2 which suggests this particular random selection has been generally happy.
@@ -118,4 +119,6 @@ Plots and summary tables are in the following folders:
 This project utilized GitHub Copilot (powered by OpenAI GPT-4.1) for code suggestions and development assistance.
 
 **Chicago Style Citation:**
+Dodds, Peter Sheridan, Kameron Decker Harris, Isabel M. Kloumann, Catherine A. Bliss, and Christopher M. Danforth. “Temporal Patterns of Happiness and Information in a Global Social Network: Hedonometrics and Twitter.” PLoS ONE 6, no. 12 (2011): e26752. https://doi.org/10.1371/journal.pone.0026752.
+
 GitHub Copilot. "GitHub Copilot." GitHub. https://github.com/features/copilot.
