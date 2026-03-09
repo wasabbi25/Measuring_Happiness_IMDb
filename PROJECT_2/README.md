@@ -6,7 +6,6 @@ This project applies the **labMT hedonometer lexicon** to a corpus of movie revi
 
 We use the **IMDb Large Movie Review Dataset**, which contains 50,000 movie reviews labeled as positive or negative. By applying the hedonometer method to this dataset, we explore whether language associated with positive reviews produces higher happiness scores than language in negative reviews.
 
----
 
 ## 2. Repository Structure
 
@@ -35,7 +34,6 @@ repo/
 
 Raw datasets are stored in `data/raw/`, while cleaned datasets used for analysis are stored in `data/processed/`.
 
----
 
 ## 3. Dataset
 
@@ -76,7 +74,6 @@ This file corresponds to:
 - review ID: 200
 - rating: 8/10
 
----
 
 ## 4. Data Processing
 
@@ -112,7 +109,6 @@ Basic preprocessing steps include:
 - trimming extra whitespace
 - converting text to lowercase
 
----
 
 ## 5. Methods
 
@@ -127,20 +123,16 @@ Steps:
 
 This produces a document-level happiness estimate for each review.
 
----
 
 ## 6. Analysis
 
 
----
 
 ## 7. Visualizations
 
----
 
 ## 8. How to Run the Code
 
----
 
 ## 9. Tools Used
 
@@ -152,7 +144,6 @@ This produces a document-level happiness estimate for each review.
 
 AI assistance was used to help debug code and clarify programming concepts.
 
----
 
 ## 10. Credits
 
@@ -164,7 +155,6 @@ Team members and roles:
 - Visualization lead:  
 - Editor & figure curator:  
 
----
 
 ## 11. References
 
