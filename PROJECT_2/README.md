@@ -1,0 +1,175 @@
+# Mini-Project 2: Inferring Happiness Dynamics in Media
+
+## 1. Project Overview
+
+This project applies the **labMT hedonometer lexicon** to a corpus of movie reviews to measure emotional content in text. The goal is to estimate happiness scores for documents and examine how these scores relate to sentiment and rating.
+
+We use the **IMDb Large Movie Review Dataset**, which contains 50,000 movie reviews labeled as positive or negative. By applying the hedonometer method to this dataset, we explore whether language associated with positive reviews produces higher happiness scores than language in negative reviews.
+
+---
+
+## 2. Repository Structure
+
+repo/
+│
+├── README.md  
+├── requirements.txt  
+│  
+├── src/  
+│   ├── clean_imdb.py  
+│   ├── hedonometer_scoring.py  
+│   └── analysis_plots.py  
+│  
+├── data/  
+│   ├── raw/  
+│   │   └── imdb/  
+│   │       ├── train/  
+│   │       └── test/  
+│   │  
+│   └── processed/  
+│       └── imdb_reviews_clean.csv  
+│  
+├── figures/  
+│  
+└── tables/  
+
+Raw datasets are stored in `data/raw/`, while cleaned datasets used for analysis are stored in `data/processed/`.
+
+---
+
+## 3. Dataset
+
+### IMDb Large Movie Review Dataset
+
+The IMDb Large Movie Review Dataset contains **50,000 movie reviews** collected from IMDb.
+
+Dataset characteristics:
+
+- 25,000 training reviews
+- 25,000 test reviews
+- Balanced sentiment labels
+- Positive reviews: rating ≥ 7
+- Negative reviews: rating ≤ 4
+- Neutral reviews are excluded
+
+The dataset is distributed as individual text files organized into directories.
+
+Dataset folder structure:
+
+train/  
+&nbsp;&nbsp;&nbsp;&nbsp;pos/  
+&nbsp;&nbsp;&nbsp;&nbsp;neg/  
+
+test/  
+&nbsp;&nbsp;&nbsp;&nbsp;pos/  
+&nbsp;&nbsp;&nbsp;&nbsp;neg/  
+
+Each review file follows the naming convention:
+
+[id]_[rating].txt
+
+Example:
+
+200_8.txt
+
+This file corresponds to:
+- review ID: 200
+- rating: 8/10
+
+---
+
+## 4. Data Processing
+
+To make the dataset usable for analysis, we convert the individual text files into a structured dataset.
+
+Processing script:
+
+src/clean_imdb.py
+
+This script performs the following steps:
+
+1. Iterates through the dataset directory structure (`train/test`, `pos/neg`)
+2. Extracts metadata from filenames
+3. Reads review text from each file
+4. Stores the information in a pandas DataFrame
+5. Saves the dataset as a single CSV file
+
+The processed dataset contains one row per review.
+
+Example dataset structure:
+
+| review_id | rating | sentiment | split | text |
+|-----------|--------|----------|-------|------|
+| 200 | 8 | pos | test | this movie was amazing... |
+
+The final dataset is saved as:
+
+data/processed/imdb_reviews_clean.csv
+
+Basic preprocessing steps include:
+
+- removing newline characters
+- trimming extra whitespace
+- converting text to lowercase
+
+---
+
+## 5. Methods
+
+We apply the **hedonometer method** using the labMT lexicon.
+
+Steps:
+
+1. Tokenize each review into words
+2. Match tokens with words in the labMT lexicon
+3. Retrieve happiness scores for matched words
+4. Compute the average happiness score for each review
+
+This produces a document-level happiness estimate for each review.
+
+---
+
+## 6. Analysis
+
+
+---
+
+## 7. Visualizations
+
+---
+
+## 8. How to Run the Code
+
+---
+
+## 9. Tools Used
+
+- Python  
+- pandas  
+- numpy  
+- matplotlib  
+- GitHub for version control  
+
+AI assistance was used to help debug code and clarify programming concepts.
+
+---
+
+## 10. Credits
+
+Team members and roles:
+
+- Repo & workflow lead:  
+- Data acquisition lead:  
+- Measurement lead:  
+- Visualization lead:  
+- Editor & figure curator:  
+
+---
+
+## 11. References
+
+Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
+Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
+
+Dodds, P. S., et al. (2011).  
+Temporal patterns of happiness and information in a global social network.
