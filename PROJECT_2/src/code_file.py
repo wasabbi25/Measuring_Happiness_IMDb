@@ -144,8 +144,6 @@ plt.tight_layout()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_histogram.png"))
 plt.show()
 # Summary statistics for happiness scores
-# Reason: Summary statistics help us understand the central tendency and spread of happiness scores in the dataset, and reveal differences between positive and negative reviews.
-# What it means: Higher mean/median scores indicate more positive language; lower scores indicate more negative language. Comparing by sentiment shows if the hedonometer aligns with review labels.
 
 overall_stats = df["happiness_score"].describe()
 print("\nOverall happiness score summary:")
@@ -166,6 +164,16 @@ summary_df = pd.DataFrame(summary_dict)
 summary_path = os.path.join(SCRIPT_DIR, "..", "tables", "happiness_score_summary_stats.csv")
 summary_df.to_csv(summary_path)
 print(f"\nSaved summary statistics to: {summary_path}")
+
+# Save labMT lexicon dictionary to CSV
+import csv
+lexicon_path = os.path.join(SCRIPT_DIR, "..", "tables", "labMT_lexicon.csv")
+with open(lexicon_path, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(["word", "happiness_score"])
+    for word, score in labmt_lexicon.items():
+        writer.writerow([word, score])
+print(f"Saved labMT lexicon dictionary to: {lexicon_path}")
 
 # Plot histogram by sentiment
 plt.figure(figsize=(8, 5))

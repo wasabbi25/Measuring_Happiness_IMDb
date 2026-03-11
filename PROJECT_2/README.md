@@ -127,7 +127,7 @@ This produces a document-level happiness estimate for each review.
 
 
 ## 6. Analysis
-
+The mean happiness scores are slightly above the midpoint where labMT scores range roughly from 1 to 9, with 5 as neutral.
 
 
 ## 7. Visualizations
