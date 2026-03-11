@@ -117,8 +117,10 @@ We apply the **hedonometer method** using the labMT lexicon.
 Steps:
 
 1. Tokenize each review into words
-2. Match tokens with words in the labMT lexicon
-3. Retrieve happiness scores for matched words
+2. Match tokens with words in the labMT lexicon. We will check which tokens from each review are present in the lexicon dictionary we made. 
+3. For each token that exists in the lexicon, we retrieve its happiness score. 
+4. Make a histograpm showing the distribution of happiness scores across all reviews. 
+5. Make another plot comparing happiness scores for positive vs. negative reviews. 
 4. Compute the average happiness score for each review
 
 This produces a document-level happiness estimate for each review.
@@ -130,6 +132,13 @@ This produces a document-level happiness estimate for each review.
 
 ## 7. Visualizations
 
+### Distribution of Happiness Scores
+![Happiness Score Histogram](figures/happiness_score_histogram.png)
+This histogram shows the distribution of happiness scores across all IMDb reviews. Most reviews cluster around the middle range, with both ends of positive and negative tapering into extreme responses of sentiment. This helps us see the overall emotional positive and negative sentiments in the dataset.
+
+### Happiness Scores by Sentiment
+![Happiness Score by Sentiment](figures/happiness_score_by_sentiment.png)
+This plot compares happiness scores for positive and negative reviews. Positive reviews tend to have higher happiness scores, while negative reviews cluster at lower scores. This demonstrates that the hedonometer method was a good option with modeling the sentiments in the IMDb dataset. 
 
 ## 8. How to Run the Code
 
