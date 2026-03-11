@@ -23,16 +23,18 @@
 import os
 import pandas as pd
 
+# Get absolute path to this script's directory
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Define where the raw dataset lives
 
-# This folder contains the original IMDb dataset
 
-DATA_DIR = "../data/raw/imdb"
+# This folder contains the original IMDb dataset
+DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "raw", "imdb")
 
 # Define where we want to save the cleaned dataset
 # This will become one single CSV file containing all reviews
-
-OUTPUT_FILE = "../data/processed/imdb_reviews_clean.csv"
+OUTPUT_FILE = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_reviews_clean.csv")
 
 
 # Create an empty list to store rows of data
@@ -94,6 +96,88 @@ for split in ["train", "test"]:
 # pandas DataFrame = table structure similar to Excel
 
 df = pd.DataFrame(rows)
+
+# Tokenize reviews into words
+import re
+def tokenize_reviews(df, text_column="text"):
+    df["tokens"] = df[text_column].apply(lambda x: re.findall(r"\b\w+\b", x))
+    return df
+
+df = tokenize_reviews(df)
+# Load labMT lexicon
+def load_labmt_lexicon(filepath):
+    lexicon = {}
+    with open(filepath, "r", encoding="utf-8") as f:
+        for _ in range(4):
+            next(f)
+        for line in f:
+            parts = line.strip().split("\t")
+            if len(parts) < 3:
+                continue
+            word = parts[0]
+            score = float(parts[2])
+            lexicon[word] = score
+    return lexicon
+
+# Path to labMT lexicon (relative to script)
+LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "..", "PROJECT_1", "data", "raw", "Data_Set.txt")
+labmt_lexicon = load_labmt_lexicon(LABMT_PATH)
+
+# Compute happiness score for each review
+def compute_happiness_score(tokens, lexicon):
+    scores = [lexicon[word] for word in tokens if word in lexicon]
+    if scores:
+        return sum(scores) / len(scores)
+    else:
+        return None
+
+df["happiness_score"] = df["tokens"].apply(lambda tokens: compute_happiness_score(tokens, labmt_lexicon))
+# Plot histogram of happiness scores (overall)
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 5))
+df["happiness_score"].dropna().hist(bins=50)
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.title("Distribution of Happiness Scores in IMDb Reviews")
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_histogram.png"))
+plt.show()
+# Summary statistics for happiness scores
+# Reason: Summary statistics help us understand the central tendency and spread of happiness scores in the dataset, and reveal differences between positive and negative reviews.
+# What it means: Higher mean/median scores indicate more positive language; lower scores indicate more negative language. Comparing by sentiment shows if the hedonometer aligns with review labels.
+
+overall_stats = df["happiness_score"].describe()
+print("\nOverall happiness score summary:")
+print(overall_stats)
+
+for sentiment in ["pos", "neg"]:
+    stats = df[df["sentiment"] == sentiment]["happiness_score"].describe()
+    print(f"\nHappiness score summary for {sentiment} reviews:")
+    print(stats)
+
+# Save summary statistics to tables folder
+summary_dict = {
+    "overall": overall_stats,
+    "pos": df[df["sentiment"] == "pos"]["happiness_score"].describe(),
+    "neg": df[df["sentiment"] == "neg"]["happiness_score"].describe()
+}
+summary_df = pd.DataFrame(summary_dict)
+summary_path = os.path.join(SCRIPT_DIR, "..", "tables", "happiness_score_summary_stats.csv")
+summary_df.to_csv(summary_path)
+print(f"\nSaved summary statistics to: {summary_path}")
+
+# Plot histogram by sentiment
+plt.figure(figsize=(8, 5))
+for sentiment in ["pos", "neg"]:
+    df[df["sentiment"] == sentiment]["happiness_score"].dropna().hist(bins=50, alpha=0.5, label=sentiment)
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.title("Happiness Scores by Sentiment")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_by_sentiment.png"))
+plt.show()
 
 # Basic text cleaning
 # Remove newline characters
