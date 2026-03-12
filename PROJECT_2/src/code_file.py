@@ -21,15 +21,11 @@
 # Import libraries we need
 
 import os
-
 import pandas as pd
-
 import re
-
 import csv
-
 import random
-
+import matplotlib.pyplot as plt
 
 # Get absolute path to this script's directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -105,8 +101,15 @@ for split in ["train", "test"]:
 
 df = pd.DataFrame(rows)
 
-# Tokenize reviews into words
+# Basic text cleaning (must happen before tokenization)
+# Remove newline characters
+df["text"] = df["text"].str.replace("\n", " ")
+# Remove extra whitespace at start/end
+df["text"] = df["text"].str.strip()
+# Convert text to lowercase (helps matching with lexicon)
+df["text"] = df["text"].str.lower()
 
+# Tokenize reviews into words
 def tokenize_reviews(df, text_column="text"):
     df["tokens"] = df[text_column].apply(lambda x: re.findall(r"\b\w+\b", x))
     return df
@@ -141,7 +144,6 @@ def compute_happiness_score(tokens, lexicon):
 
 df["happiness_score"] = df["tokens"].apply(lambda tokens: compute_happiness_score(tokens, labmt_lexicon))
 # Plot histogram of happiness scores (overall)
-import matplotlib.pyplot as plt
 
 plt.figure(figsize=(8, 5))
 df["happiness_score"].dropna().hist(bins=50)
@@ -150,7 +152,7 @@ plt.ylabel("Number of Reviews")
 plt.title("Distribution of Happiness Scores in IMDb Reviews")
 plt.tight_layout()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_histogram.png"))
-plt.show()
+plt.close()
 # Summary statistics for happiness scores
 
 overall_stats = df["happiness_score"].describe()
@@ -193,22 +195,7 @@ plt.title("Happiness Scores by Sentiment")
 plt.legend()
 plt.tight_layout()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_by_sentiment.png"))
-plt.show()
-
-# Basic text cleaning
-# Remove newline characters
-# Movie reviews often contain line breaks
-
-df["text"] = df["text"].str.replace("\n", " ")
-
-# Remove extra whitespace at start/end
-
-df["text"] = df["text"].str.strip()
-
-# Convert text to lowercase
-# Helps when matching words with the hedonometer lexicon later
-
-df["text"] = df["text"].str.lower()
+plt.close()
 
 # Save the cleaned dataset as a CSV file
 # This creates one dataset with all reviews
@@ -236,18 +223,13 @@ print(df["rating"].value_counts())
 
 # Sampling 
 
-# Load the processed dataset
-PROCESSED_FILE = "data/processed/imdb_reviews_clean.csv" # Path to the cleaned dataset
-df = pd.read_csv(PROCESSED_FILE) 
-
 # Set random seed for reproducibility
-RANDOM_SEED = 42
-random.seed(RANDOM_SEED)
+random.seed(42)
 
 # Function to sample n reviews from a given split and sentiment
 def sample_from_df(df, split, sentiment, n):
     subset = df[(df["split"] == split) & (df["sentiment"] == sentiment)]
-    return subset.sample(n=n, random_state=RANDOM_SEED)
+    return subset.sample(n=n, random_state=42)
 
 # Sample 50 positive reviews from train and 50 from test
 train_pos = sample_from_df(df, "train", "pos", 50)
@@ -267,6 +249,6 @@ print(sample_df["sentiment"].value_counts())
 print(sample_df["split"].value_counts())
 
 # Save sample to CSV
-SAMPLE_OUTPUT = "data/processed/imdb_review_sample_200.csv"
+SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_review_sample_200.csv")
 sample_df.to_csv(SAMPLE_OUTPUT, index=False)
 print(f"Saved sample to: {SAMPLE_OUTPUT}")
