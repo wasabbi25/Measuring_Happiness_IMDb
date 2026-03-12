@@ -21,8 +21,15 @@
 # Import libraries we need
 
 import os
-from zipfile import Path
+
 import pandas as pd
+
+import re
+
+import csv
+
+import random
+
 
 # Get absolute path to this script's directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -99,7 +106,7 @@ for split in ["train", "test"]:
 df = pd.DataFrame(rows)
 
 # Tokenize reviews into words
-import re
+
 def tokenize_reviews(df, text_column="text"):
     df["tokens"] = df[text_column].apply(lambda x: re.findall(r"\b\w+\b", x))
     return df
@@ -167,7 +174,7 @@ summary_df.to_csv(summary_path)
 print(f"\nSaved summary statistics to: {summary_path}")
 
 # Save labMT lexicon dictionary to CSV
-import csv
+
 lexicon_path = os.path.join(SCRIPT_DIR, "..", "tables", "labMT_lexicon.csv")
 with open(lexicon_path, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
@@ -227,60 +234,39 @@ print(df["rating"].value_counts())
 # Match tokens with labMT lexicon 
 # Compute: average happiness score per review, then compare things like pos vs neg reviews, train vs test, rating vs happiness score. 
 
-# Sampling
-# Imports for sampling 
-from pathlib import Path
-import random
+# Sampling 
+
+# Load the processed dataset
+PROCESSED_FILE = "data/processed/imdb_reviews_clean.csv" # Path to the cleaned dataset
+df = pd.read_csv(PROCESSED_FILE) 
 
 # Set random seed for reproducibility
-random.seed(42)
+RANDOM_SEED = 42
+random.seed(RANDOM_SEED)
 
-# Define a function to sample reviews from a specific split and sentiment
-def sample_reviews(data_dir, split, sentiment, n):
-    """
-    Sample n reviews from a specific split (train/test) and sentiment (pos/neg) 
-    """
-    folder = Path(data_dir) / split / sentiment # Build the folder path using pathlib
-    files = list(folder.glob("*.txt")) # Get all .txt files in the specified folder
-    return random.sample(files, n) # Sample n files randomly from the list of files in that folder
+# Function to sample n reviews from a given split and sentiment
+def sample_from_df(df, split, sentiment, n):
+    subset = df[(df["split"] == split) & (df["sentiment"] == sentiment)]
+    return subset.sample(n=n, random_state=RANDOM_SEED)
 
 # Sample 50 positive reviews from train and 50 from test
-train_pos = sample_reviews(DATA_DIR, "train", "pos", 50)
-test_pos = sample_reviews(DATA_DIR, "test", "pos", 50)
+train_pos = sample_from_df(df, "train", "pos", 50)
+test_pos = sample_from_df(df, "test", "pos", 50)
 
 # Sample 50 negative reviews from train and 50 from test
-train_neg = sample_reviews(DATA_DIR, "train", "neg", 50)
-test_neg = sample_reviews(DATA_DIR, "test", "neg", 50)
+train_neg = sample_from_df(df, "train", "neg", 50)
+test_neg = sample_from_df(df, "test", "neg", 50)
 
-# Combine all sampled files
-sampled_files = train_pos + test_pos + train_neg + test_neg
-
-# Load into a DataFrame
-sample_rows = [] # Initialize an empty list to store the sampled review data as dictionaries
-for file_path in sampled_files: # Loop through each sampled file path
-    review_id, rating = file_path.stem.split("_") # Extract review_id and rating from filename
-    with open(file_path, "r", encoding="utf-8") as f: # Read the review text
-        text = f.read().replace("\n", " ").strip().lower() # Text cleaning: remove newlines, strip whitespace, convert to lowercase
-    split = "train" if "train" in str(file_path) else "test" # Determine split from file path
-    sentiment = "pos" if "pos" in str(file_path) else "neg" # Determine sentiment from file path
-    sample_rows.append({ # Store the review data as a dictionary
-        "review_id": int(review_id), # Convert review_id to integer
-        "rating": int(rating), # Convert rating to integer
-        "sentiment": sentiment, # pos or neg
-        "split": split, # train or test
-        "text": text # Cleaned review text
-    }) # Append the dictionary to the list of sample rows
-
-# Create DataFrame
-sample_df = pd.DataFrame(sample_rows)
+# Combine all samples into one DataFrame
+sample_df = pd.concat([train_pos, test_pos, train_neg, test_neg]).reset_index(drop=True)
 
 # Sanity check
-print(sample_df.head()) # Print the first few rows of the sampled DataFrame to verify the structure and content
-print("Total sampled reviews:", len(sample_df)) # Print number of sampled reviews
-print(sample_df["sentiment"].value_counts()) # Check the distribution of sentiment labels in the sampled dataset
-print(sample_df["split"].value_counts()) # Check the distribution of train/test splits in the sampled dataset
+print(sample_df.head())
+print("Total sampled reviews:", len(sample_df))
+print(sample_df["sentiment"].value_counts())
+print(sample_df["split"].value_counts())
 
-# Save to CSV
-SAMPLE_OUTPUT = Path(SCRIPT_DIR) / ".." / "data" / "processed" / "imdb_review_sample_200.csv" # Define the output path for the sampled dataset
-sample_df.to_csv(SAMPLE_OUTPUT, index=False) # Save the sampled DataFrame to a CSV file without the index
-print(f"Saved sample to: {SAMPLE_OUTPUT}") # Print where the sampled dataset was saved
+# Save sample to CSV
+SAMPLE_OUTPUT = "data/processed/imdb_review_sample_200.csv"
+sample_df.to_csv(SAMPLE_OUTPUT, index=False)
+print(f"Saved sample to: {SAMPLE_OUTPUT}")
