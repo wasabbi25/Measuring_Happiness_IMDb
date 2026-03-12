@@ -228,19 +228,20 @@ print(df["rating"].value_counts())
 # Compute: average happiness score per review, then compare things like pos vs neg reviews, train vs test, rating vs happiness score. 
 
 # Sampling
+# Imports for sampling 
 from pathlib import Path
 import random
 
 # Set random seed for reproducibility
 random.seed(42)
 
-def sample_reviews(data_dir, split, sentiment, n):
+def sample_reviews(data_dir, split, sentiment, n): # Define a function to sample reviews from a specific split and sentiment
     """
     Sample n reviews from a specific split (train/test) and sentiment (pos/neg)
     """
-    folder = Path(data_dir) / split / sentiment
-    files = list(folder.glob("*.txt"))
-    return random.sample(files, n)
+    folder = Path(data_dir) / split / sentiment # Build the folder path using pathlib
+    files = list(folder.glob("*.txt")) # Get all .txt files in the specified folder
+    return random.sample(files, n) # Sample n files randomly from the list of files in that folder
 
 # Sample 50 positive reviews from train and 50 from test
 train_pos = sample_reviews(DATA_DIR, "train", "pos", 50)
@@ -273,10 +274,10 @@ for file_path in sampled_files:
 sample_df = pd.DataFrame(sample_rows)
 
 # Sanity check
-print(sample_df.head())
-print("Total sampled reviews:", len(sample_df))
-print(sample_df["sentiment"].value_counts())
-print(sample_df["split"].value_counts())
+print(sample_df.head()) # Print the first few rows of the sampled DataFrame to verify the structure and content
+print("Total sampled reviews:", len(sample_df)) # Print number of sampled reviews
+print(sample_df["sentiment"].value_counts()) # Check the distribution of sentiment labels in the sampled dataset
+print(sample_df["split"].value_counts()) # Check the distribution of train/test splits in the sampled dataset
 
 # Save to CSV
 SAMPLE_OUTPUT = Path(SCRIPT_DIR) / ".." / "data" / "processed" / "imdb_review_sample_200.csv"
