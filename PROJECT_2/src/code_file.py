@@ -21,6 +21,7 @@
 # Import libraries we need
 
 import os
+from zipfile import Path
 import pandas as pd
 
 # Get absolute path to this script's directory
@@ -225,3 +226,59 @@ print(df["rating"].value_counts())
 # Tokenize each review: review > words
 # Match tokens with labMT lexicon 
 # Compute: average happiness score per review, then compare things like pos vs neg reviews, train vs test, rating vs happiness score. 
+
+# Sampling
+from pathlib import Path
+import random
+
+# Set random seed for reproducibility
+random.seed(42)
+
+def sample_reviews(data_dir, split, sentiment, n):
+    """
+    Sample n reviews from a specific split (train/test) and sentiment (pos/neg)
+    """
+    folder = Path(data_dir) / split / sentiment
+    files = list(folder.glob("*.txt"))
+    return random.sample(files, n)
+
+# Sample 50 positive reviews from train and 50 from test
+train_pos = sample_reviews(DATA_DIR, "train", "pos", 50)
+test_pos = sample_reviews(DATA_DIR, "test", "pos", 50)
+
+# Sample 50 negative reviews from train and 50 from test
+train_neg = sample_reviews(DATA_DIR, "train", "neg", 50)
+test_neg = sample_reviews(DATA_DIR, "test", "neg", 50)
+
+# Combine all sampled files
+sampled_files = train_pos + test_pos + train_neg + test_neg
+
+# Load into a DataFrame
+sample_rows = []
+for file_path in sampled_files:
+    review_id, rating = file_path.stem.split("_")
+    with open(file_path, "r", encoding="utf-8") as f:
+        text = f.read().replace("\n", " ").strip().lower()
+    split = "train" if "train" in str(file_path) else "test"
+    sentiment = "pos" if "pos" in str(file_path) else "neg"
+    sample_rows.append({
+        "review_id": int(review_id),
+        "rating": int(rating),
+        "sentiment": sentiment,
+        "split": split,
+        "text": text
+    })
+
+# Create DataFrame
+sample_df = pd.DataFrame(sample_rows)
+
+# Sanity check
+print(sample_df.head())
+print("Total sampled reviews:", len(sample_df))
+print(sample_df["sentiment"].value_counts())
+print(sample_df["split"].value_counts())
+
+# Save to CSV
+SAMPLE_OUTPUT = Path(SCRIPT_DIR) / ".." / "data" / "processed" / "imdb_review_sample_200.csv"
+sample_df.to_csv(SAMPLE_OUTPUT, index=False)
+print(f"Saved sample to: {SAMPLE_OUTPUT}")
