@@ -236,10 +236,10 @@ test_neg = sample_from_df(df, "test", "neg", 50)
 sample_df = pd.concat([train_pos, test_pos, train_neg, test_neg]).reset_index(drop=True)
 
 # Sanity check 
-print(sample_df.head())
-print("Total sampled reviews:", len(sample_df))
-print(sample_df["sentiment"].value_counts()) #for count by sentiment
-print(sample_df["split"].value_counts()) #for count by split
+print(sample_df.head()) # Check the first few rows of the sample to ensure it looks correct
+print("Total sampled reviews:", len(sample_df)) #for count of sampled reviews : should be 200
+print(sample_df["sentiment"].value_counts()) #for count by sentiment : should be 100 pos and 100 neg 
+print(sample_df["split"].value_counts()) #for count by split : should be 100 train and 100 test
 
 # Save sample to CSV
 SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_review_sample_200.csv")
@@ -247,5 +247,23 @@ sample_df.to_csv(SAMPLE_OUTPUT, index=False)
 print(f"Saved sample to: {SAMPLE_OUTPUT}")
 
 # Sanity check for comparing sample vs full dataset distributions
-print(sample_df["happiness_score"].describe()) # Compare with overall dataset stats
-print(sample_df.groupby("sentiment")["happiness_score"].describe()) # Compare with sentiment-specific stats in overall dataset
+# Overall happiness score statistics for sample 
+print(sample_df["happiness_score"].describe()) 
+# Happiness score by sentiment stats for sample 
+print(sample_df.groupby("sentiment")["happiness_score"].describe()) 
+# Plot histogram of happiness scores for the sample
+plt.figure(figsize=(8, 5))
+sample_df["happiness_score"].hist(bins=20)
+plt.title("Sample Happiness Scores")
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.show()
+# Plot histogram of happiness scores by sentiment for the sample
+plt.figure(figsize=(8, 5))
+for sentiment in ["pos", "neg"]:
+    sample_df[sample_df["sentiment"] == sentiment]["happiness_score"].hist(bins=20, alpha=0.5, label=sentiment)
+plt.title("Sample Happiness Scores by Sentiment")
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.legend()
+plt.show()
