@@ -82,7 +82,14 @@ Sample:
 - to avoid a sample majorly positive or negative, we balanced positive and negative reviews 
 - for a more representative sample, we balanced train and test
 - Sanity checks: first few rows + counts
-- Distribution checks: statistics and histograms of happiness score + of happiness score by sentiment to ensure the sample reflects the dataset's distributions
+- Distribution checks: statistics and histograms of happiness score + of happiness score by sentiment : the sample reflects the dataset's distributions
+- mean : 5.4325
+- std : 0.1248
+- min : 4.9130 
+- max : 5.8932
+- 25% : 5.3501
+- 50% : 5.4250
+- 75% : 5.5037
 
 ## 4. Data Processing
 
