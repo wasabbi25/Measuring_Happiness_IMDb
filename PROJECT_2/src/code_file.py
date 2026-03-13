@@ -246,7 +246,7 @@ SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_review
 sample_df.to_csv(SAMPLE_OUTPUT, index=False)
 print(f"Saved sample to: {SAMPLE_OUTPUT}")
 
-# Sanity check for comparing sample vs full dataset distributions
+# Distribution checks for comparing sample vs full dataset 
 # Overall happiness score statistics for sample 
 print(sample_df["happiness_score"].describe()) 
 # Happiness score by sentiment stats for sample 
