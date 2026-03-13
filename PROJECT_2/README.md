@@ -80,7 +80,8 @@ Sample:
 - fixed seed for reproducibility
 - 200 reviews total : 50 pos reviews in train, 50 neg reviews in train, 50 pos reviews in test, 50 neg reviews in test
 - to avoid a sample majorly positive or negative, we balanced positive and negative reviews 
-- for a more representative sample, we balanced train and test 
+- for a more representative sample, we balanced train and test
+- Sanity checks: counts + summary statistics and histogram of happiness score to ensure the sample reflects the dataset's distributions
 
 ## 4. Data Processing
 
