@@ -74,6 +74,13 @@ This file corresponds to:
 - review ID: 200
 - rating: 8/10
 
+Sample:
+
+- random sampling to limit bias
+- fixed seed for reproducibility
+- 200 reviews total : 50 pos reviews in train, 50 neg reviews in train, 50 pos reviews in test, 50 neg reviews in test
+- to avoid a sample majorly positive or negative, we balanced positive and negative reviews 
+- for a more representative sample, we balanced train and test 
 
 ## 4. Data Processing
 
@@ -124,13 +131,6 @@ Steps:
 4. Compute the average happiness score for each review
 
 This produces a document-level happiness estimate for each review.
-
-Sample:
-- random sampling to limit bias
-- fixed seed for reproducibility
-- 200 reviews total : 50 pos reviews in train, 50 neg reviews in train, 50 pos reviews in test, 50 neg reviews in test
-- to avoid a sample majorly positive or negative, we balanced positive and negative reviews 
-- for a more representative sample, we balanced train and test 
 
 ## 6. Analysis
 The mean happiness scores are slightly above the midpoint where labMT scores range roughly from 1 to 9, with 5 as neutral.
