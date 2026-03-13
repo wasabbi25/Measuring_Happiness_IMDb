@@ -95,13 +95,10 @@ for split in ["train", "test"]:
                 "text": text                   # full review text
             })
 
-# Convert collected rows into a DataFrame
-
-# pandas DataFrame = table structure similar to Excel
-
+# Convert collected rows into a pandas DataFrame (table structure similar to Excel)
 df = pd.DataFrame(rows)
 
-# Basic text cleaning (must happen before tokenization)
+# Basic text cleaning 
 # Remove newline characters
 df["text"] = df["text"].str.replace("\n", " ")
 # Remove extra whitespace at start/end
@@ -115,6 +112,7 @@ def tokenize_reviews(df, text_column="text"):
     return df
 
 df = tokenize_reviews(df)
+
 # Load labMT lexicon
 def load_labmt_lexicon(filepath):
     lexicon = {}
@@ -143,8 +141,24 @@ def compute_happiness_score(tokens, lexicon):
         return None
 
 df["happiness_score"] = df["tokens"].apply(lambda tokens: compute_happiness_score(tokens, labmt_lexicon))
-# Plot histogram of happiness scores (overall)
 
+# Save the cleaned dataset as a CSV file
+# This creates one dataset with all reviews
+df.to_csv(OUTPUT_FILE, index=False)
+
+# Print confirmation in terminal
+print("Saved cleaned dataset to:", OUTPUT_FILE)
+
+# Print number of rows and columns
+print("Dataset shape:", df.shape)
+
+# Small sanity check: 
+print(df["sentiment"].value_counts())
+print(df["rating"].value_counts())
+
+# Expected resulte: pos 2500, neg 2500, ratings from 1 to 10 with varying counts.
+
+# Plot histogram of happiness scores (overall)
 plt.figure(figsize=(8, 5))
 df["happiness_score"].dropna().hist(bins=50)
 plt.xlabel("Happiness Score")
@@ -152,9 +166,9 @@ plt.ylabel("Number of Reviews")
 plt.title("Distribution of Happiness Scores in IMDb Reviews")
 plt.tight_layout()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_histogram.png"))
-plt.close()
-# Summary statistics for happiness scores
+plt.show()
 
+# Summary statistics for happiness scores
 overall_stats = df["happiness_score"].describe()
 print("\nOverall happiness score summary:")
 print(overall_stats)
@@ -176,7 +190,6 @@ summary_df.to_csv(summary_path)
 print(f"\nSaved summary statistics to: {summary_path}")
 
 # Save labMT lexicon dictionary to CSV
-
 lexicon_path = os.path.join(SCRIPT_DIR, "..", "tables", "labMT_lexicon.csv")
 with open(lexicon_path, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
@@ -195,26 +208,7 @@ plt.title("Happiness Scores by Sentiment")
 plt.legend()
 plt.tight_layout()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_by_sentiment.png"))
-plt.close()
-
-# Save the cleaned dataset as a CSV file
-# This creates one dataset with all reviews
-
-df.to_csv(OUTPUT_FILE, index=False)
-
-# Print confirmation in terminal
-
-print("Saved cleaned dataset to:", OUTPUT_FILE)
-
-# Print number of rows and columns
-print("Dataset shape:", df.shape)
-
-# Small sanity check: 
-
-print(df["sentiment"].value_counts())
-print(df["rating"].value_counts())
-
-# Expected resulte: pos 2500, neg 2500, ratings from 1 to 10 with varying counts.
+plt.show()
 
 # How we will use this for hedonometer? 
 # Tokenize each review: review > words
@@ -222,7 +216,6 @@ print(df["rating"].value_counts())
 # Compute: average happiness score per review, then compare things like pos vs neg reviews, train vs test, rating vs happiness score. 
 
 # Sampling 
-
 # Set random seed for reproducibility
 random.seed(42)
 
