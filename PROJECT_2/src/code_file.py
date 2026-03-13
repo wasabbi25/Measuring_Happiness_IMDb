@@ -156,7 +156,7 @@ print("Dataset shape:", df.shape)
 print(df["sentiment"].value_counts())
 print(df["rating"].value_counts())
 
-# Expected resulte: pos 2500, neg 2500, ratings from 1 to 10 with varying counts.
+# Expected results: pos 2500, neg 2500, ratings from 1 to 10 with varying counts.
 
 # Plot histogram of happiness scores (overall)
 plt.figure(figsize=(8, 5))
@@ -235,13 +235,17 @@ test_neg = sample_from_df(df, "test", "neg", 50)
 # Combine all samples into one DataFrame
 sample_df = pd.concat([train_pos, test_pos, train_neg, test_neg]).reset_index(drop=True)
 
-# Sanity check
+# Sanity check 
 print(sample_df.head())
 print("Total sampled reviews:", len(sample_df))
-print(sample_df["sentiment"].value_counts())
-print(sample_df["split"].value_counts())
+print(sample_df["sentiment"].value_counts()) #for count by sentiment
+print(sample_df["split"].value_counts()) #for count by split
 
 # Save sample to CSV
 SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_review_sample_200.csv")
 sample_df.to_csv(SAMPLE_OUTPUT, index=False)
 print(f"Saved sample to: {SAMPLE_OUTPUT}")
+
+# Sanity check for comparing sample vs full dataset distributions
+print(sample_df["happiness_score"].describe()) # Compare with overall dataset stats
+print(sample_df.groupby("sentiment")["happiness_score"].describe()) # Compare with sentiment-specific stats in overall dataset
