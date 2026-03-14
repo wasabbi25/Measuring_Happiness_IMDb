@@ -247,17 +247,33 @@ sample_df.to_csv(SAMPLE_OUTPUT, index=False)
 print(f"Saved sample to: {SAMPLE_OUTPUT}")
 
 # Distribution checks for comparing sample vs full dataset 
+
+# Statistics
 # Overall happiness score statistics for sample 
-print(sample_df["happiness_score"].describe()) 
+sample_overall_stats = sample_df["happiness_score"].describe()
+print("\nOverall happiness score summary for sample:")
+print(sample_overall_stats)
 # Happiness score by sentiment stats for sample 
-print(sample_df.groupby("sentiment")["happiness_score"].describe()) 
+sample_sentiment_stats = sample_df.groupby("sentiment")["happiness_score"].describe()
+print("\nHappiness score by sentiment for sample:")
+print(sample_sentiment_stats)
+# Save sample statistics to CSV
+sample_overall_df = sample_overall_stats.to_frame().T
+sample_overall_df.index = ["sample_overall"]
+sample_combined_stats = pd.concat([sample_overall_df, sample_sentiment_stats])
+sample_combined_stats.to_csv("tables/sample_happiness_statistics.csv")
+print("\nSaved sample happiness score statistics to: tables/sample_happiness_statistics.csv")
+
+# Histograms
 # Plot histogram of happiness scores for the sample
 plt.figure(figsize=(8, 5))
 sample_df["happiness_score"].hist(bins=20)
 plt.title("Sample Happiness Scores")
 plt.xlabel("Happiness Score")
 plt.ylabel("Number of Reviews")
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "sample_happiness_score_histogram.png"))
 plt.show()
+
 # Plot histogram of happiness scores by sentiment for the sample
 plt.figure(figsize=(8, 5))
 for sentiment in ["pos", "neg"]:
@@ -266,4 +282,5 @@ plt.title("Sample Happiness Scores by Sentiment")
 plt.xlabel("Happiness Score")
 plt.ylabel("Number of Reviews")
 plt.legend()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "sample_happiness_score_by_sentiment.png"))
 plt.show()
