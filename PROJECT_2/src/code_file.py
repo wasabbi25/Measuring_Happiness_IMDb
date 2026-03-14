@@ -258,11 +258,15 @@ sample_sentiment_stats = sample_df.groupby("sentiment")["happiness_score"].descr
 print("\nHappiness score by sentiment for sample:")
 print(sample_sentiment_stats)
 # Save sample statistics to CSV
-sample_overall_df = sample_overall_stats.to_frame().T
-sample_overall_df.index = ["sample_overall"]
-sample_combined_stats = pd.concat([sample_overall_df, sample_sentiment_stats])
-sample_combined_stats.to_csv("tables/sample_happiness_statistics.csv")
-print("\nSaved sample happiness score statistics to: tables/sample_happiness_statistics.csv")
+sample_summary_dict = {
+    "sample_overall": sample_df["happiness_score"].describe(),
+    "sample_pos": sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].describe(),
+    "sample_neg": sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].describe()
+}
+sample_summary_df = pd.DataFrame(sample_summary_dict)
+sample_summary_path = os.path.join(SCRIPT_DIR, "..", "tables", "sample_happiness_summary_stats.csv")
+sample_summary_df.to_csv(sample_summary_path)
+print(f"\nSaved sample summary statistics to: {sample_summary_path}")
 
 # Histograms
 # Plot histogram of happiness scores for the sample
