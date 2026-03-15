@@ -7,12 +7,3 @@ min,4.585714285714286,4.585714285714286,4.657714285714286
 50%,5.407741935483871,5.465568181818181,5.359878048780487
 75%,5.491577181208053,5.546233766233766,5.4233714397700545
 max,6.254166666666666,6.254166666666666,6.0407142857142855
-"""Summary statistics for the overall, positive, and negative happiness scores. 
-We can see the average happiness score on line 3: it says it is around 5.42 for the overall score, 
-5.47 for the positive score, and 5.36 for the negative score. 
-This summary statistics help us to understand the what the typical happiness tendency is and spread 
-of happiness scores in the dataset, and reveal differences between positive 
-and negative reviews. Higher mean/median scores indicate more 
-positive language; lower scores indicate more negative language. Comparing by sentiment 
-shows if the hedonometer aligns with review labels.
-"""
