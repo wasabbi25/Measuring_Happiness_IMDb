@@ -377,3 +377,62 @@ plt.show()
 prob_pos_higher = np.mean(bootstrap_diff > 0)
 print(f"Estimated probability that positive reviews have higher happiness scores than negative reviews: {prob_pos_higher:.2f}")
 
+# Robustness Check: Estimator Choice (Mean vs Median)
+
+# Compute median happiness scores for positive and negative reviews
+sample_pos_median = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].median()
+sample_neg_median = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].median()
+
+print("\nMedian happiness score for positive reviews:", round(sample_pos_median, 3))
+print("Median happiness score for negative reviews:", round(sample_neg_median, 3))
+
+median_diff = sample_pos_median - sample_neg_median
+print("Difference in median happiness score (pos - neg):", round(median_diff, 3))
+
+# Bootstrap Median Robustness Check
+def bootstrap_median(data, n_bootstrap=1000, seed=42):
+    np.random.seed(seed)
+    bootstrap_medians = []
+    for _ in range(n_bootstrap):
+        sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_medians.append(np.median(sample))
+    return np.array(bootstrap_medians)
+
+pos_bootstrap_medians = bootstrap_median(pos_reviews)
+neg_bootstrap_medians = bootstrap_median(neg_reviews)
+
+bootstrap_median_diff = pos_bootstrap_medians - neg_bootstrap_medians
+
+median_lower = np.percentile(bootstrap_median_diff, 2.5)
+median_upper = np.percentile(bootstrap_median_diff, 97.5)
+
+print(f"95% CI for difference in medians (pos - neg): [{median_lower:.2f}, {median_upper:.2f}]")
+
+# MAE vs MSE Intuition
+
+overall_mean = sample_df["happiness_score"].mean()
+
+mae = np.mean(np.abs(sample_df["happiness_score"] - overall_mean))
+mse = np.mean((sample_df["happiness_score"] - overall_mean) ** 2)
+
+print("\nEstimator robustness diagnostics:")
+print("Mean Absolute Error (MAE):", round(mae, 3))
+print("Mean Squared Error (MSE):", round(mse, 3))
+
+# Plot comparison of mean vs median difference
+plt.figure(figsize=(6,4))
+
+plt.bar(
+    ["Mean difference", "Median difference"],
+    [score_diff, median_diff],
+    color=["steelblue","darkorange"]
+)
+
+plt.ylabel("Difference in Happiness Score (Pos - Neg)")
+plt.title("Robustness Check: Mean vs Median Estimators")
+
+plt.tight_layout()
+
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "robustness_estimator_comparison.png"))
+
+plt.show() 
