@@ -157,6 +157,14 @@ The mean happiness scores are slightly above the midpoint where labMT scores ran
 - baseline point estimate of the difference between positive and negative reviews: 0.12
 - positive reviews thus present a slightly higher happiness score
 
+# 9. Quantifying uncertainty
+
+- we used bootstrap resampling to quantify uncertainty for the average happiness score of both positive and negative reviews and for the baseline point estimate
+- we resampled both positive and negative reviews with replacement 1000 times
+- for each resample, we computed the mean happiness score
+- we calculated the difference in means (positive - negative) for each bootstrap iteration 
+- we calculated the 95% percentile confidence intervals for each group mean and the difference
+
 ## 9. Visualizations
 
 ### Distribution of Happiness Scores
