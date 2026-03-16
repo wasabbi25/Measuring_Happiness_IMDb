@@ -127,6 +127,7 @@ Basic preprocessing steps include:
 
 ## 5. Estimand
 
+- the estimand is the difference in mean happiness scores between positive and negative reviews
 - population quantity: difference in mean sentiment between positive (rating ≥ 7) and negative reviews (rating ≤ 4)
 - unit of analysis: individual IMDB review
 
@@ -141,7 +142,7 @@ Steps:
 3. For each token that exists in the lexicon, we retrieve its happiness score. 
 4. Make a histograpm showing the distribution of happiness scores across all reviews. 
 5. Make another plot comparing happiness scores for positive vs. negative reviews. 
-4. Compute the average happiness score for each review
+6. Compute the average happiness score for each review
 
 This produces a document-level happiness estimate for each review.
 
