@@ -209,7 +209,7 @@ Team members and roles:
 - Repo & workflow lead:  
 - Data acquisition lead:  
 - Measurement lead:
-- Stats and sampling lead: Marguerite Audeguis
+- Stats and sampling lead: Marguerite Audeguis (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
 - Visualization lead:  
 
 ## 14. References
