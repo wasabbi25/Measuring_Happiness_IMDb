@@ -288,3 +288,17 @@ plt.ylabel("Number of Reviews")
 plt.legend()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "sample_happiness_score_by_sentiment.png"))
 plt.show()
+
+# Baseline point estimate
+
+# Compute average happiness score for positive reviews in the sample
+sample_pos_mean = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].mean()
+print(f"Average happiness score for positive reviews in sample: {sample_pos_mean:.2f}")
+
+# Compute average happiness score for negative reviews in the sample
+sample_neg_mean = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].mean()
+print(f"Average happiness score for negative reviews in sample: {sample_neg_mean:.2f}")
+
+# Difference
+score_diff = sample_pos_mean - sample_neg_mean
+print(f"Difference in average happiness score (pos - neg): {score_diff:.2f}")
