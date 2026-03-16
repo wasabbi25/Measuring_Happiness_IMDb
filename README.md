@@ -245,6 +245,93 @@ This table captures the timing of when certain words related to the sentiment of
 | critical   | 14 hours later        | Analytical | 14 hours later i am still trying to find flaws in the plot but i cannot think of anything serious. | Analytical, delayed reflection
 
 ## 12. How to run the code 
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd qualitative-quantitative-group2-main
+```
+
+### 2. Install Dependencies
+
+The project requires a small set of Python libraries. Install them using the provided `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+```
+
+Required packages:
+
+* pandas
+* numpy
+* matplotlib
+
+Python 3.8 or newer is recommended.
+
+### 3. Verify Dataset Location
+
+The code expects the IMDb dataset to already be included in the following directory:
+
+```
+data/IMDb/raw/imdb/
+```
+
+Inside this directory the structure should look like:
+
+```
+imdb/
+├── train/
+│   ├── pos/
+│   └── neg/
+└── test/
+    ├── pos/
+    └── neg/
+```
+
+Each `.txt` file represents a single review. The filename encodes metadata in the format:
+
+```
+[id]_[rating].txt
+```
+
+Example:
+
+```
+200_8.txt
+```
+
+* `200` → review ID
+* `8` → star rating (1–10)
+
+### 4. Run the Data Processing Script
+
+Execute the main script from the project root:
+
+```bash
+python src/code_file.py
+```
+
+### 5. Output
+
+The script will:
+
+1. Traverse all review files in the IMDb dataset.
+2. Extract metadata from filenames.
+3. Combine the dataset into a structured table.
+
+The final cleaned dataset will be saved to:
+
+```
+data/processed/imdb_reviews_clean.csv
+```
+
+Each row in the output CSV represents one review with the following columns:
+
+* `review_id` – extracted from the filename
+* `rating` – numerical rating (1–10)
+* `sentiment` – positive or negative label
+* `split` – train or test
+* `text` – full review text
 
 ## 13. Tools Used
 
