@@ -219,8 +219,7 @@ This plot compares happiness scores for positive and negative reviews. Positive 
 
 ### Mean Happiness CI 
 ![Mean Happiness CI](figures/mean_happiness_ci.png)
-The positive reviews (mean = 5.49) scored higher than negative reviews. (mean = 5.37)
-The error bars show 95% bootstrap confidence intervals. Since the two intervals do not overlap, the difference is statistically meaningful. 
+The positive reviews (mean = 5.49) scored higher than negative reviews. (mean = 5.37) The error bars show 95% bootstrap confidence intervals. Since the two intervals do not overlap, the difference is statistically meaningful. 
 
 ### Bootstrap Distribution by Sentiment 
 ![Bootstrap Difference Distribution](figures/bootstrap_difference_happiness_scores.png)
@@ -228,13 +227,10 @@ This histogram shows the bootstrap distribution of the difference in mean happin
 
 ### Bootstrap Distribution of Mean Happiness Scores
 ![Bootstrap Mean Happiness Scores](figures/bootstrap_mean_happiness_scores.png)
-This plot shows the bootstrap distributions of mean happiness scores for positive (blue) and negative (orange) reviews across 1,000 resamples. The two distributions 
-are completely separate with no overlap, and the 95% confidence intervals (shown by vertical dashed lines) do not intersect. Positive reviews consistently score higher (CI: [5.47, 5.51]) than negative reviews (CI: [5.35, 5.40]), 
-strongly supporting our claim that sentiment label is associated with a meaningful difference in happiness score.
+This plot shows the bootstrap distributions of mean happiness scores for positive (blue) and negative (orange) reviews across 1,000 resamples. The two distributions are completely separate with no overlap, and the 95% confidence intervals (shown by vertical dashed lines) do not intersect. Positive reviews consistently score higher (CI: [5.47, 5.51]) than negative reviews (CI: [5.35, 5.40]), which strongly supports our claim that sentiment label is associated with a meaningful difference in happiness score.
 
 ### Robustness Check
-To verify the result is not driven by outliers, we repeated the comparison 
-using the median instead of the mean:
+To verify the result is not driven by outliers, we repeated the comparison using the median instead of the mean:
 - median happiness positive reviews: 5.47
 - median happiness negative reviews: 5.37
 - difference (median): 0.10
