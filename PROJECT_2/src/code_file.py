@@ -323,6 +323,20 @@ def bootstrap_mean(data, n_bootstrap=1000, seed=42):
 pos_bootstrap_means = bootstrap_mean(pos_reviews, n_bootstrap= 1000)
 neg_bootstrap_means = bootstrap_mean(neg_reviews, n_bootstrap=1000)
 
+# Histograms of bootstrap means for positive and negative reviews
+plt.figure(figsize=(8, 5))
+plt.hist(pos_bootstrap_means, bins=30, alpha=0.5, label="Positive Reviews")
+plt.hist(neg_bootstrap_means, bins=30, alpha=0.5, label="Negative Reviews")
+plt.axvline(pos_bootstrap_means.mean(), color="blue", linestyle="dashed", linewidth=1, label="Sample Pos Mean")
+plt.axvline(neg_bootstrap_means.mean(), color="orange", linestyle="dashed", linewidth= 1, label="Sample Neg Mean")
+plt.xlabel("Bootstrap Mean Happiness Score")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Mean Happiness Scores")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_mean_happiness_scores.png"))
+plt.show()
+
 # 95% confidence intervals for each group
 pos_lower = np.percentile(pos_bootstrap_means, 2.5)
 pos_upper = np.percentile(pos_bootstrap_means, 97.5)
@@ -387,3 +401,6 @@ ax.legend(fontsize=9)
 plt.tight_layout()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_diff_distribution.png"))
 plt.show()
+# Probability that positive reviews have higher happiness scores than negative reviews
+prob_pos_higher = np.mean(bootstrap_diff > 0)
+print(f"Estimated probability that positive reviews have higher happiness scores than negative reviews: {prob_pos_higher:.2f}")
