@@ -241,6 +241,7 @@ review language rather than a few unusually positive or negative tokens.
 AI assistance was used to help debug code and clarify programming concepts.
 
 ## 13. Credits
+
 - Who did what (team roles)
 	- Anastasia Ciorogaru: Repo & Workflow Lead & Figure + Data Aqcuisition Lead
 		- created and organized the repository, cleaned up code and README, managed branches and helped stay organized
@@ -257,8 +258,7 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- checked results for sanity and reproducibility
 		- additionally wrote code and interpretation for corpus comparison, and wrote the project overview
 		- (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
-	- Hena Puthengot
-
+	- Hena Puthengot 
 
 ## 11. References
 - Measurement lead:
