@@ -125,8 +125,12 @@ Basic preprocessing steps include:
 - trimming extra whitespace
 - converting text to lowercase
 
+## 5. Estimand
 
-## 5. Methods
+- population quantity: difference in mean sentiment between positive (rating ≥ 7) and negative reviews (rating ≤ 4)
+- unit of analysis: individual IMDB review
+
+## 6. Methods
 
 We apply the **hedonometer method** using the labMT lexicon.
 
