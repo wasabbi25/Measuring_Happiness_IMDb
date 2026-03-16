@@ -260,10 +260,22 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
 	- Hena Puthengot 
 
-## 11. References
-- Measurement lead:
-- Stats and sampling lead: Marguerite Audeguis (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
-- Visualization lead:  
+## 11. Word Exhibit: Timing and Emotional Expression
+
+Words in our exhibit were chosen if they contained timing phrases to explore how variables such as immediacy of a sentiment or delay shapes reviewer's emotional and analytical language. Reviews written immediately after viewing often use affective words (e.g., “enchanted,” “mesmerised”), while those written days or weeks later tend to be more reflective or critical. This analysis suggests how timing of the posted review, retrospective memory, and context influence public expressions of sentiment in the digital film culture.
+
+**Why did we pick these 6 words?**
+They are sentiment words that reflect cultural context in correlation to timing phrases. We check on certain phrases such as "immediate" or "a week later" related to the sentiment (positive or negative) of the reviews. We also notice the language use being shaped by how immediate the review was made, such as using more emotionally nuanced words or more analytical words. The timing phrases tell us when the post was made in relation to watching, the sentiment, the review snippet, and the cultural/contextual note are notes about the review in relation to the timing phrases. The ones reading more analytical may have patterns of more reflection.
+
+This table captures the timing of when certain words related to the sentiment of the reviews were used in the reviews. The timing phrases tell us when the post was made in relation to watching, the sentiment, the review snippet, and the cultural/contextual note are notes about the review in relation to the timing phrases.
+
+| Word        | Timing Phrase         | Sentiment   | Review Snippet            | Cultural/Contextual Note                |
+|------------|----------------------|------------|---------------------------|-----------------------------------------|
+| enchanted  | first saw            | Positive   | I first saw this film when I was about seven years old and was completely enchanted by it then… | Nostalgia, childhood memory             |
+| disappointed| a week later        | Negative   | now i am twenty one and stumbled upon the film by accident about two weeks ago… | Reflective, delayed reaction            |
+| mesmerised | immediately          | Positive   | damn, was that a lot to take in. i was pretty much mesmerised throughout…      | Immediate, strong emotional response    |
+| enjoyed    | when it was in theaters | Positive | i read many commits when it was in the theaters and they were all bad....i think you have to be a certain type of person to enjoy these movies. | Social context, collective experience   |
+| critical   | 14 hours later        | Analytical | 14 hours later i am still trying to find flaws in the plot but i cannot think of anything serious. | Analytical, delayed reflection 
 
 ## 14. References
 
