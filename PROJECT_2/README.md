@@ -170,6 +170,13 @@ results:
 - 95% confidence interval for positive reviews: [5.47, 5.51]
 - 95% confidence interval for negative reviews: [5.35, 5.40]
 - 95% confidence interval for the difference in means (pos - neg): [0.09, 0.15]
+- this confirms that positive reviews have a higher mean happiness score
+
+To quantify our confidence in this effect, we estimated the probability that positive reviews have higher happiness scores than negative reviews: 
+- probability: 1.00
+- in all bootstrap iterations, positive reviews are happier than negative reviews
+- this strongly supports our claim
+
 
 ## 10. Visualizations
 

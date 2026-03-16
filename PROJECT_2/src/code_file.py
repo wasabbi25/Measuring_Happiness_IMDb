@@ -339,3 +339,7 @@ bootstrap_diff = pos_bootstrap_means - neg_bootstrap_means
 lower_bound = np.percentile(bootstrap_diff, 2.5)
 upper_bound = np.percentile(bootstrap_diff, 97.5)
 print(f"95% confidence interval for the difference in means (pos - neg): [{lower_bound:.2f}, {upper_bound:.2f}]")
+
+# Probability that positive reviews have higher happiness scores than negative reviews
+prob_pos_higher = np.mean(bootstrap_diff > 0)
+print(f"Estimated probability that positive reviews have higher happiness scores than negative reviews: {prob_pos_higher:.2f}")``
