@@ -74,8 +74,6 @@ This file corresponds to:
 - review ID: 200
 - rating: 8/10
 
-<<<<<<< HEAD
-=======
 Sample:
 
 - random sampling to limit bias
@@ -92,7 +90,6 @@ Sample:
 - 25% : 5.3501
 - 50% : 5.4250
 - 75% : 5.5037
->>>>>>> 1ebcc5665ec07d520a927abe3af4c5208e088c14
 
 ## 4. Data Processing
 
@@ -128,10 +125,6 @@ Basic preprocessing steps include:
 - trimming extra whitespace
 - converting text to lowercase
 
-<<<<<<< HEAD
-
-## 5. Methods
-=======
 ## 5. Estimand
 
 - the estimand is the difference in mean happiness scores between positive and negative reviews
@@ -139,33 +132,12 @@ Basic preprocessing steps include:
 - unit of analysis: individual IMDB review
 
 ## 6. Methods
->>>>>>> 1ebcc5665ec07d520a927abe3af4c5208e088c14
 
 We apply the **hedonometer method** using the labMT lexicon.
 
 Steps:
 
 1. Tokenize each review into words
-<<<<<<< HEAD
-2. Match tokens with words in the labMT lexicon
-3. Retrieve happiness scores for matched words
-4. Compute the average happiness score for each review
-
-This produces a document-level happiness estimate for each review.
-
-
-## 6. Analysis
-
-
-
-## 7. Visualizations
-
-
-## 8. How to Run the Code
-
-
-## 9. Tools Used
-=======
 2. Match tokens with words in the labMT lexicon. We will check which tokens from each review are present in the lexicon dictionary we made. 
 3. For each token that exists in the lexicon, we retrieve its happiness score. 
 4. Make a histograpm showing the distribution of happiness scores across all reviews. 
@@ -234,7 +206,8 @@ This histogram shows the bootstrap distribution of the difference in mean happin
 
 This plot shows the bootstrap distributions of mean happiness scores for positive (blue) and negative (orange) reviews across 1,000 resamples. The two distributions are completely separate with no overlap, and the 95% confidence intervals (shown by vertical dashed lines) do not intersect. Positive reviews consistently score higher (CI: [5.47, 5.51]) than negative reviews (CI: [5.35, 5.40]), which strongly supports our claim that sentiment label is associated with a meaningful difference in happiness score.
 
-### Robustness Check
+### Robustness 
+![Robustness Estimator Comparison](figures/robustness_estimator_comparison.png)
 
 To verify the result is not driven by outliers, we repeated the comparison using the median instead of the mean:
 - median happiness positive reviews: 5.47
@@ -247,7 +220,6 @@ The finding holds under both estimators, confirming it is robust.
 
 
 ## 12. Tools Used
->>>>>>> 1ebcc5665ec07d520a927abe3af4c5208e088c14
 
 - Python  
 - pandas  
