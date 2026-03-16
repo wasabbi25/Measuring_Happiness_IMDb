@@ -186,10 +186,9 @@ Team members and roles:
 
 - Repo & workflow lead:  
 - Data acquisition lead:  
-- Measurement lead:  
+- Measurement lead:
+- Stats and sampling lead: Marguerite Audeguis
 - Visualization lead:  
-- Editor & figure curator:  
-
 
 ## 13. References
 
