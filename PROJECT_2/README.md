@@ -221,8 +221,14 @@ This plot compares happiness scores for positive and negative reviews. Positive 
 The positive reviews (mean = 5.49) scored higher than negative reviews. (mean = 5.37)
 The error bars show 95% bootstrap confidence intervals. Since the two intervals do not overlap, the difference is statistically meaningful. 
 
-### Bootstrap Difference Happiness
-
+### Bootstrap Distribution of Difference in Mean Happiness Scores 
+![Bootstrap Difference Distribution](figures/bootstrap_difference_happiness_scores.png)
+This histogram shows the bootstrap distribution of the difference in mean happiness 
+scores (positive − negative) across 1,000 resamples. The observed mean difference 
+(black dashed line, 0.12) sits well above zero (red dashed line), and the entire 
+95% CI [0.09, 0.15] (blue and green dashed lines) lies above zero. 
+This confirms that positive reviews consistently score higher than negative reviews, 
+and the difference is unlikely to be due to chance.
 ## 11. How to Run the Code
 
 
