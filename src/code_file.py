@@ -35,7 +35,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # This folder contains the original IMDb dataset
-DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "raw", "imdb")
+DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "IMDb", "raw", "imdb")
 
 # Define where we want to save the cleaned dataset
 # This will become one single CSV file containing all reviews
@@ -130,7 +130,7 @@ def load_labmt_lexicon(filepath):
     return lexicon
 
 # Path to labMT lexicon (relative to script)
-LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "..", "PROJECT_1", "data", "raw", "Data_Set.txt")
+LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "..", "data", "LabMT", "raw", "Data_Set.txt")
 labmt_lexicon = load_labmt_lexicon(LABMT_PATH)
 
 # Compute happiness score for each review
