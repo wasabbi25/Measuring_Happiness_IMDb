@@ -240,8 +240,6 @@ review language rather than a few unusually positive or negative tokens.
 
 AI assistance was used to help debug code and clarify programming concepts.
 
-
-## 10. Credits
 ## 13. Credits
 
 Team members and roles:
