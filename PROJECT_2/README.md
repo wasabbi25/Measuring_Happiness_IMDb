@@ -165,7 +165,7 @@ The mean happiness scores are slightly above the midpoint where labMT scores ran
 - we calculated the difference in means (positive - negative) for each bootstrap iteration 
 - we calculated the 95% percentile confidence intervals for each group mean and the difference
 
-## 9. Visualizations
+## 10. Visualizations
 
 ### Distribution of Happiness Scores
 ![Happiness Score Histogram](figures/happiness_score_histogram.png)
@@ -175,10 +175,10 @@ This histogram shows the distribution of happiness scores across all IMDb review
 ![Happiness Score by Sentiment](figures/happiness_score_by_sentiment.png)
 This plot compares happiness scores for positive and negative reviews. Positive reviews tend to have higher happiness scores, while negative reviews cluster at lower scores. This demonstrates that the hedonometer method was a good option with modeling the sentiments in the IMDb dataset. 
 
-## 10. How to Run the Code
+## 11. How to Run the Code
 
 
-## 11. Tools Used
+## 12. Tools Used
 
 - Python  
 - pandas  
@@ -189,7 +189,7 @@ This plot compares happiness scores for positive and negative reviews. Positive 
 AI assistance was used to help debug code and clarify programming concepts.
 
 
-## 12. Credits
+## 13. Credits
 
 Team members and roles:
 
@@ -199,7 +199,7 @@ Team members and roles:
 - Stats and sampling lead: Marguerite Audeguis
 - Visualization lead:  
 
-## 13. References
+## 14. References
 
 Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
 Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
