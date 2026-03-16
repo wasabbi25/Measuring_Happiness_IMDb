@@ -323,20 +323,6 @@ def bootstrap_mean(data, n_bootstrap=1000, seed=42):
 pos_bootstrap_means = bootstrap_mean(pos_reviews, n_bootstrap= 1000)
 neg_bootstrap_means = bootstrap_mean(neg_reviews, n_bootstrap=1000)
 
-# Histograms of bootstrap means for positive and negative reviews
-plt.figure(figsize=(8, 5))
-plt.hist(pos_bootstrap_means, bins=30, alpha=0.5, label="Positive Reviews")
-plt.hist(neg_bootstrap_means, bins=30, alpha=0.5, label="Negative Reviews")
-plt.axvline(pos_bootstrap_means.mean(), color="blue", linestyle="dashed", linewidth=1, label="Sample Pos Mean")
-plt.axvline(neg_bootstrap_means.mean(), color="orange", linestyle="dashed", linewidth= 1, label="Sample Neg Mean")
-plt.xlabel("Bootstrap Mean Happiness Score")
-plt.ylabel("Frequency")
-plt.title("Bootstrap Distribution of Mean Happiness Scores")
-plt.legend()
-plt.tight_layout()
-plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_mean_happiness_scores.png"))
-plt.show()
-
 # 95% confidence intervals for each group
 pos_lower = np.percentile(pos_bootstrap_means, 2.5)
 pos_upper = np.percentile(pos_bootstrap_means, 97.5)
@@ -346,6 +332,24 @@ neg_lower = np.percentile(neg_bootstrap_means, 2.5)
 neg_upper = np.percentile(neg_bootstrap_means, 97.5)
 print(f"95% confidence interval for negative reviews: [{neg_lower:.2f}, {neg_upper:.2f}]")
 
+# Histograms of bootstrap means for positive and negative reviews
+plt.figure(figsize=(8, 5))
+plt.hist(pos_bootstrap_means, bins=30, alpha=0.5, label="Positive Reviews")
+plt.hist(neg_bootstrap_means, bins=30, alpha=0.5, label="Negative Reviews")
+plt.axvline(pos_bootstrap_means.mean(), color="blue", linestyle="dashed", linewidth=1, label="Sample Pos Mean")
+plt.axvline(neg_bootstrap_means.mean(), color="orange", linestyle="dashed", linewidth= 1, label="Sample Neg Mean")
+plt.axvline(pos_lower, color="blue", linestyle="dashed", linewidth=1, label="Pos 95% CI Lower")
+plt.axvline(pos_upper, color="blue", linestyle="dashed", linewidth=1, label="Pos 95% CI Upper")
+plt.axvline(neg_lower, color="orange", linestyle="dashed", linewidth=1, label="Neg 95% CI Lower")   
+plt.axvline(neg_upper, color="orange", linestyle="dashed", linewidth=1, label="Neg 95% CI Upper")
+plt.xlabel("Bootstrap Mean Happiness Score")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Mean Happiness Scores")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_mean_happiness_scores.png"))
+plt.show()
+
 # Bootstrap the difference
 bootstrap_diff = pos_bootstrap_means - neg_bootstrap_means
 
@@ -354,53 +358,6 @@ lower_bound = np.percentile(bootstrap_diff, 2.5)
 upper_bound = np.percentile(bootstrap_diff, 97.5)
 print(f"95% confidence interval for the difference in means (pos - neg): [{lower_bound:.2f}, {upper_bound:.2f}]")
 
-# bar chart showing average happiness score for pos vs neg reviews
-# with error bars to show uncertainty
-
-fig, ax = plt.subplots(figsize=(7, 5))
-
-avg_scores = [sample_pos_mean, sample_neg_mean]
-err_low = [sample_pos_mean - pos_lower, sample_neg_mean - neg_lower]
-err_high = [pos_upper - sample_pos_mean, neg_upper - sample_neg_mean]
-
-ax.bar(["Positive", "Negative"], avg_scores,
-       color=["blue", "pink"], alpha=0.7, width=0.5)
-ax.errorbar(["Positive", "Negative"], avg_scores,
-            yerr=[err_low, err_high],
-            fmt="none", color="black", capsize=6, linewidth=1.5)
-
-ax.set_title("Average Happiness Score by Sentiment (with 95% CI)")
-ax.set_xlabel("Sentiment")
-ax.set_ylabel("Average Happiness Score")
-ax.set_ylim(5.2, 5.7)
-
-plt.tight_layout()
-plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "mean_happiness_ci.png"))
-plt.show()
-
-
-# histogram of bootstrap differences to show uncertainty around the gap
-
-fig, ax = plt.subplots(figsize=(7, 5))
-
-ax.hist(bootstrap_diff, bins=50, color="mediumpurple", alpha=0.75)
-ax.axvline(lower_bound, color="red", linestyle="--",
-           label=f"lower 95% CI: {lower_bound:.3f}")
-ax.axvline(upper_bound, color="red", linestyle="--",
-           label=f"upper 95% CI: {upper_bound:.3f}")
-ax.axvline(score_diff, color="black", linewidth=2,
-           label=f"observed diff: {score_diff:.3f}")
-ax.axvline(0, color="gray", linestyle=":", linewidth=1.5,
-           label="zero (no difference)")
-
-ax.set_title("Bootstrap Distribution: Difference in Happiness (Pos - Neg)")
-ax.set_xlabel("Difference in Mean Score")
-ax.set_ylabel("Count")
-ax.legend(fontsize=9)
-
-plt.tight_layout()
-plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_diff_distribution.png"))
-plt.show()
 # Histogram of bootstrap differences
 plt.figure(figsize=(8, 5))
 plt.hist(bootstrap_diff, bins=30, alpha=0.7, color="purple", label="Bootstrap Differences (Pos - Neg)")
