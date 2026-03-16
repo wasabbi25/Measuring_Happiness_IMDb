@@ -129,16 +129,33 @@ Steps:
 
 This produces a document-level happiness estimate for each review.
 
+### Handling Out-Of-Vocabulary (OOV) Words
+Tokens in the IMDb review that do not appear in the labMT lexicon are considered OOV. They are not included in the hedonometer scoring.
+
+We collected all OOV words and saved them to a file ([tables/oov_words.csv](tables/oov_words.csv)). For happiness scoring, we ignored OOV words and only used tokens with labMT scores. This ensures our results are based on validated lexicon data
+
 ## 7. Analysis
 The mean happiness scores are slightly above the midpoint where labMT scores range roughly from 1 to 9, with 5 as neutral.
 
-# 8. Baseline descriptive comparison
+## 8. Baseline descriptive comparison
 
 - we compared the mean happiness score for positive and negative reviews in the sample
 - mean happiness positive reviews: 5.49
 - mean happiness negative reviews: 5.37
 - baseline point estimate of the difference between positive and negative reviews: 0.12
 - positive reviews thus present a slightly higher happiness score
+
+### Summary Statistics
+To check the sample’s representativeness, we computed summary statistics for happiness scores:
+- mean: 5.4325
+- std: 0.1248
+- min: 4.9130
+- max: 5.8932
+- 25%: 5.3501
+- 50%: 5.4250
+- 75%: 5.5037
+
+Happiness Score: using the labMT hedonometer lexicon, we tokenized each word and assigned it a happiness value to each word in the reviews. Summary statistics were calculated for overall happiness score, positive happiness score, and negative happiness score for all words in the reviews. The mean happiness score above is the average of the happiness scores calculated for each individual review in the sample.
 
 # 9. Quantifying uncertainty
 
@@ -249,7 +266,7 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
 		- connected qualitative observations back to patterns in the plots
 		- created citation list
-		- created word exhibit
+		- implemented and tested hedonometer scoring (tokenization, matching to labMT , handling OOV words), word exhibit choice in words based on timing phrases, and summary statistics
 	- Yoonkyung Kim: Provenance & Critique Lead
 		- reconstructed the dataset pipeline
 		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see. 
