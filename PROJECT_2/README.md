@@ -209,12 +209,6 @@ This plot shows the bootstrap distributions of mean happiness scores for positiv
 ### Robustness 
 ![Robustness Estimator Comparison](figures/robustness_estimator_comparison.png)
 
-To verify the result is not driven by outliers, we repeated the comparison using the median instead of the mean:
-- median happiness positive reviews: 5.47
-- median happiness negative reviews: 5.37
-- difference (median): 0.10
-
-The finding holds under both estimators, confirming it is robust.
 
 ## 11. How to Run the Code
 
@@ -230,30 +224,24 @@ The finding holds under both estimators, confirming it is robust.
 AI assistance was used to help debug code and clarify programming concepts.
 
 
-<<<<<<< HEAD
 ## 10. Credits
-=======
 ## 13. Credits
->>>>>>> 1ebcc5665ec07d520a927abe3af4c5208e088c14
 
 Team members and roles:
 
 - Repo & workflow lead:  
 - Data acquisition lead:  
-<<<<<<< HEAD
 - Measurement lead:  
 - Visualization lead:  
 - Editor & figure curator:  
 
 
 ## 11. References
-=======
 - Measurement lead:
 - Stats and sampling lead: Marguerite Audeguis (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
 - Visualization lead:  
 
 ## 14. References
->>>>>>> 1ebcc5665ec07d520a927abe3af4c5208e088c14
 
 Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
 Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
