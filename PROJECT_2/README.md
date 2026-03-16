@@ -145,11 +145,18 @@ Steps:
 
 This produces a document-level happiness estimate for each review.
 
-## 6. Analysis
+## 7. Analysis
 The mean happiness scores are slightly above the midpoint where labMT scores range roughly from 1 to 9, with 5 as neutral.
 
+# 8. Baseline descriptive comparison
 
-## 7. Visualizations
+- we compared the mean happiness score for positive and negative reviews in the sample
+- mean happiness positive reviews: 5.49
+- mean happiness negative reviews: 5.37
+- baseline point estimate of the difference between positive and negative reviews: 0.12
+- positive reviews thus present a slightly higher happiness score
+
+## 9. Visualizations
 
 ### Distribution of Happiness Scores
 ![Happiness Score Histogram](figures/happiness_score_histogram.png)
@@ -159,10 +166,10 @@ This histogram shows the distribution of happiness scores across all IMDb review
 ![Happiness Score by Sentiment](figures/happiness_score_by_sentiment.png)
 This plot compares happiness scores for positive and negative reviews. Positive reviews tend to have higher happiness scores, while negative reviews cluster at lower scores. This demonstrates that the hedonometer method was a good option with modeling the sentiments in the IMDb dataset. 
 
-## 8. How to Run the Code
+## 10. How to Run the Code
 
 
-## 9. Tools Used
+## 11. Tools Used
 
 - Python  
 - pandas  
@@ -173,7 +180,7 @@ This plot compares happiness scores for positive and negative reviews. Positive 
 AI assistance was used to help debug code and clarify programming concepts.
 
 
-## 10. Credits
+## 12. Credits
 
 Team members and roles:
 
@@ -184,7 +191,7 @@ Team members and roles:
 - Editor & figure curator:  
 
 
-## 11. References
+## 13. References
 
 Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
 Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
