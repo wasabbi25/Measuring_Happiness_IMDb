@@ -26,6 +26,7 @@ import re
 import csv
 import random
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Get absolute path to this script's directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -321,6 +322,15 @@ def bootstrap_mean(data, n_bootstrap=1000, seed=42):
 # Compute bootstrap distributions for positive and negative reviews
 pos_bootstrap_means = bootstrap_mean(pos_reviews, n_bootstrap= 1000)
 neg_bootstrap_means = bootstrap_mean(neg_reviews, n_bootstrap=1000)
+
+# 95% confidence intervals for each group
+pos_lower = np.percentile(pos_bootstrap_means, 2.5)
+pos_upper = np.percentile(pos_bootstrap_means, 97.5)
+print(f"95% confidence interval for positive reviews: [{pos_lower:.2f}, {pos_upper:.2f}]")
+
+neg_lower = np.percentile(neg_bootstrap_means, 2.5)
+neg_upper = np.percentile(neg_bootstrap_means, 97.5)
+print(f"95% confidence interval for negative reviews: [{neg_lower:.2f}, {neg_upper:.2f}]")
 
 # Bootstrap the difference
 bootstrap_diff = pos_bootstrap_means - neg_bootstrap_means

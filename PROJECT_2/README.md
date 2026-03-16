@@ -159,11 +159,17 @@ The mean happiness scores are slightly above the midpoint where labMT scores ran
 
 # 9. Quantifying uncertainty
 
+method:
 - we used bootstrap resampling to quantify uncertainty for the average happiness score of both positive and negative reviews and for the baseline point estimate
 - we resampled both positive and negative reviews with replacement 1000 times
 - for each resample, we computed the mean happiness score
 - we calculated the difference in means (positive - negative) for each bootstrap iteration 
 - we calculated the 95% percentile confidence intervals for each group mean and the difference
+
+results:
+- 95% confidence interval for positive reviews: [5.47, 5.51]
+- 95% confidence interval for negative reviews: [5.35, 5.40]
+- 95% confidence interval for the difference in means (pos - neg): [0.09, 0.15]
 
 ## 10. Visualizations
 
