@@ -302,3 +302,30 @@ print(f"Average happiness score for negative reviews in sample: {sample_neg_mean
 # Difference
 score_diff = sample_pos_mean - sample_neg_mean
 print(f"Difference in average happiness score (pos - neg): {score_diff:.2f}")
+
+# Quantifying uncertainty 
+
+# Separate the positive and negative reviews in the sample
+pos_reviews = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].dropna().values
+neg_reviews = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].dropna().values
+
+# Define the bootstrap function
+def bootstrap_mean(data, n_bootstrap=1000, seed=42):
+    np.random.seed(seed)
+    bootstrap_means = []
+    for _ in range(n_bootstrap):
+        sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_means.append(np.mean(sample))
+    return np.array(bootstrap_means)
+
+# Compute bootstrap distributions for positive and negative reviews
+pos_bootstrap_means = bootstrap_mean(pos_reviews, n_bootstrap= 1000)
+neg_bootstrap_means = bootstrap_mean(neg_reviews, n_bootstrap=1000)
+
+# Bootstrap the difference
+bootstrap_diff = pos_bootstrap_means - neg_bootstrap_means
+
+# Compute 95% confidence interval for the difference
+lower_bound = np.percentile(bootstrap_diff, 2.5)
+upper_bound = np.percentile(bootstrap_diff, 97.5)
+print(f"95% confidence interval for the difference in means (pos - neg): [{lower_bound:.2f}, {upper_bound:.2f}]")
