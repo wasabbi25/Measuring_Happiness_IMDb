@@ -354,6 +354,21 @@ lower_bound = np.percentile(bootstrap_diff, 2.5)
 upper_bound = np.percentile(bootstrap_diff, 97.5)
 print(f"95% confidence interval for the difference in means (pos - neg): [{lower_bound:.2f}, {upper_bound:.2f}]")
 
+# Histogram of bootstrap differences
+plt.figure(figsize=(8, 5))
+plt.hist(bootstrap_diff, bins=30, alpha=0.7, color="purple", label="Bootstrap Differences (Pos - Neg)")
+plt.axvline(bootstrap_diff.mean(), color="black", linestyle="dashed", linewidth=1, label="Mean Difference")
+plt.axvline(0, color="red", linestyle="dashed", linewidth=1, label="No Difference (0)")
+plt.axvline(lower_bound, color="blue", linestyle="dashed", linewidth=1, label="95% CI Lower")
+plt.axvline(upper_bound, color="green", linestyle="dashed", linewidth=1, label="95% CI Upper")
+plt.xlabel("Bootstrap Difference in Mean Happiness Scores (Pos - Neg)")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Difference in Mean Happiness Scores")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_difference_happiness_scores.png"))
+plt.show()
+
 # Probability that positive reviews have higher happiness scores than negative reviews
 prob_pos_higher = np.mean(bootstrap_diff > 0)
 print(f"Estimated probability that positive reviews have higher happiness scores than negative reviews: {prob_pos_higher:.2f}")
