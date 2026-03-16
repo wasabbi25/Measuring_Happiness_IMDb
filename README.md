@@ -62,7 +62,17 @@ Sample:
 - 50% : 5.4250
 - 75% : 5.5037
 
-## 3. Data provenance and ethical implicataions
+## 3. Ethical considerations 
+
+Several ethical considerations arise when working with both the lexicon and the review dataset.
+
+First, the labMT lexicon reflects cultural assumptions embedded in the crowd-sourced ratings used to construct it. Word meanings and emotional associations may vary across communities, cultures, and contexts. As a result, the happiness scores produced by the lexicon should be interpreted as **approximate indicators of emotional tone rather than objective measurements**.
+
+Second, lexicon-based approaches do not account for linguistic context. Words may carry different emotional meanings depending on how they are used in a sentence. Sarcasm, irony, and complex narrative structures can therefore produce misleading scores.
+
+Third, the IMDb dataset consists of publicly available user-generated reviews. Although these texts are publicly accessible, they still represent the expressions of individual users. Analyses of such data should therefore be conducted responsibly and interpreted cautiously.
+
+Finally, the dataset intentionally excludes neutral reviews, which may exaggerate differences between positive and negative categories. This design choice simplifies classification but may not fully represent the spectrum of opinions expressed in real-world review data.
 
 ## 4. Data Processing
 
