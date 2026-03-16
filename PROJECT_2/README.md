@@ -216,12 +216,13 @@ This histogram shows the distribution of happiness scores across all IMDb review
 ![Happiness Score by Sentiment](figures/happiness_score_by_sentiment.png)
 This plot compares happiness scores for positive and negative reviews. Positive reviews tend to have higher happiness scores, while negative reviews cluster at lower scores. This demonstrates that the hedonometer method was a good option with modeling the sentiments in the IMDb dataset. 
 
+
 ### Mean Happiness CI 
 ![Mean Happiness CI](figures/mean_happiness_ci.png)
 The positive reviews (mean = 5.49) scored higher than negative reviews. (mean = 5.37)
 The error bars show 95% bootstrap confidence intervals. Since the two intervals do not overlap, the difference is statistically meaningful. 
 
-### Bootstrap Distribution of Difference in Mean Happiness Scores 
+### Bootstrap Distribution by Sentiment 
 ![Bootstrap Difference Distribution](figures/bootstrap_difference_happiness_scores.png)
 This histogram shows the bootstrap distribution of the difference in mean happiness scores (positive − negative) across 1,000 resamples. The observed mean difference (black dashed vertical line, 0.12) sits well above zero (red dashed vertical line), and the entire 95% CI [0.09, 0.15] (blue and green dashed vertical lines) lies above zero. This confirms that positive reviews consistently score higher than negative reviews, and the difference is unlikely to be due to chance.
 
@@ -231,6 +232,14 @@ This plot shows the bootstrap distributions of mean happiness scores for positiv
 are completely separate with no overlap, and the 95% confidence intervals (shown by vertical dashed lines) do not intersect. Positive reviews consistently score higher (CI: [5.47, 5.51]) than negative reviews (CI: [5.35, 5.40]), 
 strongly supporting our claim that sentiment label is associated with a meaningful difference in happiness score.
 
+### Robustness Check
+To verify the result is not driven by outliers, we repeated the comparison 
+using the median instead of the mean:
+- median happiness positive reviews: 5.47
+- median happiness negative reviews: 5.37
+- difference (median): 0.10
+
+The finding holds under both estimators, confirming it is robust.
 
 ## 11. How to Run the Code
 
