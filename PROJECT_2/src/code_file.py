@@ -436,21 +436,3 @@ plt.tight_layout()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "robustness_estimator_comparison.png"))
 
 plt.show() 
-
-# Visualization: MAE vs MSE
-plt.figure(figsize=(6,4))
-
-plt.bar(
-    ["MAE", "MSE"],
-    [mae, mse],
-    color=["purple", "green"]
-)
-
-plt.ylabel("Error magnitude")
-plt.title("Comparison of Mean Absolute Error (MAE) and Mean Squared Error (MSE)")
-
-plt.tight_layout()
-
-plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "mae_vs_mse_comparison.png"))
-
-plt.show()
