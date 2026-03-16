@@ -223,12 +223,15 @@ The error bars show 95% bootstrap confidence intervals. Since the two intervals 
 
 ### Bootstrap Distribution of Difference in Mean Happiness Scores 
 ![Bootstrap Difference Distribution](figures/bootstrap_difference_happiness_scores.png)
-This histogram shows the bootstrap distribution of the difference in mean happiness 
-scores (positive − negative) across 1,000 resamples. The observed mean difference 
-(black dashed line, 0.12) sits well above zero (red dashed line), and the entire 
-95% CI [0.09, 0.15] (blue and green dashed lines) lies above zero. 
-This confirms that positive reviews consistently score higher than negative reviews, 
-and the difference is unlikely to be due to chance.
+This histogram shows the bootstrap distribution of the difference in mean happiness scores (positive − negative) across 1,000 resamples. The observed mean difference (black dashed vertical line, 0.12) sits well above zero (red dashed vertical line), and the entire 95% CI [0.09, 0.15] (blue and green dashed vertical lines) lies above zero. This confirms that positive reviews consistently score higher than negative reviews, and the difference is unlikely to be due to chance.
+
+### Bootstrap Distribution of Mean Happiness Scores
+![Bootstrap Mean Happiness Scores](figures/bootstrap_mean_happiness_scores.png)
+This plot shows the bootstrap distributions of mean happiness scores for positive (blue) and negative (orange) reviews across 1,000 resamples. The two distributions 
+are completely separate with no overlap, and the 95% confidence intervals (shown by vertical dashed lines) do not intersect. Positive reviews consistently score higher (CI: [5.47, 5.51]) than negative reviews (CI: [5.35, 5.40]), 
+strongly supporting our claim that sentiment label is associated with a meaningful difference in happiness score.
+
+
 ## 11. How to Run the Code
 
 
