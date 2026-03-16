@@ -250,9 +250,10 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
 		- connected qualitative observations back to patterns in the plots
 		- created citation list
-	- Yoonkyung Kim: Provenance & Critique Lead
+	- Yoonkyung Kim: Provenance & Critique Lead + Visualizations Lead
 		- reconstructed the dataset pipeline
-		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see. 
+		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see.
+    	- created visuzalizations and interpretations for the second mini project
 	- Marguerite Audeguis: Quantitative Analyst + Stats and Sampling Lead
 		- led descriptive statistics, and created plots
 		- checked results for sanity and reproducibility
