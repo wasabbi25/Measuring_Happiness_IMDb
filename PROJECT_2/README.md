@@ -159,6 +159,11 @@ The mean happiness scores are slightly above the midpoint where labMT scores ran
 
 # 9. Quantifying uncertainty
 
+assumptions:
+- resampling unit: individual IMDB review
+- independence: reviews are assumed independent
+- representativeness: the sample is balanced and reflects the dataset distributions
+
 method:
 - we used bootstrap resampling to quantify uncertainty for the average happiness score of both positive and negative reviews and for the baseline point estimate
 - we resampled both positive and negative reviews with replacement 1000 times
@@ -176,7 +181,6 @@ To quantify our confidence in this effect, we estimated the probability that pos
 - probability: 1.00
 - in all bootstrap iterations, positive reviews are happier than negative reviews
 - this strongly supports our claim
-
 
 ## 10. Visualizations
 
