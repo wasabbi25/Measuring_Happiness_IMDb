@@ -22,17 +22,24 @@
 
 import os
 import pandas as pd
+import re
+import csv
+import random
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Get absolute path to this script's directory
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Define where the raw dataset lives
 
-# This folder contains the original IMDb dataset
 
-DATA_DIR = "../data/raw/imdb"
+# This folder contains the original IMDb dataset
+DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "raw", "imdb")
 
 # Define where we want to save the cleaned dataset
 # This will become one single CSV file containing all reviews
-
-OUTPUT_FILE = "../data/processed/imdb_reviews_clean.csv"
+OUTPUT_FILE = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_reviews_clean.csv")
 
 
 # Create an empty list to store rows of data
@@ -89,47 +96,343 @@ for split in ["train", "test"]:
                 "text": text                   # full review text
             })
 
-# Convert collected rows into a DataFrame
-
-# pandas DataFrame = table structure similar to Excel
-
+# Convert collected rows into a pandas DataFrame (table structure similar to Excel)
 df = pd.DataFrame(rows)
 
-# Basic text cleaning
+# Basic text cleaning 
 # Remove newline characters
-# Movie reviews often contain line breaks
-
 df["text"] = df["text"].str.replace("\n", " ")
-
 # Remove extra whitespace at start/end
-
 df["text"] = df["text"].str.strip()
-
-# Convert text to lowercase
-# Helps when matching words with the hedonometer lexicon later
-
+# Convert text to lowercase (helps matching with lexicon)
 df["text"] = df["text"].str.lower()
+
+# Tokenize reviews into words
+def tokenize_reviews(df, text_column="text"):
+    df["tokens"] = df[text_column].apply(lambda x: re.findall(r"\b\w+\b", x))
+    return df
+
+df = tokenize_reviews(df)
+
+# Load labMT lexicon
+def load_labmt_lexicon(filepath):
+    lexicon = {}
+    with open(filepath, "r", encoding="utf-8") as f:
+        for _ in range(4):
+            next(f)
+        for line in f:
+            parts = line.strip().split("\t")
+            if len(parts) < 3:
+                continue
+            word = parts[0]
+            score = float(parts[2])
+            lexicon[word] = score
+    return lexicon
+
+# Path to labMT lexicon (relative to script)
+LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "..", "PROJECT_1", "data", "raw", "Data_Set.txt")
+labmt_lexicon = load_labmt_lexicon(LABMT_PATH)
+
+# Compute happiness score for each review
+def compute_happiness_score(tokens, lexicon):
+    scores = [lexicon[word] for word in tokens if word in lexicon]
+    if scores:
+        return sum(scores) / len(scores)
+    else:
+        return None
+
+df["happiness_score"] = df["tokens"].apply(lambda tokens: compute_happiness_score(tokens, labmt_lexicon))
 
 # Save the cleaned dataset as a CSV file
 # This creates one dataset with all reviews
-
 df.to_csv(OUTPUT_FILE, index=False)
 
 # Print confirmation in terminal
-
 print("Saved cleaned dataset to:", OUTPUT_FILE)
 
 # Print number of rows and columns
 print("Dataset shape:", df.shape)
 
 # Small sanity check: 
-
 print(df["sentiment"].value_counts())
 print(df["rating"].value_counts())
 
-# Expected resulte: pos 2500, neg 2500, ratings from 1 to 10 with varying counts.
+# Expected results: pos 2500, neg 2500, ratings from 1 to 10 with varying counts.
+
+# Plot histogram of happiness scores (overall)
+plt.figure(figsize=(8, 5))
+df["happiness_score"].dropna().hist(bins=50)
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.title("Distribution of Happiness Scores in IMDb Reviews")
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_histogram.png"))
+plt.show()
+
+# Summary statistics for happiness scores
+overall_stats = df["happiness_score"].describe()
+print("\nOverall happiness score summary:")
+print(overall_stats)
+
+for sentiment in ["pos", "neg"]:
+    stats = df[df["sentiment"] == sentiment]["happiness_score"].describe()
+    print(f"\nHappiness score summary for {sentiment} reviews:")
+    print(stats)
+
+# Save summary statistics to tables folder
+summary_dict = {
+    "overall": overall_stats,
+    "pos": df[df["sentiment"] == "pos"]["happiness_score"].describe(),
+    "neg": df[df["sentiment"] == "neg"]["happiness_score"].describe()
+}
+summary_df = pd.DataFrame(summary_dict)
+summary_path = os.path.join(SCRIPT_DIR, "..", "tables", "happiness_score_summary_stats.csv")
+summary_df.to_csv(summary_path)
+print(f"\nSaved summary statistics to: {summary_path}")
+
+# Save labMT lexicon dictionary to CSV
+lexicon_path = os.path.join(SCRIPT_DIR, "..", "tables", "labMT_lexicon.csv")
+with open(lexicon_path, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(["word", "happiness_score"])
+    for word, score in labmt_lexicon.items():
+        writer.writerow([word, score])
+print(f"Saved labMT lexicon dictionary to: {lexicon_path}")
+
+# Plot histogram by sentiment
+plt.figure(figsize=(8, 5))
+for sentiment in ["pos", "neg"]:
+    df[df["sentiment"] == sentiment]["happiness_score"].dropna().hist(bins=50, alpha=0.5, label=sentiment)
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.title("Happiness Scores by Sentiment")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "happiness_score_by_sentiment.png"))
+plt.show()
 
 # How we will use this for hedonometer? 
 # Tokenize each review: review > words
 # Match tokens with labMT lexicon 
 # Compute: average happiness score per review, then compare things like pos vs neg reviews, train vs test, rating vs happiness score. 
+
+# Sampling 
+# Set random seed for reproducibility
+random.seed(42)
+
+# Function to sample n reviews from a given split and sentiment
+def sample_from_df(df, split, sentiment, n):
+    subset = df[(df["split"] == split) & (df["sentiment"] == sentiment)]
+    return subset.sample(n=n, random_state=42)
+
+# Sample 50 positive reviews from train and 50 from test
+train_pos = sample_from_df(df, "train", "pos", 50)
+test_pos = sample_from_df(df, "test", "pos", 50)
+
+# Sample 50 negative reviews from train and 50 from test
+train_neg = sample_from_df(df, "train", "neg", 50)
+test_neg = sample_from_df(df, "test", "neg", 50)
+
+# Combine all samples into one DataFrame
+sample_df = pd.concat([train_pos, test_pos, train_neg, test_neg]).reset_index(drop=True)
+
+# Sanity check 
+print(sample_df.head()) # Check the first few rows of the sample to ensure it looks correct
+print("Total sampled reviews:", len(sample_df)) #for count of sampled reviews : should be 200
+print(sample_df["sentiment"].value_counts()) #for count by sentiment : should be 100 pos and 100 neg 
+print(sample_df["split"].value_counts()) #for count by split : should be 100 train and 100 test
+
+# Save sample to CSV
+SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_review_sample_200.csv")
+sample_df.to_csv(SAMPLE_OUTPUT, index=False)
+print(f"Saved sample to: {SAMPLE_OUTPUT}")
+
+# Distribution checks for comparing sample vs full dataset 
+
+# Statistics
+# Overall happiness score statistics for sample 
+sample_overall_stats = sample_df["happiness_score"].describe()
+print("\nOverall happiness score summary for sample:")
+print(sample_overall_stats)
+# Happiness score by sentiment stats for sample 
+sample_sentiment_stats = sample_df.groupby("sentiment")["happiness_score"].describe()
+print("\nHappiness score by sentiment for sample:")
+print(sample_sentiment_stats)
+# Save sample statistics to CSV
+sample_summary_dict = {
+    "sample_overall": sample_df["happiness_score"].describe(),
+    "sample_pos": sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].describe(),
+    "sample_neg": sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].describe()
+}
+sample_summary_df = pd.DataFrame(sample_summary_dict)
+sample_summary_path = os.path.join(SCRIPT_DIR, "..", "tables", "sample_happiness_summary_stats.csv")
+sample_summary_df.to_csv(sample_summary_path)
+print(f"\nSaved sample summary statistics to: {sample_summary_path}")
+
+# Histograms
+# Plot histogram of happiness scores for the sample
+plt.figure(figsize=(8, 5))
+sample_df["happiness_score"].hist(bins=20)
+plt.title("Sample Happiness Scores")
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "sample_happiness_score_histogram.png"))
+plt.show()
+
+# Plot histogram of happiness scores by sentiment for the sample
+plt.figure(figsize=(8, 5))
+for sentiment in ["pos", "neg"]:
+    sample_df[sample_df["sentiment"] == sentiment]["happiness_score"].hist(bins=20, alpha=0.5, label=sentiment)
+plt.title("Sample Happiness Scores by Sentiment")
+plt.xlabel("Happiness Score")
+plt.ylabel("Number of Reviews")
+plt.legend()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "sample_happiness_score_by_sentiment.png"))
+plt.show()
+
+# Baseline point estimate
+
+# Compute average happiness score for positive reviews in the sample
+sample_pos_mean = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].mean()
+print(f"Average happiness score for positive reviews in sample: {sample_pos_mean:.2f}")
+
+# Compute average happiness score for negative reviews in the sample
+sample_neg_mean = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].mean()
+print(f"Average happiness score for negative reviews in sample: {sample_neg_mean:.2f}")
+
+# Difference
+score_diff = sample_pos_mean - sample_neg_mean
+print(f"Difference in average happiness score (pos - neg): {score_diff:.2f}")
+
+# Quantifying uncertainty 
+
+# Separate the positive and negative reviews in the sample
+pos_reviews = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].dropna().values
+neg_reviews = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].dropna().values
+
+# Define the bootstrap function
+def bootstrap_mean(data, n_bootstrap=1000, seed=42):
+    np.random.seed(seed)
+    bootstrap_means = []
+    for _ in range(n_bootstrap):
+        sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_means.append(np.mean(sample))
+    return np.array(bootstrap_means)
+
+# Compute bootstrap distributions for positive and negative reviews
+pos_bootstrap_means = bootstrap_mean(pos_reviews, n_bootstrap= 1000)
+neg_bootstrap_means = bootstrap_mean(neg_reviews, n_bootstrap=1000)
+
+# 95% confidence intervals for each group
+pos_lower = np.percentile(pos_bootstrap_means, 2.5)
+pos_upper = np.percentile(pos_bootstrap_means, 97.5)
+print(f"95% confidence interval for positive reviews: [{pos_lower:.2f}, {pos_upper:.2f}]")
+
+neg_lower = np.percentile(neg_bootstrap_means, 2.5)
+neg_upper = np.percentile(neg_bootstrap_means, 97.5)
+print(f"95% confidence interval for negative reviews: [{neg_lower:.2f}, {neg_upper:.2f}]")
+
+# Histograms of bootstrap means for positive and negative reviews
+plt.figure(figsize=(8, 5))
+plt.hist(pos_bootstrap_means, bins=30, alpha=0.5, label="Positive Reviews")
+plt.hist(neg_bootstrap_means, bins=30, alpha=0.5, label="Negative Reviews")
+plt.axvline(pos_bootstrap_means.mean(), color="blue", linestyle="dashed", linewidth=1, label="Sample Pos Mean")
+plt.axvline(neg_bootstrap_means.mean(), color="orange", linestyle="dashed", linewidth= 1, label="Sample Neg Mean")
+plt.axvline(pos_lower, color="blue", linestyle="dashed", linewidth=1, label="Pos 95% CI Lower")
+plt.axvline(pos_upper, color="blue", linestyle="dashed", linewidth=1, label="Pos 95% CI Upper")
+plt.axvline(neg_lower, color="orange", linestyle="dashed", linewidth=1, label="Neg 95% CI Lower")   
+plt.axvline(neg_upper, color="orange", linestyle="dashed", linewidth=1, label="Neg 95% CI Upper")
+plt.xlabel("Bootstrap Mean Happiness Score")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Mean Happiness Scores")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_mean_happiness_scores.png"))
+plt.show()
+
+# Bootstrap the difference
+bootstrap_diff = pos_bootstrap_means - neg_bootstrap_means
+
+# Compute 95% confidence interval for the difference
+lower_bound = np.percentile(bootstrap_diff, 2.5)
+upper_bound = np.percentile(bootstrap_diff, 97.5)
+print(f"95% confidence interval for the difference in means (pos - neg): [{lower_bound:.2f}, {upper_bound:.2f}]")
+
+# Histogram of bootstrap differences
+plt.figure(figsize=(8, 5))
+plt.hist(bootstrap_diff, bins=30, alpha=0.7, color="purple", label="Bootstrap Differences (Pos - Neg)")
+plt.axvline(bootstrap_diff.mean(), color="black", linestyle="dashed", linewidth=1, label="Mean Difference")
+plt.axvline(0, color="red", linestyle="dashed", linewidth=1, label="No Difference (0)")
+plt.axvline(lower_bound, color="blue", linestyle="dashed", linewidth=1, label="95% CI Lower")
+plt.axvline(upper_bound, color="green", linestyle="dashed", linewidth=1, label="95% CI Upper")
+plt.xlabel("Bootstrap Difference in Mean Happiness Scores (Pos - Neg)")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Difference in Mean Happiness Scores")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_difference_happiness_scores.png"))
+plt.show()
+
+# Probability that positive reviews have higher happiness scores than negative reviews
+prob_pos_higher = np.mean(bootstrap_diff > 0)
+print(f"Estimated probability that positive reviews have higher happiness scores than negative reviews: {prob_pos_higher:.2f}")
+
+# Robustness Check: Estimator Choice (Mean vs Median)
+
+# Compute median happiness scores for positive and negative reviews
+sample_pos_median = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].median()
+sample_neg_median = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].median()
+
+print("\nMedian happiness score for positive reviews:", round(sample_pos_median, 3))
+print("Median happiness score for negative reviews:", round(sample_neg_median, 3))
+
+median_diff = sample_pos_median - sample_neg_median
+print("Difference in median happiness score (pos - neg):", round(median_diff, 3))
+
+# Bootstrap Median Robustness Check
+def bootstrap_median(data, n_bootstrap=1000, seed=42):
+    np.random.seed(seed)
+    bootstrap_medians = []
+    for _ in range(n_bootstrap):
+        sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_medians.append(np.median(sample))
+    return np.array(bootstrap_medians)
+
+pos_bootstrap_medians = bootstrap_median(pos_reviews)
+neg_bootstrap_medians = bootstrap_median(neg_reviews)
+
+bootstrap_median_diff = pos_bootstrap_medians - neg_bootstrap_medians
+
+median_lower = np.percentile(bootstrap_median_diff, 2.5)
+median_upper = np.percentile(bootstrap_median_diff, 97.5)
+
+print(f"95% CI for difference in medians (pos - neg): [{median_lower:.2f}, {median_upper:.2f}]")
+
+# MAE vs MSE Intuition
+
+overall_mean = sample_df["happiness_score"].mean()
+
+mae = np.mean(np.abs(sample_df["happiness_score"] - overall_mean))
+mse = np.mean((sample_df["happiness_score"] - overall_mean) ** 2)
+
+print("\nEstimator robustness diagnostics:")
+print("Mean Absolute Error (MAE):", round(mae, 3))
+print("Mean Squared Error (MSE):", round(mse, 3))
+
+# Plot comparison of mean vs median difference
+plt.figure(figsize=(6,4))
+
+plt.bar(
+    ["Mean difference", "Median difference"],
+    [score_diff, median_diff],
+    color=["steelblue","darkorange"]
+)
+
+plt.ylabel("Difference in Happiness Score (Pos - Neg)")
+plt.title("Robustness Check: Mean vs Median Estimators")
+
+plt.tight_layout()
+
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "robustness_estimator_comparison.png"))
+
+plt.show()
