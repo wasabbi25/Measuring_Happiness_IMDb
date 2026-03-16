@@ -209,6 +209,19 @@ This plot shows the bootstrap distributions of mean happiness scores for positiv
 ### Robustness 
 ![Robustness Estimator Comparison](figures/robustness_estimator_comparison.png)
 
+To test whether our findings depend on the estimator used to summarize
+review happiness, we compared the mean and median happiness scores
+for positive and negative reviews. The difference between positive and
+negative reviews remained visible when using the median estimator,
+indicating that the result is not driven by a small number of extreme
+outliers.
+
+We also examined mean absolute error (MAE) and mean squared error (MSE)
+relative to the corpus mean. Because MSE penalizes larger deviations more
+heavily than MAE, this comparison helps illustrate how sensitive our
+estimates are to extreme values. The consistency across estimators
+suggests that the observed difference reflects a general pattern in
+review language rather than a few unusually positive or negative tokens.
 
 ## 11. How to Run the Code
 
