@@ -348,7 +348,9 @@ AI assistance was used to help debug code and clarify programming concepts.
 - Who did what (team roles)
 	- Anastasia Ciorogaru: Repo & Workflow Lead & Figure + Data Aqcuisition Lead
 		- created and organized the repository, cleaned up code and README, managed branches and helped stay organized
-		- additionally, wrote the code for dataset cleanup (loaded dataset, handled missing values, converted data types), completed the methods section in the README, and performed the write-up the tasks for the word "exhibit". 
+		- additionally, wrote the code for dataset cleanup (loaded dataset, handled missing values, converted data types)
+    	- wrote the code and interpretation for the robustness check, wrote the ethical considerations regarding dataset and detailed provenance and data structure
+        - reconfigured repository when needed 
 	- Catalina Mena Llopez: Qualitative / Close Reading + Measurement Lead
 		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
 		- connected qualitative observations back to patterns in the plots
