@@ -26,6 +26,7 @@ import re
 import csv
 import random
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Get absolute path to this script's directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -34,7 +35,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # This folder contains the original IMDb dataset
-DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "raw", "imdb")
+DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "IMDb", "raw", "imdb")
 
 # Define where we want to save the cleaned dataset
 # This will become one single CSV file containing all reviews
@@ -129,7 +130,7 @@ def load_labmt_lexicon(filepath):
     return lexicon
 
 # Path to labMT lexicon (relative to script)
-LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "..", "PROJECT_1", "data", "raw", "Data_Set.txt")
+LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "..", "data", "LabMT", "raw", "Data_Set.txt")
 labmt_lexicon = load_labmt_lexicon(LABMT_PATH)
 
 # Compute happiness score for each review
@@ -288,3 +289,150 @@ plt.ylabel("Number of Reviews")
 plt.legend()
 plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "sample_happiness_score_by_sentiment.png"))
 plt.show()
+
+# Baseline point estimate
+
+# Compute average happiness score for positive reviews in the sample
+sample_pos_mean = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].mean()
+print(f"Average happiness score for positive reviews in sample: {sample_pos_mean:.2f}")
+
+# Compute average happiness score for negative reviews in the sample
+sample_neg_mean = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].mean()
+print(f"Average happiness score for negative reviews in sample: {sample_neg_mean:.2f}")
+
+# Difference
+score_diff = sample_pos_mean - sample_neg_mean
+print(f"Difference in average happiness score (pos - neg): {score_diff:.2f}")
+
+# Quantifying uncertainty 
+
+# Separate the positive and negative reviews in the sample
+pos_reviews = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].dropna().values
+neg_reviews = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].dropna().values
+
+# Define the bootstrap function
+def bootstrap_mean(data, n_bootstrap=1000, seed=42):
+    np.random.seed(seed)
+    bootstrap_means = []
+    for _ in range(n_bootstrap):
+        sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_means.append(np.mean(sample))
+    return np.array(bootstrap_means)
+
+# Compute bootstrap distributions for positive and negative reviews
+pos_bootstrap_means = bootstrap_mean(pos_reviews, n_bootstrap= 1000)
+neg_bootstrap_means = bootstrap_mean(neg_reviews, n_bootstrap=1000)
+
+# 95% confidence intervals for each group
+pos_lower = np.percentile(pos_bootstrap_means, 2.5)
+pos_upper = np.percentile(pos_bootstrap_means, 97.5)
+print(f"95% confidence interval for positive reviews: [{pos_lower:.2f}, {pos_upper:.2f}]")
+
+neg_lower = np.percentile(neg_bootstrap_means, 2.5)
+neg_upper = np.percentile(neg_bootstrap_means, 97.5)
+print(f"95% confidence interval for negative reviews: [{neg_lower:.2f}, {neg_upper:.2f}]")
+
+# Histograms of bootstrap means for positive and negative reviews
+plt.figure(figsize=(8, 5))
+plt.hist(pos_bootstrap_means, bins=30, alpha=0.5, label="Positive Reviews")
+plt.hist(neg_bootstrap_means, bins=30, alpha=0.5, label="Negative Reviews")
+plt.axvline(pos_bootstrap_means.mean(), color="blue", linestyle="dashed", linewidth=1, label="Sample Pos Mean")
+plt.axvline(neg_bootstrap_means.mean(), color="orange", linestyle="dashed", linewidth= 1, label="Sample Neg Mean")
+plt.axvline(pos_lower, color="blue", linestyle="dashed", linewidth=1, label="Pos 95% CI Lower")
+plt.axvline(pos_upper, color="blue", linestyle="dashed", linewidth=1, label="Pos 95% CI Upper")
+plt.axvline(neg_lower, color="orange", linestyle="dashed", linewidth=1, label="Neg 95% CI Lower")   
+plt.axvline(neg_upper, color="orange", linestyle="dashed", linewidth=1, label="Neg 95% CI Upper")
+plt.xlabel("Bootstrap Mean Happiness Score")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Mean Happiness Scores")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_mean_happiness_scores.png"))
+plt.show()
+
+# Bootstrap the difference
+bootstrap_diff = pos_bootstrap_means - neg_bootstrap_means
+
+# Compute 95% confidence interval for the difference
+lower_bound = np.percentile(bootstrap_diff, 2.5)
+upper_bound = np.percentile(bootstrap_diff, 97.5)
+print(f"95% confidence interval for the difference in means (pos - neg): [{lower_bound:.2f}, {upper_bound:.2f}]")
+
+# Histogram of bootstrap differences
+plt.figure(figsize=(8, 5))
+plt.hist(bootstrap_diff, bins=30, alpha=0.7, color="purple", label="Bootstrap Differences (Pos - Neg)")
+plt.axvline(bootstrap_diff.mean(), color="black", linestyle="dashed", linewidth=1, label="Mean Difference")
+plt.axvline(0, color="red", linestyle="dashed", linewidth=1, label="No Difference (0)")
+plt.axvline(lower_bound, color="blue", linestyle="dashed", linewidth=1, label="95% CI Lower")
+plt.axvline(upper_bound, color="green", linestyle="dashed", linewidth=1, label="95% CI Upper")
+plt.xlabel("Bootstrap Difference in Mean Happiness Scores (Pos - Neg)")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Difference in Mean Happiness Scores")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "bootstrap_difference_happiness_scores.png"))
+plt.show()
+
+# Probability that positive reviews have higher happiness scores than negative reviews
+prob_pos_higher = np.mean(bootstrap_diff > 0)
+print(f"Estimated probability that positive reviews have higher happiness scores than negative reviews: {prob_pos_higher:.2f}")
+
+# Robustness Check: Estimator Choice (Mean vs Median)
+
+# Compute median happiness scores for positive and negative reviews
+sample_pos_median = sample_df[sample_df["sentiment"] == "pos"]["happiness_score"].median()
+sample_neg_median = sample_df[sample_df["sentiment"] == "neg"]["happiness_score"].median()
+
+print("\nMedian happiness score for positive reviews:", round(sample_pos_median, 3))
+print("Median happiness score for negative reviews:", round(sample_neg_median, 3))
+
+median_diff = sample_pos_median - sample_neg_median
+print("Difference in median happiness score (pos - neg):", round(median_diff, 3))
+
+# Bootstrap Median Robustness Check
+def bootstrap_median(data, n_bootstrap=1000, seed=42):
+    np.random.seed(seed)
+    bootstrap_medians = []
+    for _ in range(n_bootstrap):
+        sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_medians.append(np.median(sample))
+    return np.array(bootstrap_medians)
+
+pos_bootstrap_medians = bootstrap_median(pos_reviews)
+neg_bootstrap_medians = bootstrap_median(neg_reviews)
+
+bootstrap_median_diff = pos_bootstrap_medians - neg_bootstrap_medians
+
+median_lower = np.percentile(bootstrap_median_diff, 2.5)
+median_upper = np.percentile(bootstrap_median_diff, 97.5)
+
+print(f"95% CI for difference in medians (pos - neg): [{median_lower:.2f}, {median_upper:.2f}]")
+
+# MAE vs MSE Intuition
+
+overall_mean = sample_df["happiness_score"].mean()
+
+mae = np.mean(np.abs(sample_df["happiness_score"] - overall_mean))
+mse = np.mean((sample_df["happiness_score"] - overall_mean) ** 2)
+
+print("\nEstimator robustness diagnostics:")
+print("Mean Absolute Error (MAE):", round(mae, 3))
+print("Mean Squared Error (MSE):", round(mse, 3))
+
+# Plot comparison of mean vs median difference
+plt.figure(figsize=(6,4))
+
+plt.bar(
+    ["Mean difference", "Median difference"],
+    [score_diff, median_diff],
+    color=["steelblue","darkorange"]
+)
+
+plt.ylabel("Difference in Happiness Score (Pos - Neg)")
+plt.title("Robustness Check: Mean vs Median Estimators")
+
+plt.tight_layout()
+
+plt.savefig(os.path.join(SCRIPT_DIR, "..", "figures", "robustness_estimator_comparison.png"))
+
+plt.show() 

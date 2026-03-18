@@ -1,245 +1,381 @@
-# Hedonometer
+# Mini-Project 2: Inferring Happiness Dynamics in Media
 
-This project combines qualitative and quantitative methods to explore the labMT 1.0 dataset, in which the 5000 most common words in Google Books, New York Times articles, Music Lyrics and Twitter posts are combined and assigned a happiness score. This analysis of the labMT 1.0 dataset aims at mapping the expression of happiness across the four corpora while critically engaging with the dataset. 
+## 1. RQ, Claim, and Project Overview
 
-## Dataset section
+### Research Question
 
-### Summary Statistics for Happiness Average
-They were computed in full_code.py 
-Here are the computed summary statistics for the happiness_average column:
-- Mean: 5.38
-- Median: 5.44
-- Standard deviation: 1.08
-- 5th percentile: 3.18
-- 95th percentile: 7.08
-These numbers help us understand the overall distribution of happiness scores in the dataset. 
+How accurately do hedonometer happiness scores capture the sentiment expressed in IMDb movie reviews, and to what extent do positive reviews yield higher happiness scores than negative reviews?
 
-- Where it came from: labMT 1.0 dataset (Hedonometer project)
-- What each column means (data dictionary):
-	- We made a data dictionary to help us understand what each column in the dataset represents, what type of data it is, and how many missing values there are. It is useful because it clarifies the dataset and helps us know what to look for when analyzing or plotting data. 
-	- Here’s a summary of the columns' names with float and integer:
-		- **word**: The word being rated (text, no missing values)
-		- **happiness_rank**: Rank of the word by happiness score (integer, no missing values)
-		- **happiness_average**: Average happiness score for the word (float, no missing values)
-		- **happiness_standard_deviation**: Standard deviation of happiness scores (float, no missing values)
-		- **twitter_rank**: Rank in Twitter corpus (float, 5222 missing values)
-		- **google_rank**: Rank in Google corpus (float, 5222 missing values)
-		- **nyt_rank**: Rank in New York Times corpus (float, 5222 missing values)
-		- **lyrics_rank**: Rank in song lyrics corpus (float, 5222 missing values)
-	- If a rank is missing, it means the word was not in the top 5,000 for that corpus meaning it is not commonly appearing in the source.
+### Claim
 
+Hedonometer happiness scores effectively capture sentiment differences in IMDb movie reviews, as positive reviews consistently produce higher happiness scores than negative reviews across the dataset. This pattern holds across a large sample of reviews and reflects the presence of more positively valenced language in positive reviews, indicating that the hedonometer provides a reliable approximation of emotional tone in this context.
 
-### Sanity Check: Duplicated Words
-We checked the dataset for any duplicated words. This is important because duplicates could skew our analysis and commpromise our results. Our check found that there are no duplicated words in the dataset, so each word only appears once. This gives us confidence that the data is clean and ready for analysis! The most positive words are: laughter, happiness, love, happy, laughed, laugh, laughing, excellent, laughs, and joy. The most negative words are: terrorist, suicide, rape, terrorism, murder, death, cancer, died, kill, and killed. These associations make sense, which confirms that the dataset is usable. 
+### Project overview
 
-### Why take a random sample?
-- We took a random sample of 15 rows from the dataset to get a snapshot of the kind of data we are working with. It lets us see some real examples. It also helps check for any obvious issues, like weird values or repeated words.
-- The random sample is saved in `tables/random_sample_15_rows.csv`.
+This project applies the **labMT hedonometer lexicon** to a corpus of movie reviews to measure emotional content in text. The goal is to estimate happiness scores for documents and examine how these scores relate to sentiment and rating.
 
-### Data Cleaning Steps
-1. Load the Dataset
-	- Read the tab-delimited file into a pandas DataFrame.
-	- Skip the first 3 metadata lines at the top of the file.
-	- Replace '--' with missing values.
-	- Convert numeric columns to proper types (float/int).
-	- Confirm the number of rows and columns.
-2. Save the Cleaned Data
-	- The cleaned DataFrame is saved as `data/clean/clean_data.csv`.
-3. What does it mean to clean the data file?
-	- Cleaning the data means:
-	  - Removing or handling metadata and comment lines.
-	  - Ensuring all numeric columns are stored as numbers, not text.
-	  - Replacing placeholder values (like '--') with proper missing value markers.
-	  - Making the dataset ready for analysis by fixing types and structure.
-5. Dataset Shape
-	- The cleaned dataset has 10,222 rows and 8 columns.
-6. Missing Ranks
-	- If a rank is missing (NaN), it means the word was not in the top 5,000 for that corpus.
+We use the **IMDb Large Movie Review Dataset**, which contains 50,000 movie reviews labeled as positive or negative. By applying the hedonometer method to this dataset, we explore whether language associated with positive reviews produces higher happiness scores than language in negative reviews.
 
-## Methods section (what you did in python)
+## 2. Dataset 
 
-All analysis was performed in python using the pandas, numpy, and matplotlib libraries. The workflow is implemented in the script 'src/full_code.py'. 
+### IMDb Large Movie Review Dataset
 
-### Data processing
-The labMT 1.0 dataset was loaded into a pandas DataFrame from a tab-delimited file. Metadata lines at the top of the file were skipped, and the placeholder value "--" was interpreted as missing data. Numeric columns such as happuness scores and corpus were converted to numeric data types to allow statistical analysis. 
+The IMDb Large Movie Review Dataset contains **50,000 movie reviews** collected from IMDb.
 
-### Descriprive statistics and distribution analysis
-Summary statistics were calculated for the 'happiness_average' column, including the mean, median, and standard deviation, and percentile values. A histogram of happiness scores was generated to visualise the overall distribution of emotional valence across words. 
+Dataset characteristics:
 
-### Disagreement analysis 
-To explore disagrement among annotators, a scatterplot of 'happiness_average' versus 'happiness_standard_deviation' was created. Words with the highest standard deviation were identified as the most contested words in the dataset and saved to a table. 
+- 25,000 training reviews
+- 25,000 test reviews
+- Balanced sentiment labels
+- Positive reviews: rating ≥ 7
+- Negative reviews: rating ≤ 4
+- Neutral reviews are excluded
 
-### Corpus comparison
-The dataset includes rank columns for four corpora: Twitter, Google Books, the New York Times, and song lyrics. For each corpus, the number of words appearing in the top 5000 was counted. Boolean indicators were then used to calculate overlap patterns between corpora, identifying words shared across different sources 
+The dataset is distributed as individual text files organized into directories.
 
-### Cross-corpus frequency comparison 
-A scatterplot comparing 'twitter_rank' and 'nyt_rank' was generated for words appearing in both corpora. This allows visual comparison between informal social media language and more formal news writing. 
+Dataset folder structure:
 
-## Results section
-### Histogram Interpretation
-The histogram of happiness_average scatter plot under the figures folder shows the happiness score is out of 10 along the bottom (where 10 is the happiest). The frequency is out of the total number of words in your dataset. At first glance, the scatter plot looks like a bird in flight with wings on either side where words are shown least on each side and the body of the bird is most rounded and clustered. SURPRISINGLY, the distribution is slightly skewed toward positive values around the 6 score being that average people are feeling a 6 in happiness scale. It could also mean there are more happy words than sad ones. There are rarely word with extremely low happiness scores between 1 or 2 which suggests this particular random selection has been generally happy.
+train/  
+&nbsp;&nbsp;&nbsp;&nbsp;pos/  
+&nbsp;&nbsp;&nbsp;&nbsp;neg/  
 
-#### Corpus comparison: 
-Words appearances: 
-[figures/corpus_rank_coverage_bar.png](figures/corpus_rank_coverage_bar.png)
+test/  
+&nbsp;&nbsp;&nbsp;&nbsp;pos/  
+&nbsp;&nbsp;&nbsp;&nbsp;neg/  
 
-For each corpus, 5000 labMT 1.0 words appear in its top 5000 words. This implies that the labMT 1.0 dataset was produced by merging the 5000 most common words on Twitter, Google Books, the New York Times and Music Lyrics.
+Each review file follows the naming convention:
 
-Words overlaps: 
-[tables/corpus_overlap_patterns.csv](tables/corpus_overlap_patterns.csv)
+[id]_[rating].txt
 
-We analysed the number of words that appear in each separate corpus and in all four corpora combined, but also how many words are shared by every combination of two and three corpora. The differences and similarities in voaculary can be due to style, tone and subject.
+Example:
 
-All four corpora share 1816 words, which represents 17,77% of the total amount of words. Lyrics present the highest amount of unique words (1486) and Twitter the lowest (952), while Google Books and the NYT seat in the middle, with respectively 1115 and 1043 original words. This implies that the Lyrics' vocabulary is the most atypical, while Twitter shares a vast majority of words with the other corpora. The large presence of unique words in the Lyrics' corpus could be due to their informality. 
+200_8.txt
 
-Twitter shares 69 words with Google Books, 268 words with the NYT, and 871 with Lyrics. As Twitter presents the lowest number of unique words, these results entail that vocabulary is highly different between Twitter and Google Books. This could be due to the use of more formal vocabulary on Google Books. On the other hand, Twitter shares a large portion of words with Lyrics, probably because the two corpora both contain more informal and emotional language. In addition, Google Books shares 864 words with the NYT and 175 with Lyrics. The fact that Google Books shares the most words with the NYT can once again be connected to the use of a similar written style. It thus makes sense that they also both share little words with Lyrics, especially the NYT, with only 62 words. Furthermore, Google Books, the NYT and Lyrics present the lowest overlap between three corpora, with 150 shared words. 
+This file corresponds to:
+- review ID: 200
+- rating: 8/10
 
-Scatterplot Twitter VS NYT
+Sample:
 
-![Twitter vs NYT Rank Scatter](figures/twitter_vs_nyt_scatter.png)
+- random sampling to limit bias
+- fixed seed for reproducibility
+- 200 reviews total : 50 pos reviews in train, 50 neg reviews in train, 50 pos reviews in test, 50 neg reviews in test
+- to avoid a sample majorly positive or negative, we balanced positive and negative reviews 
+- for a more representative sample, we balanced train and test
+- Sanity checks: first few rows + counts
+- Distribution checks: statistics and histograms of happiness score + of happiness score by sentiment : the sample reflects the dataset's distributions
+- mean : 5.4325
+- std : 0.1248
+- min : 4.9130 
+- max : 5.8932
+- 25% : 5.3501
+- 50% : 5.4250
+- 75% : 5.5037
 
-To compare the frequency of words shared by the NYT and Twitter across both corpora, we created a scatterplot. Twitter and the NYT were chosen as we expected them to show differences in word use, due to differences in style and tone. The plot indeed shows a weak correlation between the two rankings. In fact, most points are spread and scattered across the figure. While there is a small cluster of words highly ranked for both corpora, the words shared by Twitter and the NYT mostly rank differently, indicating a difference in style and tone. For instance, the word "bullshit" is absent from the NYT top 5000 but ranks 2658 on Twitter. This word is also absent from Google Books, but ranks 1734 on Lyrics. These results thus reinforce the hypotheses formulated in the previous section.
+### labMT 1.0 Lexicon
 
-### Where to Find Plots and Tables
-Plots and summary tables are in the following folders:
+The labMT 1.0 dataset (Dodds et al., 2011) is a lexicon of commonly used English words, each assigned a happiness score on a scale from 1 (least happy) to 9 (most happy). The words were selected from large text corpora, including Twitter, Google Books, New York Times articles, and music lyrics, and were rated by human annotators using Amazon Mechanical Turk.
 
-- **figures/**
-	- happiness_average_hist.png: Histogram of happiness scores
-	- happiness_vs_std_scatter.png: Scatterplot of happiness vs standard deviation
-	- twitter_rank_vs_nyt_rank_scatter.png: Comparison of Twitter and NYT ranks
-	- corpus_rank_coverage_bar.png: Coverage of ranks across corpora
+The dataset is designed to measure the average emotional tone of text by matching words in a document to the lexicon and averaging their associated happiness scores. In this project, the labMT lexicon is used as a measurement tool to compute document-level happiness scores for IMDb movie reviews, enabling comparison of emotional tone across positive and negative sentiment categories.
 
-- **tables/**
-	- data_dictionary.csv: Data dictionary for the dataset
-	- preview_first_50_rows.csv: Preview of the first 50 rows
-	- random_sample_15_rows.csv: Random sample of 15 words
-	- top_10_positive_words.csv: Most positive words
-	- top_10_negative_words.csv: Most negative words
-	- top_15_contested_words.csv: Words with highest disagreement
-	- happiness_average_summary_stats.csv: Summary statistics for happiness scores
-	- pairwise_overlap_counts.csv: Overlap counts between corpora
-	- corpus_rank_coverage.csv: Rank coverage across corpora
-	- corpus_overlap_patterns.csv: Patterns of overlap between corpora
-	- twitter_common_nyt_missing_top20.csv: Words common in Twitter but missing in NYT
-	- word_exhibit_demo_20_words.csv: Demo exhibit of 20 words
+## 3. Ethical considerations 
 
+Several ethical considerations arise when working with both the lexicon and the review dataset.
 
-## Qualitative "exhibit" of words
+First, the labMT lexicon reflects cultural assumptions embedded in the crowd-sourced ratings used to construct it. Word meanings and emotional associations may vary across communities, cultures, and contexts. As a result, the happiness scores produced by the lexicon should be interpreted as **approximate indicators of emotional tone rather than objective measurements**.
 
-## Critical reflection
+Second, lexicon-based approaches do not account for linguistic context. Words may carry different emotional meanings depending on how they are used in a sentence. Sarcasm, irony, and complex narrative structures can therefore produce misleading scores.
 
-### Data Provenance: How Was This Dataset Generated?
-The labMT 1.0 dataset was built through the following pipeline:
+Third, the IMDb dataset consists of publicly available user-generated reviews. Although these texts are publicly accessible, they still represent the expressions of individual users. Analyses of such data should therefore be conducted responsibly and interpreted cautiously.
 
-- **World Selection:** Words are selected from 4 large text corpora,(Twitter, Google Books, New York Times, various song lyrics) and taking up the top 5,000 most frequent words from each source. A final set of 10,222 words were made after removing duplicates.
+Finally, the dataset intentionally excludes neutral reviews, which may exaggerate differences between positive and negative categories. This design choice simplifies classification but may not fully represent the spectrum of opinions expressed in real-world review data.
 
-- **Annotation Production:** Each word was sent to Amazon Mechanical Turk (MTurk), a crowdsourcing platform where paid online workers complete small tasks.
+## 4. Data Processing
 
-- **Rating Task**: Workers rated each word on a scale from 1 (saddest) to 9 (happiest), seeing only the word with no context.
+To make the dataset usable for analysis, we convert the individual text files into a structured dataset.
 
-- **Sample Size**: Each word was rated by 50 different workers.
+Processing script:
 
-5. **Score Computation**: The 50 ratings were averaged to produce 'happiness_average'; the spread of disagreement was captured as 'happiness_standard_deviation'.
+src/clean_imdb.py
 
+This script performs the following steps:
 
-### Consequences and Limitations
-Below we identify five consequential design choices in the labMT dataset, along with what each makes easier or harder to see, supported by concrete examples from our exploration.
+1. Iterates through the dataset directory structure (`train/test`, `pos/neg`)
+2. Extracts metadata from filenames
+3. Reads review text from each file
+4. Stores the information in a pandas DataFrame
+5. Saves the dataset as a single CSV file
 
-- **Words are rated without context:**
-	- Annotators saw only a single word (no sentence, no surrounding text)
-	- Consequence: Words with multiple meanings or strong slang usage cannot be scored accurately (Dataset cannot distinguish between a word used ironically or affectionately)
-	- Example: 'Fucking' has the highest standard deviation in the entire dataset (sd = 2.93) and a middling average score of 4.64. Some raters likely treated it as a profanity (low happiness), while others associate it with emphasis or casual speech (neutral or higher). 
-	- Conclusion: Without context, these readings collapse into a single ambiguous number.
+The processed dataset contains one row per review.
 
-- **Annotators are a self selected online population:**
-	- MTurk workers (tend to be younger, English speaking, and based in the US or India) are served as sole judges of word happiness.
-	- Consequence: The scores reflect the cultural intuitions of a narrow demographic, not humanity broad. Words associated with specific communities, religions, subcultures may be systematically over, or under rated.
-	- Example: 'Churches' has a mean happiness score of 5.70 but a standard deviation of 2.46, one of the highest in the dataset. 
-	- Conclusion: This high disagreement reflects the annotator pool's varied relationships with religion, a pattern that would look very different with a more globally diverse sample.
+Example dataset structure:
 
-- **The dataset was collected in 2009–2011:**
-	- Word frequency and sentiment ratings were gathered over a fixed historical window
-	- Consequence: Language evolves: Words gain new meanings, enter or exit mainstream use, and shift in emotional valence over time and captures it. 
-	- Example: 'Capitalism' scores 5.16 with a standard deviation of 2.45. 
-	- Conclusion: Given major economic and political shifts since 2011, the same word rated today would likely produce a very different and possibly more polarized distribution.
+| review_id | rating | sentiment | split | text |
+|-----------|--------|----------|-------|------|
+| 200 | 8 | pos | test | this movie was amazing... |
 
-- **Only English words are included**
-	- The word list was drawn from English language (non-English words were excluded.)
-	- Consequence: In particular, Twitter is a multilingual platform. Filtering for English erases the emotional language of non-English speakers and multilingual communities.
-	- Example: 'que' (a common Spanish word) appears at Twitter rank 194, meaning it is genuinely frequent in the Twitter corpus, yet it is excluded from the NYT corpus. 
-	- Conclusion: Including it in the word list without Spanish-speaking annotators means its happiness score is shaped by English speakers who may treat it as a foreign or meaningless word.
+The final dataset is saved as:
 
-- **Twitter slang is structurally absent from formal corpora**
-	- Corpus rank columns reflect four very different text sources, but no adjustment is made for the fact that each corpus has its own vocabulary norms.
-	- Consequence: Words that are extremely common in informal digital communication are treated as rare, because they do not appear in formal writing, even when they carry strong emotional meaning for millions of users.
-	- Example: 'rt' (retweet), 'lol', 'haha' are all in Twitter's top 200 most frequent words, yet they are entirely absent from the NYT corpus. Our analysis found 952 words that appear only in Twitter and nowhere else. T
-	- Conclusion: Many of theses emotionally expressive informal words are effectively invisible to any analysis that relies on corpus overlap.
+data/processed/imdb_reviews_clean.csv
 
-### If we were to use this dataset as an instrument today... (Instrument Note)
+Basic preprocessing steps include:
 
-- What would we trust this dataset to measure well?:
+- removing newline characters
+- trimming extra whitespace
+- converting text to lowercase
 
-	The labMT dataset is well suited for capturing the average emotional valence of common English words, as perceived by a general online English speaking population circa 2009–2011. 
-	
-	It is reliable for broad, aggregate comparisons (confirming that words like 'laughter' and 'love' are widely perceived as positive, or that words like 'murder' and 'suicide' score low across most annotators.) 
-	
-	The large sample size (50 raters per word) and the consistency of clearly positive or negative words suggest the instrument is powerfully built for the emotional extremes of the word list.
+## 5. Estimand
 
-- What would we refuse to claim based on it?:
+- the estimand is the difference in mean happiness scores between positive and negative reviews
+- population quantity: difference in mean sentiment between positive (rating ≥ 7) and negative reviews (rating ≤ 4)
+- unit of analysis: individual IMDB review
 
-	We would not claim that this dataset measures universal human happiness, nor that it captures how any specific community (defined by language, culture, age, or historical moment) actually feels about words. 
-	
-	The contested words in our analysis ('fucking' sd = 2.93, 'capitalism' sd = 2.45, 'churches' sd = 2.46) make visible that average happiness can obscure deep disagreement.
-	
-	A single number cannot represent polarized reactions. We would also resist applying this dataset to contemporary social media language, where slang evolves quickly and the emotional meaning of words shifts faster than any static word list can track.
+## 6. Methods
 
-- What improvements would we make if we rebuilt it?:
+We apply the **hedonometer method** using the labMT lexicon.
 
-	If rebuilding this dataset today, we would prioritize three changes:
-	
-	First, we would recruit a more demographically and linguistically diverse annotator pool which is ideally stratified by age, country, first language, and cultural background. Contested words will reflect genuine disagreement rather than annotator homogeneity. 
-	
-	Second, we would provide sentence level context alongside each word, allowing raters to score the word as it actually functions in use, not single word. 
-	
-	Third, we would build in a versioning and update mechanism, re rating a sample of words each year to track how emotional language changes over time. A hedonometer that cannot update itself becomes a historical artifact rather than a living instrument.
-## How to run your code
-### Setup Steps 
-1. Clone the repository.
-2. Create a virtual environment.
-3. Install required packages.
-(pip install -r requirements.txt)
-4. Ensure the dataset is in the correct location.
-The raw dataset file should be placed in data/raw/Data_Set_S1.txt
-5. From the src folder, run full_code.py.
-6. Running the script will:
-	- Load and clean the dataset.
-	- Save the cleaned dataset to data/clean/clean_data csv. 
-	- Generate figures saved in figures/.
-	- Generate tables saved in tables/. 
+Steps:
 
-## Credits
+1. Tokenize each review into words
+2. Match tokens with words in the labMT lexicon. We will check which tokens from each review are present in the lexicon dictionary we made. 
+3. For each token that exists in the lexicon, we retrieve its happiness score. 
+4. Make a histograpm showing the distribution of happiness scores across all reviews. 
+5. Make another plot comparing happiness scores for positive vs. negative reviews. 
+6. Compute the average happiness score for each review
+
+This produces a document-level happiness estimate for each review.
+
+### Handling Out-Of-Vocabulary (OOV) Words
+Tokens in the IMDb review that do not appear in the labMT lexicon are considered OOV. They are not included in the hedonometer scoring.
+
+We collected all OOV words and saved them to a file ([tables/oov_words.csv](tables/oov_words.csv)). For happiness scoring, we ignored OOV words and only used tokens with labMT scores. This ensures our results are based on validated lexicon data
+
+## 7. Analysis
+The mean happiness scores are slightly above the midpoint where labMT scores range roughly from 1 to 9, with 5 as neutral.
+
+### 7.1 Baseline descriptive comparison
+
+- we compared the mean happiness score for positive and negative reviews in the sample
+- mean happiness positive reviews: 5.49
+- mean happiness negative reviews: 5.37
+- baseline point estimate of the difference between positive and negative reviews: 0.12
+- positive reviews thus present a slightly higher happiness score
+
+### 7.2 Quantifying uncertainty
+
+assumptions:
+- resampling unit: individual IMDB review
+- independence: reviews are assumed independent
+- representativeness: the sample is balanced and reflects the dataset distributions
+
+method:
+- we used bootstrap resampling to quantify uncertainty for the average happiness score of both positive and negative reviews and for the baseline point estimate
+- we resampled both positive and negative reviews with replacement 1000 times
+- for each resample, we computed the mean happiness score
+- we calculated the difference in means (positive - negative) for each bootstrap iteration 
+- we calculated the 95% percentile confidence intervals for each group mean and the difference
+
+results:
+- 95% confidence interval for positive reviews: [5.47, 5.51]
+- 95% confidence interval for negative reviews: [5.35, 5.40]
+- 95% confidence interval for the difference in means (pos - neg): [0.09, 0.15]
+- this confirms that positive reviews have a higher mean happiness score
+
+To quantify our confidence in this effect, we estimated the probability that positive reviews have higher happiness scores than negative reviews: 
+- probability: 1.00
+- in all bootstrap iterations, positive reviews are happier than negative reviews
+- this strongly supports our claim
+
+## 8. Visualizations
+
+### Distribution of Happiness Scores
+![Happiness Score Histogram](figures/happiness_score_histogram.png)
+
+This histogram shows the distribution of happiness scores across all IMDb reviews. Most reviews cluster around the middle range, with both ends of positive and negative tapering into extreme responses of sentiment. This helps us see the overall emotional positive and negative sentiments in the dataset.
+
+### Happiness Scores by Sentiment
+![Happiness Score by Sentiment](figures/happiness_score_by_sentiment.png)
+
+This plot compares happiness scores for positive and negative reviews. Positive reviews tend to have higher happiness scores, while negative reviews cluster at lower scores. This demonstrates that the hedonometer method was a good option with modeling the sentiments in the IMDb dataset. 
+
+### Bootstrap Distribution by Sentiment 
+![Bootstrap Difference Distribution](figures/bootstrap_difference_happiness_scores.png)
+
+This histogram shows the bootstrap distribution of the difference in mean happiness scores (positive − negative) across 1,000 resamples. The observed mean difference (black dashed vertical line, 0.12) sits well above zero (red dashed vertical line), and the entire 95% CI [0.09, 0.15] (blue and green dashed vertical lines) lies above zero. This confirms that positive reviews consistently score higher than negative reviews, and the difference is unlikely to be due to chance.
+
+### Bootstrap Distribution of Mean Happiness Scores
+![Bootstrap Mean Happiness Scores](figures/bootstrap_mean_happiness_scores.png)
+
+This plot shows the bootstrap distributions of mean happiness scores for positive (blue) and negative (orange) reviews across 1,000 resamples. The two distributions are completely separate with no overlap, and the 95% confidence intervals (shown by vertical dashed lines) do not intersect. Positive reviews consistently score higher (CI: [5.47, 5.51]) than negative reviews (CI: [5.35, 5.40]), which strongly supports our claim that sentiment label is associated with a meaningful difference in happiness score.
+
+### Robustness 
+![Robustness Estimator Comparison](figures/robustness_estimator_comparison.png)
+
+To test whether our findings depend on the estimator used to summarize
+review happiness, we compared the mean and median happiness scores
+for positive and negative reviews. The difference between positive and
+negative reviews remained visible when using the median estimator,
+indicating that the result is not driven by a small number of extreme
+outliers.
+
+We also examined mean absolute error (MAE) and mean squared error (MSE)
+relative to the corpus mean. Because MSE penalizes larger deviations more
+heavily than MAE, this comparison helps illustrate how sensitive our
+estimates are to extreme values. The consistency across estimators
+suggests that the observed difference reflects a general pattern in
+review language rather than a few unusually positive or negative tokens.
+
+## 9. Word Exhibit: Timing and Emotional Expression
+
+Words in our exhibit were chosen if they contained timing phrases to explore how variables such as immediacy of a sentiment or delay shapes reviewer's emotional and analytical language. Reviews written immediately after viewing often use affective words (e.g., “enchanted,” “mesmerised”), while those written days or weeks later tend to be more reflective or critical. This analysis suggests how timing of the posted review, retrospective memory, and context influence public expressions of sentiment in the digital film culture.
+
+**Why did we pick these 6 words?**
+They are sentiment words that reflect cultural context in correlation to timing phrases. We check on certain phrases such as "immediate" or "a week later" related to the sentiment (positive or negative) of the reviews. We also notice the language use being shaped by how immediate the review was made, such as using more emotionally nuanced words or more analytical words. The timing phrases tell us when the post was made in relation to watching, the sentiment, the review snippet, and the cultural/contextual note are notes about the review in relation to the timing phrases. The ones reading more analytical may have patterns of more reflection.
+
+This table captures the timing of when certain words related to the sentiment of the reviews were used in the reviews. The timing phrases tell us when the post was made in relation to watching, the sentiment, the review snippet, and the cultural/contextual note are notes about the review in relation to the timing phrases.
+
+| Word        | Timing Phrase         | Sentiment   | Review Snippet            | Cultural/Contextual Note                |
+|------------|----------------------|------------|---------------------------|-----------------------------------------|
+| enchanted  | first saw            | Positive   | I first saw this film when I was about seven years old and was completely enchanted by it then… | Nostalgia, childhood memory             |
+| disappointed| a week later        | Negative   | now i am twenty one and stumbled upon the film by accident about two weeks ago… | Reflective, delayed reaction            |
+| mesmerised | immediately          | Positive   | damn, was that a lot to take in. i was pretty much mesmerised throughout…      | Immediate, strong emotional response    |
+| enjoyed    | when it was in theaters | Positive | i read many commits when it was in the theaters and they were all bad....i think you have to be a certain type of person to enjoy these movies. | Social context, collective experience   |
+| critical   | 14 hours later        | Analytical | 14 hours later i am still trying to find flaws in the plot but i cannot think of anything serious. | Analytical, delayed reflection
+
+## 10. How to run the code 
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd qualitative-quantitative-group2-main
+```
+
+### 2. Install Dependencies
+
+The project requires a small set of Python libraries. Install them using the provided `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+```
+
+Required packages:
+
+* pandas
+* numpy
+* matplotlib
+
+Python 3.8 or newer is recommended.
+
+### 3. Verify Dataset Location
+
+The code expects the IMDb dataset to already be included in the following directory:
+
+```
+data/IMDb/raw/imdb/
+```
+
+Inside this directory the structure should look like:
+
+```
+imdb/
+├── train/
+│   ├── pos/
+│   └── neg/
+└── test/
+    ├── pos/
+    └── neg/
+```
+
+Each `.txt` file represents a single review. The filename encodes metadata in the format:
+
+```
+[id]_[rating].txt
+```
+
+Example:
+
+```
+200_8.txt
+```
+
+* `200` → review ID
+* `8` → star rating (1–10)
+
+### 4. Run the Data Processing Script
+
+Execute the main script from the project root:
+
+```bash
+python src/code_file.py
+```
+
+### 5. Output
+
+The script will:
+
+1. Traverse all review files in the IMDb dataset.
+2. Extract metadata from filenames.
+3. Combine the dataset into a structured table.
+
+The final cleaned dataset will be saved to:
+
+```
+data/processed/imdb_reviews_clean.csv
+```
+
+Each row in the output CSV represents one review with the following columns:
+
+* `review_id` – extracted from the filename
+* `rating` – numerical rating (1–10)
+* `sentiment` – positive or negative label
+* `split` – train or test
+* `text` – full review text
+
+## 11. Tools Used
+
+- Python  
+- pandas  
+- numpy  
+- matplotlib  
+- GitHub for version control  
+
+AI assistance was used to help debug code and clarify programming concepts.
+
+## 12. Credits
+
 - Who did what (team roles)
-	- Anastasia Ciorogaru: Repo & Workflow Lead & Figure Curator
+	- Anastasia Ciorogaru: Repo & Workflow Lead & Figure + Data Aqcuisition Lead
 		- created and organized the repository, cleaned up code and README, managed branches and helped stay organized
-		- additionally, wrote the code for dataset cleanup (loaded dataset, handled missing values, converted data types), completed the methods section in the README, and performed the write-up the tasks for the word "exhibit". 
-	- Catalina Mena Llopez: Qualitative / Close Reading
+		- additionally, wrote the code for dataset cleanup (loaded dataset, handled missing values, converted data types)
+    	- wrote the code and interpretation for the robustness check, wrote the ethical considerations regarding dataset and detailed provenance and data structure
+        - reconfigured repository when needed 
+	- Catalina Mena Llopez: Qualitative / Close Reading + Measurement Lead
 		- lead interpretation of selected words, performed sanity checks, helped with distribution of happiness scores
 		- connected qualitative observations back to patterns in the plots
 		- created citation list
+		- implemented and tested hedonometer scoring (tokenization, matching to labMT , handling OOV words), word exhibit choice in words based on timing phrases, and summary statistics
 	- Yoonkyung Kim: Provenance & Critique Lead
 		- reconstructed the dataset pipeline
 		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see. 
-	- Marguerite Audeguis: Quantitative Analyst
+	- Marguerite Audeguis: Quantitative Analyst + Stats and Sampling Lead
 		- led descriptive statistics, and created plots
 		- checked results for sanity and reproducibility
 		- additionally wrote code and interpretation for corpus comparison, and wrote the project overview
-	- Hena Puthengot
-	
-- Citation for the paper / dataset
+		- (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
+	- Hena Puthengot : Data Processing & Implementation
+       - prepared and structured IMDb review dataset for analysis
+       - handled data loading and preprocessing for compatibility with labMT lexicon
+       - cleaned and tokenized review text for sentiment analysis
+       - supported hedonometer implementation by preparing input data
+      
 
-This project utilized GitHub Copilot (powered by OpenAI GPT-4.1) for code suggestions and development assistance.
+## 13. References
 
-Dodds, Peter Sheridan, Kameron Decker Harris, Isabel M. Kloumann, Catherine A. Bliss, and Christopher M. Danforth. “Temporal Patterns of Happiness and Information in a Global Social Network: Hedonometrics and Twitter.” PLoS ONE 6, no. 12 (2011): e26752. https://doi.org/10.1371/journal.pone.0026752.
+Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
+Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
+
+Dodds, P. S., et al. (2011).  
+Temporal patterns of happiness and information in a global social network.
 
 Hedonometer. "About." https://hedonometer.org/about.html
 
