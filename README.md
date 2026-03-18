@@ -187,12 +187,6 @@ This histogram shows the distribution of happiness scores across all IMDb review
 
 This plot compares happiness scores for positive and negative reviews. Positive reviews tend to have higher happiness scores, while negative reviews cluster at lower scores. This demonstrates that the hedonometer method was a good option with modeling the sentiments in the IMDb dataset. 
 
-
-### Mean Happiness CI 
-![Mean Happiness CI](figures/mean_happiness_ci.png)
-
-The positive reviews (mean = 5.49) scored higher than negative reviews. (mean = 5.37) The error bars show 95% bootstrap confidence intervals. Since the two intervals do not overlap, the difference is statistically meaningful. 
-
 ### Bootstrap Distribution by Sentiment 
 ![Bootstrap Difference Distribution](figures/bootstrap_difference_happiness_scores.png)
 
