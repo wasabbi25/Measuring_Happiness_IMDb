@@ -3,9 +3,18 @@
 ## 1. RQ, Claim, and Project Overview
 
 **Research Question**
-How accurately do hedonometer happiness scores capture the sentiment expressed in IMDb moview reviews, and to what extent do positive reviews yield higher happiness scores than negative reviews. 
+
+How accurately do hedonometer happiness scores capture the sentiment expressed in IMDb movie reviews, and to what extent do positive reviews yield higher happiness scores than negative reviews?
 
 **Claim** 
+
+- positive reviews consistently yield higher happiness scores > explain in analysis, using as example what Marguerite found out (every single one of the positive reviews scored higher in happiness)
+- because of this (positive reviews scoring higher on the happiness scale), we can defend that the hedonometer happiness scores are accurate in capturing sentiment expressed in text, (specifically reviews)
+		good arguments to include when defending
+		very large dataset (100k reviews) - higher reliability 
+		positive reviews containing positive sentiment > more happy 
+		consistent results across the entire dataset 
+
 
 This project applies the **labMT hedonometer lexicon** to a corpus of movie reviews to measure emotional content in text. The goal is to estimate happiness scores for documents and examine how these scores relate to sentiment and rating.
 
