@@ -1,6 +1,11 @@
 # Mini-Project 2: Inferring Happiness Dynamics in Media
 
-## 1. Project Overview
+## 1. RQ, Claim, and Project Overview
+
+**Research Question**
+How accurately do hedonometer happiness scores capture the sentiment expressed in IMDb moview reviews, and to what extent do positive reviews yield higher happiness scores than negative reviews. 
+
+**Claim** 
 
 This project applies the **labMT hedonometer lexicon** to a corpus of movie reviews to measure emotional content in text. The goal is to estimate happiness scores for documents and examine how these scores relate to sentiment and rating.
 
