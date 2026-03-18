@@ -142,7 +142,7 @@ We collected all OOV words and saved them to a file ([tables/oov_words.csv](tabl
 ## 7. Analysis
 The mean happiness scores are slightly above the midpoint where labMT scores range roughly from 1 to 9, with 5 as neutral.
 
-## 8. Baseline descriptive comparison
+### 7.1 Baseline descriptive comparison
 
 - we compared the mean happiness score for positive and negative reviews in the sample
 - mean happiness positive reviews: 5.49
@@ -150,19 +150,7 @@ The mean happiness scores are slightly above the midpoint where labMT scores ran
 - baseline point estimate of the difference between positive and negative reviews: 0.12
 - positive reviews thus present a slightly higher happiness score
 
-### Summary Statistics
-To check the sample’s representativeness, we computed summary statistics for happiness scores:
-- mean: 5.4325
-- std: 0.1248
-- min: 4.9130
-- max: 5.8932
-- 25%: 5.3501
-- 50%: 5.4250
-- 75%: 5.5037
-
-Happiness Score: using the labMT hedonometer lexicon, we tokenized each word and assigned it a happiness value to each word in the reviews. Summary statistics were calculated for overall happiness score, positive happiness score, and negative happiness score for all words in the reviews. The mean happiness score above is the average of the happiness scores calculated for each individual review in the sample.
-
-# 9. Quantifying uncertainty
+### 7.2 Quantifying uncertainty
 
 assumptions:
 - resampling unit: individual IMDB review
@@ -187,7 +175,7 @@ To quantify our confidence in this effect, we estimated the probability that pos
 - in all bootstrap iterations, positive reviews are happier than negative reviews
 - this strongly supports our claim
 
-## 10. Visualizations
+## 8. Visualizations
 
 ### Distribution of Happiness Scores
 ![Happiness Score Histogram](figures/happiness_score_histogram.png)
@@ -232,7 +220,7 @@ estimates are to extreme values. The consistency across estimators
 suggests that the observed difference reflects a general pattern in
 review language rather than a few unusually positive or negative tokens.
 
-## 11. Word Exhibit: Timing and Emotional Expression
+## 9. Word Exhibit: Timing and Emotional Expression
 
 Words in our exhibit were chosen if they contained timing phrases to explore how variables such as immediacy of a sentiment or delay shapes reviewer's emotional and analytical language. Reviews written immediately after viewing often use affective words (e.g., “enchanted,” “mesmerised”), while those written days or weeks later tend to be more reflective or critical. This analysis suggests how timing of the posted review, retrospective memory, and context influence public expressions of sentiment in the digital film culture.
 
@@ -249,7 +237,7 @@ This table captures the timing of when certain words related to the sentiment of
 | enjoyed    | when it was in theaters | Positive | i read many commits when it was in the theaters and they were all bad....i think you have to be a certain type of person to enjoy these movies. | Social context, collective experience   |
 | critical   | 14 hours later        | Analytical | 14 hours later i am still trying to find flaws in the plot but i cannot think of anything serious. | Analytical, delayed reflection
 
-## 12. How to run the code 
+## 10. How to run the code 
 ### 1. Clone the Repository
 
 ```bash
@@ -338,7 +326,7 @@ Each row in the output CSV represents one review with the following columns:
 * `split` – train or test
 * `text` – full review text
 
-## 13. Tools Used
+## 11. Tools Used
 
 - Python  
 - pandas  
@@ -348,7 +336,7 @@ Each row in the output CSV represents one review with the following columns:
 
 AI assistance was used to help debug code and clarify programming concepts.
 
-## 13. Credits
+## 12. Credits
 
 - Who did what (team roles)
 	- Anastasia Ciorogaru: Repo & Workflow Lead & Figure + Data Aqcuisition Lead
@@ -371,7 +359,7 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
 	- Hena Puthengot  
 
-## 14. References
+## 13. References
 
 Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
 Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
