@@ -16,11 +16,11 @@ How accurately do hedonometer happiness scores capture the sentiment expressed i
 		consistent results across the entire dataset 
 
 
-This project applies the **labMT hedonometer lexicon** to a corpus of movie reviews to measure emotional content in text. The goal is to estimate happiness scores for documents and examine how these scores relate to sentiment and rating.
+[NEEDS EDITING] This project applies the **labMT hedonometer lexicon** to a corpus of movie reviews to measure emotional content in text. The goal is to estimate happiness scores for documents and examine how these scores relate to sentiment and rating.
 
 We use the **IMDb Large Movie Review Dataset**, which contains 50,000 movie reviews labeled as positive or negative. By applying the hedonometer method to this dataset, we explore whether language associated with positive reviews produces higher happiness scores than language in negative reviews.
 
-## 2. Dataset
+## 2. Dataset [NEED TO ADD LABMT DATASET]
 
 ### IMDb Large Movie Review Dataset
 
