@@ -33,7 +33,6 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Define where the raw dataset lives
 
-
 # This folder contains the original IMDb dataset
 DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "IMDb", "raw", "imdb")
 
