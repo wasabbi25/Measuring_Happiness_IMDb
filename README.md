@@ -356,7 +356,7 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- implemented and tested hedonometer scoring (tokenization, matching to labMT , handling OOV words), word exhibit choice in words based on timing phrases, and summary statistics
 	- Yoonkyung Kim: Provenance & Critique Lead
 		- reconstructed the dataset pipeline
-		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see. 
+		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see.
 	- Marguerite Audeguis: Quantitative Analyst + Stats and Sampling Lead
 		- led descriptive statistics, and created plots
 		- checked results for sanity and reproducibility
@@ -368,12 +368,12 @@ AI assistance was used to help debug code and clarify programming concepts.
 
 ## 13. References
 
-Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
-Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
-
 Dodds, P. S., et al. (2011).  
 Temporal patterns of happiness and information in a global social network.
 
+GitHub Copilot. "GitHub Copilot." GitHub. https://github.com/features/copilot.
+
 Hedonometer. "About." https://hedonometer.org/about.html
 
-GitHub Copilot. "GitHub Copilot." GitHub. https://github.com/features/copilot.
+Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
+Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
