@@ -363,10 +363,7 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- additionally wrote code and interpretation for corpus comparison, and wrote the project overview
 		- (sampling plan (code, histograms and readme), quantifying uncertainty (code, histograms and some analysis))
 	- Hena Puthengot : Data Processing & Implementation
-       - prepared and structured IMDb review dataset for analysis
-       - handled data loading and preprocessing for compatibility with labMT lexicon
-       - cleaned and tokenized review text for sentiment analysis
-       - supported hedonometer implementation by preparing input data
+      
       
 
 ## 13. References
