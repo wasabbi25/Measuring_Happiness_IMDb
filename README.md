@@ -80,16 +80,16 @@ The dataset is designed to measure the average emotional tone of text by matchin
 
 #### Key limitations 
 
-**No context**
-Words rated were rated in isolation. Ambiguous or slang terms become unreliable. 
+**No context:**
+Words were rated in isolation. Ambiguous or slang terms become unreliable. 
 
-**Annotator bias**
+**Annotator bias:**
 MTurk workers are not globally representative. Scores reflect a narrow Demographic. 
 
-**Outdated (2009-2011)**
-Language and sentimant shift over time. Resulta may not reflect current usage. 
+**Outdated (2009-2011):**
+Language and sentiment shift over time. Results may not reflect current usage. 
 
-**English-only**
+**English-only:**
 Excludes multilingual sentiment and misrepresents non-english terms. 
 
 ## 3. Ethical considerations 
