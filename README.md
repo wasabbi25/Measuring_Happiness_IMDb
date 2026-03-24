@@ -78,6 +78,24 @@ The labMT 1.0 dataset (Dodds et al., 2011) is a lexicon of commonly used English
 
 The dataset is designed to measure the average emotional tone of text by matching words in a document to the lexicon and averaging their associated happiness scores. In this project, the labMT lexicon is used as a measurement tool to compute document-level happiness scores for IMDb movie reviews, enabling comparison of emotional tone across positive and negative sentiment categories.
 
+#### Key limitations 
+
+**No context**
+
+Words rated were rated in isolation. Ambiguous or slang terms become unreliable. 
+
+**Annotator bias**
+
+MTurk workers are not globally representative. Scores reflect a narrow Demographic. 
+
+**Outdated (2009-2011)**
+
+Language and sentimant shift over time. Resulta may not reflect current usage. 
+
+**English-only**
+
+Excludes multilingual sentiment and misrepresents non-english terms. 
+
 ## 3. Ethical considerations 
 
 Several ethical considerations arise when working with both the lexicon and the review dataset.
