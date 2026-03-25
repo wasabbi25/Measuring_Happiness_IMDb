@@ -20,6 +20,8 @@ We use the **IMDb Large Movie Review Dataset**, which contains 50,000 movie revi
 
 ### IMDb Large Movie Review Dataset
 
+Downloadable here: https://ai.stanford.edu/~amaas/data/sentiment/
+
 The IMDb Large Movie Review Dataset contains **50,000 movie reviews** collected from IMDb.
 
 Dataset characteristics:
