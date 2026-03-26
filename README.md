@@ -1,4 +1,4 @@
-# Mini-Project 2: Inferring Happiness Dynamics in Media
+# Measuring Happiness in imbD Movie Reviews: A Lexicon-Based Approach
 
 ## 1. RQ, Claim, and Project Overview
 
@@ -370,6 +370,7 @@ AI assistance was used to help debug code and clarify programming concepts.
 		- connected qualitative observations back to patterns in the plots
 		- created citation list
 		- implemented and tested hedonometer scoring (tokenization, matching to labMT , handling OOV words), word exhibit choice in words based on timing phrases, and summary statistics
+  	 	- analysis on early internet in the 2010s
 	- Yoonkyung Kim: Provenance & Critique Lead
 		- reconstructed the dataset pipeline
 		- wrote the 'critical reflection' sections: consequence, bias, limitations, and what the dataset makes easy/hard to see.
@@ -393,3 +394,5 @@ Hedonometer. "About." https://hedonometer.org/about.html
 
 Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., & Potts, C. (2011).  
 Learning Word Vectors for Sentiment Analysis. Proceedings of ACL 2011.
+
+Marwick, Alice E., and danah boyd. "I Tweet Honestly, I Tweet Passionately: Twitter Users, Context Collapse, and the Imagined Audience." New Media & Society 13, no. 1 (2010): 114–133, page
