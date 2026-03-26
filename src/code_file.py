@@ -268,6 +268,27 @@ sample_summary_path = os.path.join(SCRIPT_DIR, "..", "tables", "sample_happiness
 sample_summary_df.to_csv(sample_summary_path)
 print(f"\nSaved sample summary statistics to: {sample_summary_path}")
 
+import os
+import csv
+
+# Assuming df is your DataFrame with a 'tokens' column
+# and labmt_lexicon is your dictionary of labMT words
+
+oov_words = set()
+for tokens in df["tokens"]:
+    for word in tokens:
+        if word not in labmt_lexicon:
+            oov_words.add(word)
+
+oov_path = os.path.join("tables", "oov_words.csv")
+with open(oov_path, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(["OOV_word"])
+    for word in sorted(oov_words):
+        writer.writerow([word])
+
+print(f"Saved OOV words to: {oov_path}")
+
 # Histograms
 # Plot histogram of happiness scores for the sample
 plt.figure(figsize=(8, 5))
