@@ -129,7 +129,7 @@ def load_labmt_lexicon(filepath):
     return lexicon
 
 # Path to labMT lexicon (relative to script)
-LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "..", "data", "LabMT", "raw", "Data_Set.txt")
+LABMT_PATH = os.path.join(SCRIPT_DIR, "..", "data", "LabMT", "raw", "Data_Set.txt")
 labmt_lexicon = load_labmt_lexicon(LABMT_PATH)
 
 # Compute happiness score for each review
