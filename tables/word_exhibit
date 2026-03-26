@@ -1,0 +1,37 @@
+word_exhibit = [
+    {
+        "Word": "enchanted",
+        "Timing Phrase": "first saw",
+        "Sentiment": "Positive",
+        "Review Snippet": "I first saw this film when I was about seven years old and was completely enchanted by it then…",
+        "Cultural/Contextual Note": "Nostalgia, childhood memory"
+    },
+    {
+        "Word": "disappointed",
+        "Timing Phrase": "a week later",
+        "Sentiment": "Negative",
+        "Review Snippet": "now i am twenty one and stumbled upon the film by accident about two weeks ago…",
+        "Cultural/Contextual Note": "Reflective, delayed reaction"
+    },
+    {
+        "Word": "mesmerised",
+        "Timing Phrase": "immediately",
+        "Sentiment": "Positive",
+        "Review Snippet": "damn, was that a lot to take in. i was pretty much mesmerised throughout…",
+        "Cultural/Contextual Note": "Immediate, strong emotional response"
+    },
+    {
+        "Word": "enjoyed",
+        "Timing Phrase": "when it was in theaters",
+        "Sentiment": "Positive",
+        "Review Snippet": "i read many commits when it was in the theaters and they were all bad....i think you have to be a certain type of person to enjoy these movies.",
+        "Cultural/Contextual Note": "Social context, collective experience"
+    },
+    {
+        "Word": "critical",
+        "Timing Phrase": "14 hours later",
+        "Sentiment": "Analytical",
+        "Review Snippet": "14 hours later i am still trying to find flaws in the plot but i cannot think of anything serious.",
+        "Cultural/Contextual Note": "Analytical, delayed reflection"
+    }
+]
