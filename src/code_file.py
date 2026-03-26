@@ -242,8 +242,7 @@ print(sample_df["sentiment"].value_counts()) #for count by sentiment : should be
 print(sample_df["split"].value_counts()) #for count by split : should be 100 train and 100 test
 
 # Save sample to CSV
-SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "LabMT", "clean", "imdb_review_sample_200.csv")
-os.makedirs(os.path.dirname(SAMPLE_OUTPUT), exist_ok=True)
+SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_review_sample_200.csv")
 sample_df.to_csv(SAMPLE_OUTPUT, index=False)
 print(f"Saved sample to: {SAMPLE_OUTPUT}")
 
