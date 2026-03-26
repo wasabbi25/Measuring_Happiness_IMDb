@@ -38,7 +38,7 @@ DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "IMDb", "raw", "imdb")
 
 # Define where we want to save the cleaned dataset
 # This will become one single CSV file containing all reviews
-OUTPUT_FILE = os.path.join(SCRIPT_DIR, "..", "data", "LabMT", "clean", "imdb_reviews_clean.csv")
+OUTPUT_FILE = os.path.join(SCRIPT_DIR, "..", "data", "IMDb", "processed", "imdb_reviews_clean.csv")
 
 
 # Create an empty list to store rows of data
@@ -242,7 +242,8 @@ print(sample_df["sentiment"].value_counts()) #for count by sentiment : should be
 print(sample_df["split"].value_counts()) #for count by split : should be 100 train and 100 test
 
 # Save sample to CSV
-SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_review_sample_200.csv")
+SAMPLE_OUTPUT = os.path.join(SCRIPT_DIR, "..", "data", "LabMT", "clean", "imdb_review_sample_200.csv")
+os.makedirs(os.path.dirname(SAMPLE_OUTPUT), exist_ok=True)
 sample_df.to_csv(SAMPLE_OUTPUT, index=False)
 print(f"Saved sample to: {SAMPLE_OUTPUT}")
 
@@ -280,7 +281,7 @@ for tokens in df["tokens"]:
         if word not in labmt_lexicon:
             oov_words.add(word)
 
-oov_path = os.path.join("tables", "oov_words.csv")
+oov_path = os.path.join(SCRIPT_DIR, "..", "tables", "oov_words.csv")
 with open(oov_path, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
     writer.writerow(["OOV_word"])
