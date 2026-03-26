@@ -38,7 +38,7 @@ DATA_DIR = os.path.join(SCRIPT_DIR, "..", "data", "IMDb", "raw", "imdb")
 
 # Define where we want to save the cleaned dataset
 # This will become one single CSV file containing all reviews
-OUTPUT_FILE = os.path.join(SCRIPT_DIR, "..", "data", "processed", "imdb_reviews_clean.csv")
+OUTPUT_FILE = os.path.join(SCRIPT_DIR, "..", "data", "LabMT", "clean", "imdb_reviews_clean.csv")
 
 
 # Create an empty list to store rows of data
